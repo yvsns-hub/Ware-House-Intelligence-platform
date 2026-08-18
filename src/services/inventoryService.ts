@@ -8,13 +8,25 @@ import {
 } from '../types';
 import { mockProducts, mockTransactions } from '../data/mockData';
 
-// In-memory fallback store to guarantee zero-crash execution during dev/offline testing
-let memoryProducts: Product[] = [...mockProducts];
-let memoryTransactions: InventoryTransaction[] = [...mockTransactions];
+// In-memory fallback store with globalThis persistence across Next.js reloads
+declare global {
+  var __warehouseiq_products: Product[] | undefined;
+  var __warehouseiq_transactions: InventoryTransaction[] | undefined;
+}
+
+if (!globalThis.__warehouseiq_products) {
+  globalThis.__warehouseiq_products = [...mockProducts];
+}
+if (!globalThis.__warehouseiq_transactions) {
+  globalThis.__warehouseiq_transactions = [...mockTransactions];
+}
+
+const getMemoryProducts = (): Product[] => globalThis.__warehouseiq_products!;
+const getMemoryTransactions = (): InventoryTransaction[] => globalThis.__warehouseiq_transactions!;
 
 export class InventoryService {
   /**
-   * Fetch products with multi-criteria filtering and pagination
+   * Fetch products with multi-criteria filtering, hub isolation, and pagination
    */
   public async getProducts(filters: ProductFilters = {}): Promise<{
     products: Product[];
@@ -32,6 +44,10 @@ export class InventoryService {
 
       if (filters.category && filters.category !== 'all') {
         where.category = { equals: filters.category, mode: 'insensitive' };
+      }
+
+      if (filters.warehouseId && filters.warehouseId !== 'all') {
+        where.warehouseId = { equals: filters.warehouseId };
       }
 
       if (filters.search) {
@@ -78,8 +94,12 @@ export class InventoryService {
         limit,
       };
     } catch (error) {
-      // Fallback to in-memory dataset
-      let filtered = [...memoryProducts];
+      // Fallback to in-memory dataset with full hub isolation support
+      let filtered = [...getMemoryProducts()];
+
+      if (filters.warehouseId && filters.warehouseId !== 'all') {
+        filtered = filtered.filter((p) => (p.warehouseId || 'hub-01') === filters.warehouseId);
+      }
 
       if (filters.category && filters.category !== 'all') {
         filtered = filtered.filter(
@@ -136,12 +156,12 @@ export class InventoryService {
 
       return (product as unknown as Product) || null;
     } catch (error) {
-      const found = memoryProducts.find(
+      const found = getMemoryProducts().find(
         (p) => p.id === idOrSku || p.sku === idOrSku
       );
       if (!found) return null;
 
-      const txs = memoryTransactions.filter((t) => t.productId === found.id);
+      const txs = getMemoryTransactions().filter((t) => t.productId === found.id);
       return {
         ...found,
         inventoryTransactions: txs,
@@ -174,6 +194,9 @@ export class InventoryService {
       updatedAt: new Date().toISOString(),
     };
 
+    // Always update in-memory store so it reflects immediately
+    getMemoryProducts().unshift(newProduct);
+
     try {
       const { orderItems, inventoryTransactions, ...productPayload } = newProduct;
       const created = await prisma.product.create({
@@ -185,7 +208,6 @@ export class InventoryService {
       });
       return created as unknown as Product;
     } catch {
-      memoryProducts.unshift(newProduct);
       return newProduct;
     }
   }
@@ -194,18 +216,15 @@ export class InventoryService {
    * Delete a product by ID
    */
   public async deleteProduct(id: string): Promise<boolean> {
+    const prods = getMemoryProducts();
+    const idx = prods.findIndex((p) => p.id === id);
+    if (idx !== -1) prods.splice(idx, 1);
+
     try {
       await prisma.product.delete({ where: { id } });
-      const idx = memoryProducts.findIndex((p) => p.id === id);
-      if (idx !== -1) memoryProducts.splice(idx, 1);
       return true;
     } catch {
-      const idx = memoryProducts.findIndex((p) => p.id === id);
-      if (idx !== -1) {
-        memoryProducts.splice(idx, 1);
-        return true;
-      }
-      return false;
+      return idx !== -1;
     }
   }
 
@@ -213,29 +232,32 @@ export class InventoryService {
    * Update product attributes, stock levels, or location
    */
   public async updateProduct(id: string, data: UpdateProductDTO): Promise<Product> {
+    // Update in-memory store directly
+    const prods = getMemoryProducts();
+    const index = prods.findIndex((p) => p.id === id);
+    if (index !== -1) {
+      prods[index] = {
+        ...prods[index],
+        ...data,
+        updatedAt: new Date().toISOString(),
+      };
+    }
+
     try {
       const updated = await prisma.product.update({
         where: { id },
         data: {
           ...data,
           updatedAt: new Date(),
-        },
+        } as any,
       });
 
       return updated as unknown as Product;
     } catch (error) {
-      const index = memoryProducts.findIndex((p) => p.id === id);
       if (index === -1) {
         throw new Error(`Product with ID ${id} not found`);
       }
-
-      memoryProducts[index] = {
-        ...memoryProducts[index],
-        ...data,
-        updatedAt: new Date().toISOString(),
-      };
-
-      return memoryProducts[index];
+      return prods[index];
     }
   }
 
@@ -266,6 +288,25 @@ export class InventoryService {
     quantity: number,
     type: InventoryTransactionType
   ): Promise<InventoryTransaction> {
+    const newTx: InventoryTransaction = {
+      id: `tx-${Date.now()}`,
+      productId,
+      quantity,
+      type,
+      timestamp: new Date().toISOString(),
+    };
+
+    getMemoryTransactions().unshift(newTx);
+    const product = getMemoryProducts().find((p) => p.id === productId);
+    if (product) {
+      if (type === 'Inbound') product.stock += quantity;
+      if (type === 'Outbound') product.stock = Math.max(0, product.stock - quantity);
+      if (type === 'Damaged') {
+        product.stock = Math.max(0, product.stock - quantity);
+        product.damagedStock += quantity;
+      }
+    }
+
     try {
       const tx = await prisma.inventoryTransaction.create({
         data: {
@@ -299,25 +340,6 @@ export class InventoryService {
 
       return tx as unknown as InventoryTransaction;
     } catch (error) {
-      const newTx: InventoryTransaction = {
-        id: `tx-${Date.now()}`,
-        productId,
-        quantity,
-        type,
-        timestamp: new Date().toISOString(),
-      };
-
-      memoryTransactions.unshift(newTx);
-      const product = memoryProducts.find((p) => p.id === productId);
-      if (product) {
-        if (type === 'Inbound') product.stock += quantity;
-        if (type === 'Outbound') product.stock = Math.max(0, product.stock - quantity);
-        if (type === 'Damaged') {
-          product.stock = Math.max(0, product.stock - quantity);
-          product.damagedStock += quantity;
-        }
-      }
-
       return newTx;
     }
   }

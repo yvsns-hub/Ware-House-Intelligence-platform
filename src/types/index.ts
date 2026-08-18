@@ -155,6 +155,7 @@ export interface UpdateOrderDTO {
 
 export interface UpdateProductDTO {
   name?: string;
+  sku?: string;
   category?: ProductCategory | string;
   description?: string | null;
   stock?: number;
@@ -163,6 +164,8 @@ export interface UpdateProductDTO {
   reorderLevel?: number;
   supplier?: string;
   warehouseLocation?: string;
+  warehouseId?: string;
+  imageUrl?: string;
   unitPrice?: number;
   demandScore?: number;
 }
@@ -171,6 +174,7 @@ export interface ProductFilters {
   category?: string;
   status?: 'in_stock' | 'low_stock' | 'out_of_stock' | 'damaged';
   search?: string;
+  warehouseId?: string;
   page?: number;
   limit?: number;
   sortBy?: 'name' | 'stock' | 'demandScore' | 'unitPrice' | 'createdAt';

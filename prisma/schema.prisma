@@ -22,6 +22,8 @@ model Product {
   reorderLevel          Int                    @default(15)
   supplier              String
   warehouseLocation     String
+  warehouseId           String?                @default("hub-01")
+  imageUrl              String?
   unitPrice             Float
   demandScore           Float                  @default(5.0)
   createdAt             DateTime               @default(now())
@@ -32,6 +34,7 @@ model Product {
   @@index([category])
   @@index([sku])
   @@index([warehouseLocation])
+  @@index([warehouseId])
 }
 
 model Order {

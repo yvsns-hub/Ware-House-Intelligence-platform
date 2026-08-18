@@ -11,6 +11,7 @@ export async function GET(request: NextRequest) {
       category: searchParams.get('category') || undefined,
       status: (searchParams.get('status') as any) || undefined,
       search: searchParams.get('search') || undefined,
+      warehouseId: searchParams.get('warehouseId') || undefined,
       page: searchParams.has('page') ? Number(searchParams.get('page')) : 1,
       limit: searchParams.has('limit') ? Number(searchParams.get('limit')) : 20,
       sortBy: (searchParams.get('sortBy') as any) || 'createdAt',
