@@ -272,6 +272,118 @@ const categoryImages: Record<string, string[]> = {
 
 const hubIds = ['hub-01', 'hub-02', 'hub-03', 'hub-04'];
 
+function getProductImageByName(name: string, category: string): string {
+  const n = name.toLowerCase();
+
+  // Electronics
+  if (n.includes('monitor') || n.includes('screen') || n.includes('display'))
+    return 'https://images.unsplash.com/photo-1527864550417-7fd91fc51a46?auto=format&fit=crop&w=600&q=80';
+  if (n.includes('headphone') || n.includes('earbud') || n.includes('aerosound'))
+    return 'https://images.unsplash.com/photo-1505740420928-5e560c06d30e?auto=format&fit=crop&w=600&q=80';
+  if (n.includes('keyboard'))
+    return 'https://images.unsplash.com/photo-1587829741301-dc798b83add3?auto=format&fit=crop&w=600&q=80';
+  if (n.includes('ssd') || n.includes('nvme') || n.includes('storage'))
+    return 'https://images.unsplash.com/photo-1597872200969-2b65d56bd16b?auto=format&fit=crop&w=600&q=80';
+  if (n.includes('webcam') || n.includes('camera') || n.includes('capture'))
+    return 'https://images.unsplash.com/photo-1516035069371-29a1b244cc32?auto=format&fit=crop&w=600&q=80';
+  if (n.includes('charger') || n.includes('power bank') || n.includes('powerhub') || n.includes('magsafe'))
+    return 'https://images.unsplash.com/photo-1609592424109-dd9892f1b177?auto=format&fit=crop&w=600&q=80';
+  if (n.includes('router') || n.includes('wifi') || n.includes('mesh'))
+    return 'https://images.unsplash.com/photo-1544197150-b99a580bb7a8?auto=format&fit=crop&w=600&q=80';
+  if (n.includes('mouse') || n.includes('echogrip'))
+    return 'https://images.unsplash.com/photo-1615663245857-ac93bb7c39e7?auto=format&fit=crop&w=600&q=80';
+  if (n.includes('drone') || n.includes('quadcopter'))
+    return 'https://images.unsplash.com/photo-1527977966376-1c8408f9f108?auto=format&fit=crop&w=600&q=80';
+  if (n.includes('mic') || n.includes('soundbar') || n.includes('speaker') || n.includes('audio'))
+    return 'https://images.unsplash.com/photo-1590658268037-6bf12165a8df?auto=format&fit=crop&w=600&q=80';
+  if (n.includes('tablet') || n.includes('synctab'))
+    return 'https://images.unsplash.com/photo-1544244015-0df4b3ffc6b0?auto=format&fit=crop&w=600&q=80';
+  if (n.includes('watch') || n.includes('tracker') || n.includes('pulsefit') || n.includes('fitness'))
+    return 'https://images.unsplash.com/photo-1523275335684-37898b6baf30?auto=format&fit=crop&w=600&q=80';
+  if (n.includes('vr') || n.includes('headset'))
+    return 'https://images.unsplash.com/photo-1622979135225-d2ba269bc1bd?auto=format&fit=crop&w=600&q=80';
+
+  // Groceries
+  if (n.includes('cheese') || n.includes('gruyère'))
+    return 'https://images.unsplash.com/photo-1486297678162-eb2a19b0a32d?auto=format&fit=crop&w=600&q=80';
+  if (n.includes('oil') || n.includes('evoo') || n.includes('vinegar'))
+    return 'https://images.unsplash.com/photo-1474979266404-7eaacbcd87c5?auto=format&fit=crop&w=600&q=80';
+  if (n.includes('salmon') || n.includes('seafood') || n.includes('fish'))
+    return 'https://images.unsplash.com/photo-1519708227418-c8fd9a32b7a2?auto=format&fit=crop&w=600&q=80';
+  if (n.includes('coffee') || n.includes('espresso') || n.includes('beans'))
+    return 'https://images.unsplash.com/photo-1559056199-641a0ac8b55e?auto=format&fit=crop&w=600&q=80';
+  if (n.includes('honey'))
+    return 'https://images.unsplash.com/photo-1587049352847-4a222e784d38?auto=format&fit=crop&w=600&q=80';
+  if (n.includes('steak') || n.includes('wagyu') || n.includes('ribeye') || n.includes('beef'))
+    return 'https://images.unsplash.com/photo-1544025162-d76694265947?auto=format&fit=crop&w=600&q=80';
+  if (n.includes('tea') || n.includes('matcha'))
+    return 'https://images.unsplash.com/photo-1576092768241-dec231879fc3?auto=format&fit=crop&w=600&q=80';
+  if (n.includes('bread') || n.includes('sourdough') || n.includes('loaf'))
+    return 'https://images.unsplash.com/photo-1509440159596-0249088772ff?auto=format&fit=crop&w=600&q=80';
+  if (n.includes('juice') || n.includes('puree') || n.includes('mango'))
+    return 'https://images.unsplash.com/photo-1600271886742-f049cd451bba?auto=format&fit=crop&w=600&q=80';
+  if (n.includes('chocolate') || n.includes('cacao'))
+    return 'https://images.unsplash.com/photo-1549007994-cb92caebd54b?auto=format&fit=crop&w=600&q=80';
+  if (n.includes('milk') || n.includes('almond'))
+    return 'https://images.unsplash.com/photo-1550583724-b2692b85b150?auto=format&fit=crop&w=600&q=80';
+
+  // Medicine
+  if (n.includes('insulin') || n.includes('injection') || n.includes('pen'))
+    return 'https://images.unsplash.com/photo-1584308666744-24d5c474f2ae?auto=format&fit=crop&w=600&q=80';
+  if (n.includes('amoxicillin') || n.includes('ibuprofen') || n.includes('caps') || n.includes('supplement') || n.includes('vcaps'))
+    return 'https://images.unsplash.com/photo-1584308666744-24d5c474f2ae?auto=format&fit=crop&w=600&q=80';
+  if (n.includes('kit') || n.includes('aid') || n.includes('defibrillator') || n.includes('aed'))
+    return 'https://images.unsplash.com/photo-1603398938378-e54eab446dde?auto=format&fit=crop&w=600&q=80';
+  if (n.includes('stethoscope') || n.includes('oximeter') || n.includes('glucose'))
+    return 'https://images.unsplash.com/photo-1584982751601-97dcc096659c?auto=format&fit=crop&w=600&q=80';
+  if (n.includes('glove') || n.includes('surgical') || n.includes('dressing'))
+    return 'https://images.unsplash.com/photo-1588776814546-1ffcf47267a5?auto=format&fit=crop&w=600&q=80';
+  if (n.includes('vitamin') || n.includes('fish oil') || n.includes('zinc'))
+    return 'https://images.unsplash.com/photo-1550572017-edd951aa8f72?auto=format&fit=crop&w=600&q=80';
+
+  // Fashion
+  if (n.includes('shoe') || n.includes('sneaker') || n.includes('boot'))
+    return 'https://images.unsplash.com/photo-1542291026-7eec264c27ff?auto=format&fit=crop&w=600&q=80';
+  if (n.includes('jacket') || n.includes('parka') || n.includes('vest') || n.includes('hoodie'))
+    return 'https://images.unsplash.com/photo-1576995853123-5a10305d93c0?auto=format&fit=crop&w=600&q=80';
+  if (n.includes('pants') || n.includes('chino') || n.includes('shorts') || n.includes('trousers'))
+    return 'https://images.unsplash.com/photo-1624378439575-d8705ad7ae80?auto=format&fit=crop&w=600&q=80';
+  if (n.includes('glasses') || n.includes('sunglasses'))
+    return 'https://images.unsplash.com/photo-1511499767150-a48a237f0083?auto=format&fit=crop&w=600&q=80';
+  if (n.includes('bag') || n.includes('backpack') || n.includes('duffle'))
+    return 'https://images.unsplash.com/photo-1548036328-c9fa89d128fa?auto=format&fit=crop&w=600&q=80';
+  if (n.includes('merino') || n.includes('shirt') || n.includes('tee') || n.includes('top') || n.includes('bra'))
+    return 'https://images.unsplash.com/photo-1521572267360-ee0c2909d518?auto=format&fit=crop&w=600&q=80';
+
+  // Furniture
+  if (n.includes('chair') || n.includes('stool'))
+    return 'https://images.unsplash.com/photo-1567538096630-e0c55bd6374c?auto=format&fit=crop&w=600&q=80';
+  if (n.includes('desk') || n.includes('table'))
+    return 'https://images.unsplash.com/photo-1518455027359-f3f8164ba6bd?auto=format&fit=crop&w=600&q=80';
+  if (n.includes('sofa') || n.includes('couch') || n.includes('sectional'))
+    return 'https://images.unsplash.com/photo-1555041469-a586c61ea9bc?auto=format&fit=crop&w=600&q=80';
+  if (n.includes('lamp') || n.includes('light'))
+    return 'https://images.unsplash.com/photo-1507473885765-e6ed057f782c?auto=format&fit=crop&w=600&q=80';
+  if (n.includes('bookshelf') || n.includes('cabinet') || n.includes('shelf'))
+    return 'https://images.unsplash.com/photo-1594620302200-9a762244a156?auto=format&fit=crop&w=600&q=80';
+  if (n.includes('mattress') || n.includes('rug'))
+    return 'https://images.unsplash.com/photo-1584100936595-c0654b55a2e2?auto=format&fit=crop&w=600&q=80';
+
+  // Automotive
+  if (n.includes('oil') || n.includes('coolant') || n.includes('fluid'))
+    return 'https://images.unsplash.com/photo-1486006920555-c77dce18193b?auto=format&fit=crop&w=600&q=80';
+  if (n.includes('jack') || n.includes('wrench') || n.includes('tray') || n.includes('tool') || n.includes('strap'))
+    return 'https://images.unsplash.com/photo-1581092160607-ee22621dd758?auto=format&fit=crop&w=600&q=80';
+  if (n.includes('scanner') || n.includes('obd2') || n.includes('dash cam'))
+    return 'https://images.unsplash.com/photo-1517524008697-84bbe3c3fd98?auto=format&fit=crop&w=600&q=80';
+  if (n.includes('tire') || n.includes('brake') || n.includes('wheel'))
+    return 'https://images.unsplash.com/photo-1578844251758-2f71da64c96f?auto=format&fit=crop&w=600&q=80';
+
+  // Default fallback based on category
+  const catImgs = categoryImages[category] || categoryImages.Electronics;
+  return catImgs[0];
+}
+
 // Helper to assign mock products to suitable location IDs
 export const mockProducts: Product[] = rawProductTemplates.map((template, index) => {
   const paddedIndex = String(index + 1).padStart(3, '0');
@@ -283,8 +395,7 @@ export const mockProducts: Product[] = rawProductTemplates.map((template, index)
   const assignedLoc = matchingLocations[locationIndex] || mockWarehouseLocations[0];
   const locationStr = `${assignedLoc.zone} [${assignedLoc.aisle}-${assignedLoc.rack}-${assignedLoc.shelf}]`;
 
-  const catImgs = categoryImages[template.category] || categoryImages.Electronics;
-  const imageUrl = catImgs[index % catImgs.length];
+  const imageUrl = getProductImageByName(template.name, template.category);
   const warehouseId = hubIds[index % hubIds.length];
 
   return {

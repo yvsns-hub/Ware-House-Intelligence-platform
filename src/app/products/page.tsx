@@ -709,7 +709,8 @@ export default function ProductsDashboardPage() {
                     alt={p.name}
                     className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
                     onError={(e) => {
-                      (e.target as HTMLElement).style.display = 'none';
+                      (e.target as HTMLImageElement).src =
+                        'https://images.unsplash.com/photo-1505740420928-5e560c06d30e?auto=format&fit=crop&w=600&q=80';
                     }}
                   />
                   
@@ -847,9 +848,13 @@ export default function ProductsDashboardPage() {
                     <td className="py-3 px-4">
                       <div className="flex items-center gap-3">
                         <img
-                          src={p.imageUrl || 'https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=100&auto=format&fit=crop&q=80'}
+                          src={p.imageUrl || 'https://images.unsplash.com/photo-1505740420928-5e560c06d30e?auto=format&fit=crop&w=600&q=80'}
                           alt={p.name}
                           className="h-10 w-10 rounded-xl object-cover border border-slate-200 shrink-0"
+                          onError={(e) => {
+                            (e.target as HTMLImageElement).src =
+                              'https://images.unsplash.com/photo-1505740420928-5e560c06d30e?auto=format&fit=crop&w=600&q=80';
+                          }}
                         />
                         <div>
                           <div className="font-bold">{p.name}</div>
