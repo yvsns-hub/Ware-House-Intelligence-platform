@@ -37,3 +37,16 @@ yarn-error.log*
 # TypeScript
 *.tsbuildinfo
 next-env.d.ts
+
+# Large Datasets & Spreadsheets (Keep repo < 10MB)
+online+retail/
+online+retail+ii/
+*.xlsx
+*.xls
+*.csv
+*.zip
+*.tar.gz
+*.mp4
+*.webp
+*.sqlite*
+

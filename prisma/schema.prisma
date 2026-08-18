@@ -105,3 +105,105 @@ model InventoryTransaction {
   @@index([type])
   @@index([timestamp])
 }
+
+model WarehouseEvent {
+  id          String   @id @default(cuid())
+  eventType   String   // DEMAND_SPIKE, STOCKOUT_RISK, ORDER_SURGE, DELAYED_ORDER, EMPLOYEE_SHORTAGE, PICKER_OVERLOAD, PACKING_BOTTLENECK, WAREHOUSE_CONGESTION, SUPPLIER_DELAY, WEATHER_RISK, DAMAGED_INVENTORY, FAILED_TRANSFER, CRITICAL_CUSTOMER_ORDER, DELIVERY_RISK
+  severity    String   // INFO, WARNING, HIGH, CRITICAL
+  warehouseId String   @default("hub-01")
+  productId   String?
+  orderId     String?
+  description String
+  metadata    String?  // JSON stringified additional context
+  status      String   @default("ACTIVE") // ACTIVE, ACKNOWLEDGED, RESOLVED, DISMISSED
+  source      String   @default("EVENT_ENGINE") // EVENT_ENGINE, SENSOR, SYSTEM, USER
+  timestamp   DateTime @default(now())
+
+  @@index([eventType])
+  @@index([severity])
+  @@index([warehouseId])
+  @@index([timestamp])
+  @@index([status])
+}
+
+model OperationalDecision {
+  id              String   @id @default(cuid())
+  decisionType    String   // CROSS_HUB_TRANSFER, PRODUCT_SUBSTITUTION, EXPEDITE_SUPPLIER, SPLIT_SHIPMENT, DELAY_ORDER, WORKFORCE_REBALANCE, REORDER
+  recommendation  String
+  confidence      Float    // e.g. 92.5
+  reasons         String   // JSON string array of explanatory bullet points
+  evidence        String?  // JSON string key-value metrics
+  expectedImpact  String   // Estimated revenue protected, SLA preserved, etc.
+  estimatedCost   Float    @default(0.0)
+  alternatives    String?  // JSON string array of alternative options considered
+  status          String   @default("PENDING") // PENDING, APPROVED, REJECTED, EXECUTED, FAILED, SIMULATED
+  warehouseId     String   @default("hub-01")
+  targetEntityId  String?  // Order ID, Product ID, Employee ID
+  approvedBy      String?
+  executedAt      DateTime?
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+
+  @@index([status])
+  @@index([decisionType])
+  @@index([warehouseId])
+  @@index([createdAt])
+}
+
+model AuditLog {
+  id             String   @id @default(cuid())
+  user           String   // e.g. "Operations Manager"
+  role           String   // MANAGER, SUPERVISOR, PICKER, PACKER, SYSTEM
+  action         String   // e.g. "APPROVED_TRANSFER", "EXECUTED_REORDER", "REASSIGNED_WORKFORCE"
+  decisionId     String?
+  previousState  String?  // JSON snapshot
+  newState       String?  // JSON snapshot
+  reason         String
+  source         String   @default("DECISION_CENTER")
+  approvalStatus String   @default("APPROVED") // APPROVED, REJECTED, AUTO_EXECUTED, MODIFIED
+  timestamp      DateTime @default(now())
+
+  @@index([user])
+  @@index([role])
+  @@index([action])
+  @@index([timestamp])
+}
+
+model Supplier {
+  id                 String   @id @default(cuid())
+  name               String
+  code               String   @unique
+  category           String
+  reliabilityScore   Float    @default(90.0) // 0 - 100
+  qualityScore       Float    @default(95.0) // 0 - 100
+  avgDelayDays       Float    @default(1.0)
+  costIndex          Float    @default(1.0)  // Multiplier, e.g. 1.05 = 5% above baseline
+  responseTimeHours  Float    @default(4.0)
+  emergencySupported Boolean  @default(true)
+  contactEmail       String?
+  createdAt          DateTime @default(now())
+  updatedAt          DateTime @updatedAt
+
+  @@index([category])
+  @@index([reliabilityScore])
+}
+
+model DamageInspection {
+  id              String   @id @default(cuid())
+  sku             String
+  productName     String
+  damageType      String   // TORN_PACKAGING, DENT, LEAKAGE, MISSING_LABEL, CRUSHED
+  severity        String   // MINOR, MODERATE, SEVERE, CRITICAL
+  imageUrl        String?
+  confidenceScore Float    @default(92.0)
+  status          String   @default("QUARANTINED") // QUARANTINED, DISPOSED, REPACKAGED, RETURNED_TO_VENDOR
+  notes           String?
+  inspectedBy     String   @default("Automated Vision Scanner")
+  timestamp       DateTime @default(now())
+
+  @@index([sku])
+  @@index([damageType])
+  @@index([severity])
+  @@index([status])
+}
+

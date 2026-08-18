@@ -356,3 +356,221 @@ export interface StockShortageResolution {
   notificationMessage: string;
 }
 
+// ----------------------------------------------------
+// WAREHOUSEIQ 2.0 DOMAIN TYPES
+// ----------------------------------------------------
+
+export type EventSeverity = 'INFO' | 'WARNING' | 'HIGH' | 'CRITICAL';
+
+export type EventType =
+  | 'DEMAND_SPIKE'
+  | 'STOCKOUT_RISK'
+  | 'ORDER_SURGE'
+  | 'DELAYED_ORDER'
+  | 'EMPLOYEE_SHORTAGE'
+  | 'PICKER_OVERLOAD'
+  | 'PACKING_BOTTLENECK'
+  | 'WAREHOUSE_CONGESTION'
+  | 'SUPPLIER_DELAY'
+  | 'WEATHER_RISK'
+  | 'DAMAGED_INVENTORY'
+  | 'FAILED_TRANSFER'
+  | 'CRITICAL_CUSTOMER_ORDER'
+  | 'DELIVERY_RISK';
+
+export type EventStatus = 'ACTIVE' | 'ACKNOWLEDGED' | 'RESOLVED' | 'DISMISSED';
+
+export interface WarehouseEvent {
+  id: string;
+  eventType: EventType | string;
+  severity: EventSeverity;
+  warehouseId: string;
+  productId?: string | null;
+  orderId?: string | null;
+  description: string;
+  metadata?: Record<string, any> | string | null;
+  status: EventStatus | string;
+  source: string;
+  timestamp: Date | string;
+}
+
+export type DecisionStatus =
+  | 'PENDING'
+  | 'APPROVED'
+  | 'REJECTED'
+  | 'EXECUTED'
+  | 'FAILED'
+  | 'SIMULATED';
+
+export type DecisionType =
+  | 'CROSS_HUB_TRANSFER'
+  | 'PRODUCT_SUBSTITUTION'
+  | 'EXPEDITE_SUPPLIER'
+  | 'SPLIT_SHIPMENT'
+  | 'DELAY_ORDER'
+  | 'WORKFORCE_REBALANCE'
+  | 'REORDER';
+
+export interface ExplainableDecision {
+  decisionId: string;
+  decisionType: DecisionType | string;
+  recommendation: string;
+  confidence: number;
+  reasons: string[];
+  evidence: Record<string, string | number | boolean>;
+  expectedImpact: string;
+  estimatedCost: number;
+  estimatedSavings?: number;
+  alternatives: Array<{
+    title: string;
+    cost: number;
+    impact: string;
+    tradeoff: string;
+  }>;
+  createdAt: string | Date;
+  status: DecisionStatus;
+  warehouseId: string;
+  targetEntityId?: string;
+  approvedBy?: string | null;
+  executedAt?: string | Date | null;
+}
+
+export interface AuditLogEntry {
+  id: string;
+  user: string;
+  role: string;
+  action: string;
+  decisionId?: string | null;
+  previousState?: string | null;
+  newState?: string | null;
+  reason: string;
+  source: string;
+  approvalStatus: string;
+  timestamp: Date | string;
+}
+
+export interface SupplierInfo {
+  id: string;
+  name: string;
+  code: string;
+  category: string;
+  reliabilityScore: number;
+  qualityScore: number;
+  avgDelayDays: number;
+  costIndex: number;
+  responseTimeHours: number;
+  emergencySupported: boolean;
+  contactEmail?: string | null;
+}
+
+export interface DamageInspectionRecord {
+  id: string;
+  sku: string;
+  productName: string;
+  damageType: 'TORN_PACKAGING' | 'DENT' | 'LEAKAGE' | 'MISSING_LABEL' | 'CRUSHED';
+  severity: 'MINOR' | 'MODERATE' | 'SEVERE' | 'CRITICAL';
+  imageUrl?: string | null;
+  confidenceScore: number;
+  status: 'QUARANTINED' | 'DISPOSED' | 'REPACKAGED' | 'RETURNED_TO_VENDOR';
+  notes?: string | null;
+  inspectedBy: string;
+  timestamp: Date | string;
+}
+
+export interface WhatIfSimulationParams {
+  demandChangePercent: number; // e.g. +30% or -20%
+  additionalOrders: number; // e.g. 500
+  inventoryReductionPercent: number; // e.g. 15%
+  supplierDelayDays: number; // e.g. 3
+  workforceChangePercent: number; // e.g. -10% or +20%
+  warehouseClosure?: string | null; // e.g. 'hub-03'
+  weatherDisruptionSeverity?: 'NONE' | 'MODERATE' | 'SEVERE';
+}
+
+export interface SimulationStateMetrics {
+  fulfillmentRate: number; // e.g. 96.4%
+  stockoutRiskSKUs: number; // e.g. 8
+  delayedOrders: number; // e.g. 4
+  warehouseWorkloadPercent: number; // e.g. 78%
+  requiredWorkforceHeadcount: number; // e.g. 24
+  estimatedTotalCost: number; // e.g. ₹42,000
+  slaBreachRiskPercent: number; // e.g. 5%
+}
+
+export interface WhatIfSimulationResult {
+  scenarioId: string;
+  params: WhatIfSimulationParams;
+  currentState: SimulationStateMetrics;
+  simulatedState: SimulationStateMetrics;
+  difference: {
+    fulfillmentRateDelta: number;
+    stockoutSKUsDelta: number;
+    delayedOrdersDelta: number;
+    workloadDelta: number;
+    workforceHeadcountDelta: number;
+    costDelta: number;
+    slaRiskDelta: number;
+  };
+  recommendedActions: Array<{
+    id: string;
+    priority: 'CRITICAL' | 'HIGH' | 'MEDIUM';
+    action: string;
+    impact: string;
+    confidence: number;
+  }>;
+  calculatedAt: string;
+}
+
+export interface WorkforceAllocationPlan {
+  id: string;
+  warehouseId: string;
+  timestamp: string;
+  allocations: Array<{
+    employeeId: string;
+    employeeName: string;
+    role: 'Picker' | 'Packer' | 'Supervisor';
+    currentZone: string;
+    recommendedZone: string;
+    reason: string;
+    efficiencyScore: number;
+  }>;
+  expectedOutcomes: {
+    pickingWaitTimeDeltaPercent: number; // e.g. -23%
+    throughputDeltaPercent: number; // e.g. +17%
+    slaProtectedOrdersCount: number; // e.g. 31
+  };
+  status: 'PENDING_APPROVAL' | 'APPROVED' | 'APPLIED';
+}
+
+export interface DeliveryRiskScoring {
+  orderId: string;
+  orderNumber: string;
+  customerName: string;
+  customerTier: string;
+  destination: string;
+  lateProbability: number; // 0 - 100%
+  riskLevel: 'LOW' | 'MEDIUM' | 'HIGH' | 'CRITICAL';
+  riskFactors: string[];
+  recommendedAction: string;
+  estimatedDeliveryWindow: string;
+}
+
+export interface CostOptimizationOption {
+  optionId: string;
+  name: string;
+  type: 'TRANSFER' | 'EMERGENCY_PO' | 'DELAY' | 'SUBSTITUTE';
+  breakdown: {
+    transferCost: number;
+    storageCost: number;
+    laborCost: number;
+    supplierCost: number;
+    delayCost: number;
+    customerImpactCost: number;
+  };
+  totalCost: number;
+  slaBreached: boolean;
+  recommended: boolean;
+  rationale: string;
+}
+
+

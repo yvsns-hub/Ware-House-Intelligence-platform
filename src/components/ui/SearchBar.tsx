@@ -32,6 +32,7 @@ export function SearchBar({
         value={value}
         onChange={(e) => onChange(e.target.value)}
         placeholder={placeholder}
+        aria-label={placeholder}
         autoFocus={autoFocus}
         suppressHydrationWarning
         className="w-full h-10 pl-10 pr-16 bg-slate-900/90 border border-slate-800 focus:border-blue-500 focus:ring-1 focus:ring-blue-500 text-sm text-slate-100 placeholder-slate-500 rounded-lg outline-none transition-all shadow-inner"
@@ -45,11 +46,13 @@ export function SearchBar({
               onChange('');
               inputRef.current?.focus();
             }}
+            aria-label="Clear search query"
             suppressHydrationWarning
             className="p-1 text-slate-400 hover:text-white rounded-md hover:bg-slate-800 transition-colors"
           >
             <X className="h-3.5 w-3.5" />
           </button>
+
         ) : hotkey ? (
           <kbd className="hidden sm:inline-flex items-center px-1.5 py-0.5 text-[10px] font-mono text-slate-400 bg-slate-800/80 border border-slate-700/60 rounded">
             {hotkey}

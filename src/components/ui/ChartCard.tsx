@@ -30,12 +30,15 @@ export function ChartCard({
   };
 
   return (
-    <div
+    <section
+      role="region"
+      aria-label={`Chart: ${title}${subtitle ? ` - ${subtitle}` : ''}`}
       className={cn(
         'rounded-xl border border-slate-800/90 bg-slate-900/90 p-5 backdrop-blur-sm shadow-xl flex flex-col justify-between',
         className
       )}
     >
+
       <div className="flex items-start justify-between gap-4 mb-4">
         <div className="space-y-1">
           <div className="flex items-center gap-2">
@@ -64,6 +67,7 @@ export function ChartCard({
       <div className="w-full flex-1 min-h-[240px] flex items-center justify-center">
         {children}
       </div>
-    </div>
+    </section>
   );
 }
+

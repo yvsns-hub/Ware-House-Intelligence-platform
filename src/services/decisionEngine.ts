@@ -71,10 +71,11 @@ export class DecisionEngine {
     const otherHubs = allHubs.filter((h) => h.id !== currentHubId);
 
     // Check if another hub has sufficient stock (e.g. Hub West-02 or Hub Central-01)
-    const candidateHub = otherHubs.find((h) => h.totalStockUnits > 0) || otherHubs[0];
+    const candidateHub = otherHubs.find((h) => h.totalStockUnits > 0);
 
-    // If Level 1 Transfer is available (default to Hub West-02 for demo)
-    if (candidateHub) {
+    // If Level 1 Transfer is available
+    if (candidateHub && currentHub) {
+
       const transferQty = Math.max(requiredStock, 12);
       const estTimeHours = candidateHub.id === 'hub-02' ? 3 : 4;
       const estCost = 150;

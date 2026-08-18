@@ -38,27 +38,30 @@ export function OrderStatusBadge({ status }: { status: OrderStatus | string }) {
 
 // Order Priority Badge
 export function PriorityBadge({ priority }: { priority: OrderPriority | string }) {
-  const styles: Record<string, string> = {
-    URGENT: 'bg-red-500/15 text-red-400 border-red-500/30 ring-red-500/20 animate-pulse',
-    HIGH: 'bg-amber-500/10 text-amber-400 border-amber-500/25 ring-amber-500/10',
-    MEDIUM: 'bg-blue-500/10 text-blue-400 border-blue-500/20 ring-blue-500/10',
-    LOW: 'bg-slate-800/80 text-slate-400 border-slate-700/80 ring-slate-700/20',
+  const styles: Record<string, { style: string; icon: string }> = {
+    URGENT: { style: 'bg-red-500/15 text-red-400 border-red-500/30 ring-red-500/20 animate-pulse', icon: '🔴' },
+    HIGH: { style: 'bg-amber-500/10 text-amber-400 border-amber-500/25 ring-amber-500/10', icon: '🟠' },
+    MEDIUM: { style: 'bg-blue-500/10 text-blue-400 border-blue-500/20 ring-blue-500/10', icon: '🟡' },
+    LOW: { style: 'bg-slate-800/80 text-slate-400 border-slate-700/80 ring-slate-700/20', icon: '⚪' },
   };
 
-  const currentStyle =
-    styles[priority?.toUpperCase()] || 'bg-slate-800 text-slate-400 border-slate-700';
+  const current =
+    styles[priority?.toUpperCase()] || { style: 'bg-slate-800 text-slate-400 border-slate-700', icon: '•' };
 
   return (
     <span
       className={cn(
-        'inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-xs font-bold uppercase tracking-wider border ring-1',
-        currentStyle
+        'inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-xs font-bold uppercase tracking-wider border ring-1',
+        current.style
       )}
+      aria-label={`Priority: ${priority}`}
     >
-      {priority}
+      <span className="text-[10px]" aria-hidden="true">{current.icon}</span>
+      <span>{priority}</span>
     </span>
   );
 }
+
 
 // Customer Tier Badge
 export function CustomerTierBadge({ tier }: { tier: CustomerTier | string }) {

@@ -80,12 +80,16 @@ export function StatCard({
   return (
     <motion.div
       whileHover={{ y: -1.5, transition: { duration: 0.15 } }}
+      role="region"
+      aria-label={`${title}: ${value}${subtitle ? ` - ${subtitle}` : ''}`}
+      tabIndex={0}
       className={cn(
-        'relative overflow-hidden rounded-xl bg-slate-900/90 p-4 border backdrop-blur-sm shadow-md transition-all duration-200 group flex flex-col justify-between',
+        'relative overflow-hidden rounded-xl bg-slate-900/90 p-4 border backdrop-blur-sm shadow-md transition-all duration-200 group flex flex-col justify-between focus-visible:ring-2 focus-visible:ring-indigo-500 focus-visible:outline-none',
         style.border,
         className
       )}
     >
+
       {/* Background Gradient Glow */}
       <div
         className={cn(

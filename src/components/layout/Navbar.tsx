@@ -88,6 +88,7 @@ export function Navbar({ onMenuToggle }: { onMenuToggle: () => void }) {
             onClick={onMenuToggle}
             className="p-2 text-slate-400 hover:text-white rounded-lg hover:bg-slate-800 md:hidden transition-colors"
             title="Toggle Navigation Menu"
+            aria-label="Toggle Navigation Menu"
           >
             <Menu className="h-5 w-5" />
           </button>
@@ -110,6 +111,7 @@ export function Navbar({ onMenuToggle }: { onMenuToggle: () => void }) {
             onClick={() => setIsDemoOpen(true)}
             className="flex items-center gap-1.5 px-3 py-1.5 bg-gradient-to-r from-purple-600 to-indigo-600 hover:from-purple-500 hover:to-indigo-500 text-white text-xs font-bold rounded-xl shadow-md shadow-purple-600/25 transition-all hover:scale-[1.02]"
             title="Launch 60-Second Automated Hackathon Demo Tour"
+            aria-label="Launch 60-Second Automated Hackathon Demo Tour"
           >
             <Sparkles className="h-3.5 w-3.5" />
             <span className="hidden lg:inline">Demo Tour (60s)</span>
@@ -125,13 +127,14 @@ export function Navbar({ onMenuToggle }: { onMenuToggle: () => void }) {
                 : 'bg-slate-900 text-slate-400 border-slate-800 hover:text-white hover:bg-slate-800'
             }`}
             title="Toggle Presentation / Fullscreen Mode"
+            aria-label="Toggle Presentation Fullscreen Mode"
           >
             <Tv className="h-4 w-4" />
           </button>
 
           {/* Weather Telemetry Chip */}
           {weatherData?.weather && role !== 'PICKER' && (
-            <div className="hidden xl:flex items-center gap-2 px-3 py-1.5 rounded-lg bg-slate-900/90 border border-slate-800 text-xs shadow-inner">
+            <div className="hidden xl:flex items-center gap-2 px-3 py-1.5 rounded-lg bg-slate-900/90 border border-slate-800 text-xs shadow-inner" role="status" aria-label={`Weather: ${weatherData.weather.temperature} degrees Celsius, ${weatherData.weather.condition}`}>
               {getWeatherIcon(weatherData.weather.condition)}
               <div className="flex items-center gap-1.5">
                 <span className="font-bold text-slate-200">
@@ -151,10 +154,12 @@ export function Navbar({ onMenuToggle }: { onMenuToggle: () => void }) {
             onClick={() => setIsNotificationDrawerOpen(true)}
             className="relative p-2 text-slate-400 hover:text-white bg-slate-900 border border-slate-800 rounded-xl hover:bg-slate-800 transition-colors"
             title="Open Live Notification Center"
+            aria-label="Open Live Notification Center"
           >
             <Bell className="h-4 w-4" />
             <span className="absolute top-1 right-1 h-2 w-2 rounded-full bg-rose-500" />
           </button>
+
 
           {/* User Profile Card */}
           <div className="flex items-center gap-2 pl-2 border-l border-slate-800">

@@ -18,9 +18,14 @@ import {
   CheckCircle2,
   Globe,
   Zap,
+  Sliders,
+  ShieldCheck,
+  Scan,
 } from 'lucide-react';
+
 import { cn } from '@/lib/utils';
 import { useAuth } from '@/context/AuthContext';
+
 
 export interface NavItem {
   label: string;
@@ -155,6 +160,24 @@ export function Sidebar({
         badge: 'AI Core',
       },
       {
+        label: 'What-If Simulator',
+        href: '/decision-center/simulator',
+        icon: Sliders,
+        badge: 'Predict',
+      },
+      {
+        label: 'Manager Approvals',
+        href: '/approvals',
+        icon: ShieldCheck,
+        badge: 'Audit',
+      },
+      {
+        label: 'Damage Inspection',
+        href: '/damage-inspection',
+        icon: Scan,
+        badge: 'Vision',
+      },
+      {
         label: 'Analytics',
         href: '/analytics',
         icon: BarChart3,
@@ -167,6 +190,7 @@ export function Sidebar({
         badge: 'Co-Pilot',
       },
     ];
+
 
     bottomNavItems = [
       {

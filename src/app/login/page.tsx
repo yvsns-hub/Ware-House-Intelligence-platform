@@ -367,7 +367,7 @@ function LoginContent() {
             <form onSubmit={handleEmailLogin} className="space-y-4" suppressHydrationWarning>
               {/* Email Field */}
               <div className="space-y-1">
-                <label className="text-[11px] font-bold uppercase tracking-wider text-slate-400 block">
+                <label htmlFor="login-email" className="text-[11px] font-bold uppercase tracking-wider text-slate-400 block">
                   Work Email
                 </label>
                 <div className="relative">
@@ -375,6 +375,7 @@ function LoginContent() {
                     <Mail className="h-4 w-4" />
                   </div>
                   <input
+                    id="login-email"
                     type="email"
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
@@ -389,7 +390,7 @@ function LoginContent() {
               {/* Password Field */}
               <div className="space-y-1">
                 <div className="flex items-center justify-between">
-                  <label className="text-[11px] font-bold uppercase tracking-wider text-slate-400 block">
+                  <label htmlFor="login-password" className="text-[11px] font-bold uppercase tracking-wider text-slate-400 block">
                     Password / PIN
                   </label>
                   <a
@@ -408,6 +409,7 @@ function LoginContent() {
                     <Lock className="h-4 w-4" />
                   </div>
                   <input
+                    id="login-password"
                     type={showPassword ? 'text' : 'password'}
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
@@ -419,6 +421,7 @@ function LoginContent() {
                   <button
                     type="button"
                     onClick={() => setShowPassword(!showPassword)}
+                    aria-label={showPassword ? 'Hide password' : 'Show password'}
                     suppressHydrationWarning
                     className="absolute inset-y-0 right-0 pr-3.5 flex items-center text-slate-500 hover:text-slate-300"
                   >
@@ -426,6 +429,7 @@ function LoginContent() {
                   </button>
                 </div>
               </div>
+
 
               {/* Remember Me Checkbox */}
               <div className="flex items-center justify-between text-xs">

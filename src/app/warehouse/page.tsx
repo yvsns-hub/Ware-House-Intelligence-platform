@@ -17,6 +17,8 @@ import { useLocations, useProducts, useDashboardSummary } from '@/hooks';
 import { WarehouseLocation, WarehouseZone } from '@/types';
 import { StatCard } from '@/components/ui/StatCard';
 import { CardSkeleton } from '@/components/ui/LoadingSkeleton';
+import { WarehouseTwinMap } from '@/components/warehouse/WarehouseTwinMap';
+
 
 export default function WarehouseMapPage() {
   const { data: locations, isLoading } = useLocations();
@@ -103,14 +105,18 @@ export default function WarehouseMapPage() {
               <Map className="h-5 w-5" />
             </span>
             <h1 className="text-2xl font-extrabold text-white tracking-tight">
-              Warehouse Spatial Map &amp; Storage Topology
+              Warehouse Spatial Map &amp; Digital Twin
             </h1>
           </div>
           <p className="text-xs md:text-sm text-slate-400">
-            2D floor plan visualization across 5 specialized operational zones and 40 rack bays.
+            2D floor plan visualization across 5 specialized operational zones, heatmaps, and bay density.
           </p>
         </div>
       </div>
+
+      {/* 2D Digital Twin Heatmap Map */}
+      <WarehouseTwinMap />
+
 
       {/* Zone Overview Stat Cards */}
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-3">

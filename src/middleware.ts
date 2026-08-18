@@ -7,12 +7,15 @@ const PUBLIC_ROUTES = ['/login', '/access-denied', '/about'];
 const PICKER_RESTRICTED_ROUTES = [
   '/analytics',
   '/decision-center',
+  '/approvals',
+  '/damage-inspection',
   '/ai-assistant',
   '/settings',
   '/employees',
   '/inventory',
   '/warehouse',
 ];
+
 
 export async function middleware(request: NextRequest) {
   const { pathname } = request.nextUrl;

@@ -58,6 +58,8 @@ import { Pagination } from '@/components/ui/Pagination';
 import { CardSkeleton, TableSkeleton } from '@/components/ui/LoadingSkeleton';
 import { EmptyState } from '@/components/ui/EmptyState';
 import { formatCurrency, formatDate } from '@/lib/utils';
+import { RealtimeEventTicker } from '@/components/events/RealtimeEventTicker';
+
 
 import { useAuth } from '@/context/AuthContext';
 import { PickerConsole } from '@/components/picker/PickerConsole';
@@ -226,21 +228,25 @@ export default function DashboardPage() {
             <span>Launch Decision Center</span>
           </Link>
           <Link
-            href="/orders"
-            className="flex items-center gap-2 px-4 py-2.5 bg-blue-600/20 hover:bg-blue-600/30 text-blue-300 text-xs font-bold rounded-xl border border-blue-500/30 transition-all hover:scale-[1.02]"
+            href="/decision-center/simulator"
+            className="flex items-center gap-2 px-4 py-2.5 bg-emerald-600 hover:bg-emerald-500 text-white text-xs font-bold rounded-xl shadow-lg shadow-emerald-600/25 transition-all hover:scale-[1.02]"
           >
-            <ShoppingCart className="h-4 w-4" />
-            <span>Process Orders</span>
+            <Zap className="h-4 w-4" />
+            <span>What-If Simulator</span>
           </Link>
           <Link
-            href="/inventory"
-            className="flex items-center gap-2 px-4 py-2.5 bg-slate-800 hover:bg-slate-700 text-slate-200 text-xs font-bold rounded-xl border border-slate-700 transition-all"
+            href="/approvals"
+            className="flex items-center gap-2 px-4 py-2.5 bg-indigo-600/20 hover:bg-indigo-600/30 text-indigo-300 text-xs font-bold rounded-xl border border-indigo-500/30 transition-all hover:scale-[1.02]"
           >
-            <span>Inspect Inventory</span>
-            <ArrowRight className="h-3.5 w-3.5 text-slate-400" />
+            <ShieldAlert className="h-4 w-4" />
+            <span>Approvals</span>
           </Link>
         </div>
       </div>
+
+      {/* Live Real-Time Event Intelligence Ticker */}
+      <RealtimeEventTicker />
+
 
       {/* 2. KPI Cards Grid (8 Cards) */}
       <section className="space-y-3">
