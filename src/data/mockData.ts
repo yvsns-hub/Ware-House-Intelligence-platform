@@ -232,6 +232,46 @@ const rawProductTemplates: Array<{
   { name: 'Heavy Duty Rubber All-Weather Floor Mats Set', category: 'Automotive', description: 'Custom-trimmable deep dish spill channel mats', stock: 50, reservedStock: 10, damagedStock: 0, reorderLevel: 15, supplier: 'TorqueTools Pro', unitPrice: 64.00, demandScore: 7.1, preferredZone: 'Bulk Cargo' },
 ];
 
+const categoryImages: Record<string, string[]> = {
+  Electronics: [
+    'https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=500&auto=format&fit=crop&q=80',
+    'https://images.unsplash.com/photo-1527864550417-7fd91fc51a46?w=500&auto=format&fit=crop&q=80',
+    'https://images.unsplash.com/photo-1587829741301-dc798b83add3?w=500&auto=format&fit=crop&q=80',
+    'https://images.unsplash.com/photo-1593642632823-8f785ba67e45?w=500&auto=format&fit=crop&q=80',
+    'https://images.unsplash.com/photo-1544716278-ca5e3f4abd8c?w=500&auto=format&fit=crop&q=80',
+    'https://images.unsplash.com/photo-1508614589041-895b88991e3e?w=500&auto=format&fit=crop&q=80',
+  ],
+  Groceries: [
+    'https://images.unsplash.com/photo-1486297678162-eb2a19b0a32d?w=500&auto=format&fit=crop&q=80',
+    'https://images.unsplash.com/photo-1474979266404-7eaacbcd87c5?w=500&auto=format&fit=crop&q=80',
+    'https://images.unsplash.com/photo-1534483509719-3feaee7c30da?w=500&auto=format&fit=crop&q=80',
+    'https://images.unsplash.com/photo-1447933601403-0c6688de566e?w=500&auto=format&fit=crop&q=80',
+  ],
+  Medicine: [
+    'https://images.unsplash.com/photo-1584308666744-24d5c474f2ae?w=500&auto=format&fit=crop&q=80',
+    'https://images.unsplash.com/photo-1587854692152-cbe660dbde88?w=500&auto=format&fit=crop&q=80',
+    'https://images.unsplash.com/photo-1603398938378-e54eab446dde?w=500&auto=format&fit=crop&q=80',
+    'https://images.unsplash.com/photo-1579684385127-1ef15d508118?w=500&auto=format&fit=crop&q=80',
+  ],
+  Fashion: [
+    'https://images.unsplash.com/photo-1521572267360-ee0c2909d518?w=500&auto=format&fit=crop&q=80',
+    'https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=500&auto=format&fit=crop&q=80',
+    'https://images.unsplash.com/photo-1551028719-00167b16eac5?w=500&auto=format&fit=crop&q=80',
+  ],
+  Furniture: [
+    'https://images.unsplash.com/photo-1580481077191-4b13a29bc03d?w=500&auto=format&fit=crop&q=80',
+    'https://images.unsplash.com/photo-1518455027359-f3f8164ba6bd?w=500&auto=format&fit=crop&q=80',
+    'https://images.unsplash.com/photo-1555041469-a586c61ea9bc?w=500&auto=format&fit=crop&q=80',
+  ],
+  Automotive: [
+    'https://images.unsplash.com/photo-1486006920555-c77dce18193b?w=500&auto=format&fit=crop&q=80',
+    'https://images.unsplash.com/photo-1563720223185-11003d516935?w=500&auto=format&fit=crop&q=80',
+    'https://images.unsplash.com/photo-1619642751034-765dfdf7c58e?w=500&auto=format&fit=crop&q=80',
+  ],
+};
+
+const hubIds = ['hub-01', 'hub-02', 'hub-03', 'hub-04'];
+
 // Helper to assign mock products to suitable location IDs
 export const mockProducts: Product[] = rawProductTemplates.map((template, index) => {
   const paddedIndex = String(index + 1).padStart(3, '0');
@@ -242,6 +282,10 @@ export const mockProducts: Product[] = rawProductTemplates.map((template, index)
   const locationIndex = index % (matchingLocations.length || 1);
   const assignedLoc = matchingLocations[locationIndex] || mockWarehouseLocations[0];
   const locationStr = `${assignedLoc.zone} [${assignedLoc.aisle}-${assignedLoc.rack}-${assignedLoc.shelf}]`;
+
+  const catImgs = categoryImages[template.category] || categoryImages.Electronics;
+  const imageUrl = catImgs[index % catImgs.length];
+  const warehouseId = hubIds[index % hubIds.length];
 
   return {
     id: `prod-${paddedIndex}`,
@@ -255,6 +299,8 @@ export const mockProducts: Product[] = rawProductTemplates.map((template, index)
     reorderLevel: template.reorderLevel,
     supplier: template.supplier,
     warehouseLocation: locationStr,
+    warehouseId,
+    imageUrl,
     unitPrice: template.unitPrice,
     demandScore: template.demandScore,
     createdAt: new Date(Date.now() - (100 - index) * 24 * 60 * 60 * 1000).toISOString(),

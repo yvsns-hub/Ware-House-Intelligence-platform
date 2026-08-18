@@ -20,12 +20,28 @@ export interface Product {
   reorderLevel: number;
   supplier: string;
   warehouseLocation: string;
+  warehouseId?: string;
+  imageUrl?: string;
   unitPrice: number;
   demandScore: number;
   createdAt: Date | string;
   updatedAt: Date | string;
   orderItems?: OrderItem[];
   inventoryTransactions?: InventoryTransaction[];
+}
+
+export interface CreateProductDTO {
+  name: string;
+  sku: string;
+  category: ProductCategory | string;
+  description?: string;
+  stock: number;
+  reorderLevel: number;
+  supplier: string;
+  warehouseLocation: string;
+  warehouseId?: string;
+  imageUrl?: string;
+  unitPrice: number;
 }
 
 export type CustomerTier = 'Platinum' | 'Gold' | 'Silver' | 'Standard';
@@ -272,3 +288,67 @@ export interface WeatherData {
   source: 'OpenWeather' | 'Open-Meteo' | 'Fallback';
   timestamp: string;
 }
+
+// 3-Level Inventory Allocation & Stock Shortage Decision Strategy Types
+export type ShortageDecisionStage = 'ALLOCATED' | 'TRANSFER' | 'AI_RECOMMENDATION' | 'DELAY';
+
+export type AIStrategyType =
+  | 'Split Shipment'
+  | 'Partial Fulfillment'
+  | 'Reserve Incoming Stock'
+  | 'Urgent Purchase Order'
+  | 'Substitute Product'
+  | 'Expedite Supplier'
+  | 'Prioritize Premium Order'
+  | 'Notify Customer';
+
+export interface CrossHubTransferInfo {
+  sourceHubId: string;
+  sourceHubName: string;
+  destinationHubId: string;
+  destinationHubName: string;
+  transferQuantity: number;
+  estimatedArrivalTime: string; // e.g. "3 hours"
+  transportationCost: number; // e.g. 150
+  message: string; // e.g. "12 units are available in Hub B. Estimated transfer time is 3 hours. Transfer inventory to fulfill the order without affecting SLA."
+}
+
+export interface AIShortageRecommendation {
+  strategyType: AIStrategyType;
+  problem: string; // e.g. "Insufficient inventory across all hubs"
+  recommendation: string; // e.g. "Ship 5 units now, Backorder 3 units"
+  reason: string; // e.g. "Maintains premium SLA for Platinum account"
+  businessImpact: string; // e.g. "Revenue Protected ₹1,80,000"
+  confidenceScore: number; // e.g. 96
+  estimatedSLAImpact: string; // e.g. "0% SLA Breach Penalty"
+}
+
+export interface DelayOrderInfo {
+  delayReason: string; // e.g. "Global stock shortage across all regional hubs and suppliers"
+  expectedRestockTime: string; // e.g. "48 hours"
+  newDeliveryDate: string; // e.g. "Aug 22, 2026"
+  priorityLevel: string; // e.g. "URGENT_PO_BACKORDER"
+  notificationSent: boolean;
+}
+
+export interface StockShortageResolution {
+  orderId: string;
+  orderNumber: string;
+  productSku: string;
+  productName: string;
+  currentStock: number;
+  requiredStock: number;
+  decisionStage: ShortageDecisionStage;
+  stepsProgress: {
+    step1CrossHubCheck: boolean; // Check Nearby Warehouse Hubs
+    step2AIRecommendation: boolean; // AI Recommendation Engine
+    step3Delay: boolean; // Delay Order (Last Resort)
+  };
+  transferInfo?: CrossHubTransferInfo;
+  aiRecommendation?: AIShortageRecommendation;
+  delayInfo?: DelayOrderInfo;
+  businessImpact: string;
+  actionLabel: string;
+  notificationMessage: string;
+}
+

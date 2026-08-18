@@ -39,6 +39,7 @@ import {
 } from '@/services/decisionIntelligenceService';
 
 import { StatCard } from '@/components/ui/StatCard';
+import { StockResolutionCard } from '@/components/decision/StockResolutionCard';
 import { AllocationSimulator } from '@/components/decision/AllocationSimulator';
 import { ReorderEngine } from '@/components/decision/ReorderEngine';
 import { BottleneckDetector } from '@/components/decision/BottleneckDetector';
@@ -229,6 +230,9 @@ export default function DecisionCenterPage() {
               : 'Execute split allocation on VIP Order #ORD-2026001 for Apex Logistics to protect 100% SLA and fulfill remaining 2 SSDs from Zone B.'}
           </p>
         </div>
+
+        {/* 3-Level Stock Shortage Resolution Decision Strategy Card */}
+        <StockResolutionCard />
       </section>
 
       {/* ──────────────────────────────────────────────────────────── */}

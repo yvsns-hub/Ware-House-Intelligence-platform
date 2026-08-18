@@ -1,6 +1,6 @@
 import { NextRequest } from 'next/server';
 import { inventoryService } from '@/services/inventoryService';
-import { paginatedResponse, errorResponse } from '@/utils/apiResponse';
+import { paginatedResponse, successResponse, errorResponse } from '@/utils/apiResponse';
 import { ProductFilters } from '@/types';
 
 export async function GET(request: NextRequest) {
@@ -28,5 +28,20 @@ export async function GET(request: NextRequest) {
     );
   } catch (error: any) {
     return errorResponse(error.message || 'Failed to fetch products', 500);
+  }
+}
+
+export async function POST(request: NextRequest) {
+  try {
+    const body = await request.json();
+
+    if (!body.name || !body.category) {
+      return errorResponse('Product name and category are required', 400);
+    }
+
+    const created = await inventoryService.createProduct(body);
+    return successResponse(created, 'Product created successfully', undefined, 201);
+  } catch (error: any) {
+    return errorResponse(error.message || 'Failed to create product', 500);
   }
 }

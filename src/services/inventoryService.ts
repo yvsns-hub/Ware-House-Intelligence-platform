@@ -150,6 +150,66 @@ export class InventoryService {
   }
 
   /**
+   * Create a new product
+   */
+  public async createProduct(data: Partial<Product>): Promise<Product> {
+    const newId = `prod-${Date.now().toString().slice(-4)}`;
+    const newProduct: Product = {
+      id: newId,
+      sku: data.sku || `SKU-GEN-${Date.now().toString().slice(-4)}`,
+      name: data.name || 'New Product Item',
+      category: data.category || 'Electronics',
+      description: data.description || '',
+      stock: Number(data.stock) || 0,
+      reservedStock: Number(data.reservedStock) || 0,
+      damagedStock: Number(data.damagedStock) || 0,
+      reorderLevel: Number(data.reorderLevel) || 15,
+      supplier: data.supplier || 'Apex Supply Network',
+      warehouseLocation: data.warehouseLocation || 'Standard [E-01-1]',
+      warehouseId: data.warehouseId || 'hub-01',
+      imageUrl: data.imageUrl || 'https://images.unsplash.com/photo-1505740420928-5e560c06d30e?auto=format&fit=crop&w=600&q=80',
+      unitPrice: Number(data.unitPrice) || 49.99,
+      demandScore: Number(data.demandScore) || 7.5,
+      createdAt: new Date().toISOString(),
+      updatedAt: new Date().toISOString(),
+    };
+
+    try {
+      const { orderItems, inventoryTransactions, ...productPayload } = newProduct;
+      const created = await prisma.product.create({
+        data: {
+          ...productPayload,
+          createdAt: new Date(),
+          updatedAt: new Date(),
+        } as any,
+      });
+      return created as unknown as Product;
+    } catch {
+      memoryProducts.unshift(newProduct);
+      return newProduct;
+    }
+  }
+
+  /**
+   * Delete a product by ID
+   */
+  public async deleteProduct(id: string): Promise<boolean> {
+    try {
+      await prisma.product.delete({ where: { id } });
+      const idx = memoryProducts.findIndex((p) => p.id === id);
+      if (idx !== -1) memoryProducts.splice(idx, 1);
+      return true;
+    } catch {
+      const idx = memoryProducts.findIndex((p) => p.id === id);
+      if (idx !== -1) {
+        memoryProducts.splice(idx, 1);
+        return true;
+      }
+      return false;
+    }
+  }
+
+  /**
    * Update product attributes, stock levels, or location
    */
   public async updateProduct(id: string, data: UpdateProductDTO): Promise<Product> {
@@ -177,6 +237,25 @@ export class InventoryService {
 
       return memoryProducts[index];
     }
+  }
+
+  /**
+   * Quick update stock
+   */
+  public async updateStock(
+    id: string,
+    quantity: number,
+    mode: 'set' | 'increment' | 'decrement' = 'set'
+  ): Promise<Product> {
+    const product = await this.getProductById(id);
+    if (!product) throw new Error(`Product ${id} not found`);
+
+    let newStock = product.stock;
+    if (mode === 'set') newStock = Math.max(0, quantity);
+    else if (mode === 'increment') newStock = product.stock + quantity;
+    else if (mode === 'decrement') newStock = Math.max(0, product.stock - quantity);
+
+    return this.updateProduct(id, { stock: newStock });
   }
 
   /**

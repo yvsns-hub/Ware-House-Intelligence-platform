@@ -120,6 +120,12 @@ export function Sidebar({
         icon: LayoutDashboard,
       },
       {
+        label: 'Products Catalog',
+        href: '/products',
+        icon: Boxes,
+        badge: 'Light Theme',
+      },
+      {
         label: 'Orders Queue',
         href: '/orders',
         icon: ShoppingCart,
@@ -127,7 +133,7 @@ export function Sidebar({
       {
         label: 'Inventory Stock',
         href: '/inventory',
-        icon: Boxes,
+        icon: Layers,
       },
       {
         label: 'Workforce Roster',
