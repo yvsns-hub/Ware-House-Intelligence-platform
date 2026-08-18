@@ -23,7 +23,7 @@ import { useAuth, UserRole, warehouseFacilities } from '@/context/AuthContext';
 
 function LoginContent() {
   const { role, login, signInWithEmail, signInWithGoogle, isLoading: authLoading } = useAuth();
-  const [selectedRole, setSelectedRole] = useState<UserRole>('PICKER');
+  const [selectedRole, setSelectedRole] = useState<UserRole>('MANAGER');
   const [selectedFacility, setSelectedFacility] = useState<string>('hub-01');
   const [email, setEmail] = useState('a.morgan@warehouseiq.internal');
   const [password, setPassword] = useState('4455');
@@ -182,32 +182,25 @@ function LoginContent() {
         <div className="lg:col-span-6 p-8 sm:p-12 flex flex-col justify-center space-y-6">
           {/* Header */}
           <div className="space-y-1">
-            <h2 className="text-xl sm:text-2xl font-extrabold text-white tracking-tight">
-              Sign In to Your Workspace
-            </h2>
+            <div className="flex items-center gap-2">
+              <h2 className="text-xl sm:text-2xl font-extrabold text-white tracking-tight">
+                Manager Login Portal
+              </h2>
+              <span className="text-[10px] font-bold px-2 py-0.5 rounded-full bg-blue-500/20 text-blue-300 border border-blue-500/30">
+                Primary
+              </span>
+            </div>
             <p className="text-xs text-slate-400">
-              {selectedRole === 'PICKER'
-                ? 'Sign in with your Google account to access your assigned pick waves.'
-                : 'Select your operational role and authenticate with your work credentials.'}
+              {selectedRole === 'MANAGER'
+                ? 'Sign in as Warehouse Operations Manager for your assigned hub.'
+                : selectedRole === 'HEAD'
+                ? 'Sign in as VP of Global Supply Chain & Logistics.'
+                : 'Sign in with your Google account to access your assigned pick waves.'}
             </p>
           </div>
 
           {/* Role Selection Tabs */}
           <div className="grid grid-cols-3 gap-2 p-1.5 rounded-2xl bg-slate-950/90 border border-slate-800" suppressHydrationWarning>
-            <button
-              type="button"
-              onClick={() => setSelectedRole('PICKER')}
-              suppressHydrationWarning
-              className={`py-2 px-2 rounded-xl text-xs font-bold transition-all flex flex-col items-center gap-1 ${
-                selectedRole === 'PICKER'
-                  ? 'bg-blue-600 text-white shadow-md'
-                  : 'text-slate-400 hover:text-white hover:bg-slate-900'
-              }`}
-            >
-              <Package className="h-4 w-4" />
-              <span>Picker</span>
-            </button>
-
             <button
               type="button"
               onClick={() => setSelectedRole('MANAGER')}
@@ -219,7 +212,7 @@ function LoginContent() {
               }`}
             >
               <Building2 className="h-4 w-4" />
-              <span>Manager</span>
+              <span>Hub Manager</span>
             </button>
 
             <button
@@ -235,26 +228,51 @@ function LoginContent() {
               <Layers className="h-4 w-4" />
               <span>VP Head</span>
             </button>
+
+            <button
+              type="button"
+              onClick={() => setSelectedRole('PICKER')}
+              suppressHydrationWarning
+              className={`py-2 px-2 rounded-xl text-xs font-bold transition-all flex flex-col items-center gap-1 ${
+                selectedRole === 'PICKER'
+                  ? 'bg-blue-600 text-white shadow-md'
+                  : 'text-slate-400 hover:text-white hover:bg-slate-900'
+              }`}
+            >
+              <Package className="h-4 w-4" />
+              <span>Picker</span>
+            </button>
           </div>
 
-          {/* If Manager role is chosen, show facility dropdown/selector */}
+          {/* If Manager role is chosen, show visual facility switcher chips */}
           {selectedRole === 'MANAGER' && (
-            <div className="space-y-1.5" suppressHydrationWarning>
+            <div className="space-y-2" suppressHydrationWarning>
               <label className="text-[11px] font-bold uppercase tracking-wider text-slate-400 block">
-                Assigned Warehouse Facility
+                Select Warehouse Facility Hub
               </label>
-              <select
-                value={selectedFacility}
-                onChange={(e) => setSelectedFacility(e.target.value)}
-                suppressHydrationWarning
-                className="w-full h-10 px-3 bg-slate-950 border border-slate-800 focus:border-blue-500 text-xs text-slate-200 rounded-xl outline-none transition-all"
-              >
-                {warehouseFacilities.map((fac) => (
-                  <option key={fac.id} value={fac.id}>
-                    {fac.name} — Manager: {fac.managerName} ({fac.region})
-                  </option>
-                ))}
-              </select>
+              <div className="grid grid-cols-2 gap-2">
+                {warehouseFacilities.map((fac) => {
+                  const isSelected = selectedFacility === fac.id;
+                  return (
+                    <button
+                      key={fac.id}
+                      type="button"
+                      onClick={() => setSelectedFacility(fac.id)}
+                      className={`p-2 rounded-xl border text-left transition-all ${
+                        isSelected
+                          ? 'border-blue-500 bg-blue-950/40 ring-1 ring-blue-500 text-white'
+                          : 'border-slate-800 bg-slate-950/60 text-slate-400 hover:text-slate-200 hover:border-slate-700'
+                      }`}
+                    >
+                      <div className="text-[11px] font-bold truncate text-white">{fac.name.split('(')[0].trim()}</div>
+                      <div className="text-[10px] text-slate-400 flex items-center justify-between">
+                        <span>{fac.region.split(',')[1]?.trim() || fac.region}</span>
+                        <span className="font-mono text-blue-400 font-semibold">{fac.managerInitials}</span>
+                      </div>
+                    </button>
+                  );
+                })}
+              </div>
             </div>
           )}
 
@@ -310,7 +328,6 @@ function LoginContent() {
                   <Loader2 className="h-4 w-4 animate-spin text-blue-400" />
                 ) : (
                   <>
-                    {/* Google SVG Icon */}
                     <svg className="h-4 w-4" viewBox="0 0 24 24">
                       <path
                         fill="#4285F4"
@@ -440,6 +457,23 @@ function LoginContent() {
                   </>
                 )}
               </button>
+
+              {/* 1-Click Instant Demo Login Button for Manager */}
+              {selectedRole === 'MANAGER' && (
+                <button
+                  type="button"
+                  onClick={() => login('MANAGER', selectedFacility)}
+                  suppressHydrationWarning
+                  className="w-full py-2.5 px-3 rounded-xl bg-blue-950/40 hover:bg-blue-900/60 border border-blue-500/30 text-blue-300 text-[11px] font-bold transition-all flex items-center justify-center gap-2 hover:scale-[1.01] active:scale-95"
+                >
+                  <Sparkles className="h-3.5 w-3.5 text-blue-400" />
+                  <span>
+                    1-Click Instant Demo Login (
+                    {warehouseFacilities.find((f) => f.id === selectedFacility)?.managerName || 'Alex Morgan'}
+                    )
+                  </span>
+                </button>
+              )}
             </form>
           )}
         </div>
