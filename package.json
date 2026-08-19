@@ -10,9 +10,9 @@
     "prisma:generate": "prisma generate",
     "prisma:push": "prisma db push",
     "prisma:seed": "tsx prisma/seed.ts",
-    "test": "tsx tests/run-tests.ts"
+    "test": "tsx tests/run-tests.ts",
+    "integrate:data": "tsx scripts/integrate-real-data.ts"
   },
-
   "prisma": {
     "seed": "tsx prisma/seed.ts"
   },
@@ -41,6 +41,7 @@
     "prisma": "^6.4.1",
     "tailwindcss": "^3.4.17",
     "tsx": "^4.19.2",
-    "typescript": "^5.7.3"
+    "typescript": "^5.7.3",
+    "xlsx": "^0.18.5"
   }
 }

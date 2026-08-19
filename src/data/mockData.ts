@@ -1,3 +1,16 @@
+/**
+ * WarehouseIQ 2.0 — Real Dataset Integration
+ * =============================================
+ * AUTO-GENERATED from UCI Online Retail II Dataset
+ * Source: online+retail+ii/online_retail_II.xlsx
+ * Generated: 2026-08-19T06:13:07.505Z
+ *
+ * Data sourced from:
+ * Chen, D., Sain, S.L., and Guo, K. (2012), Data mining for the online retail industry:
+ * A case study of RFM model-based customer segmentation using data mining.
+ * UCI Machine Learning Repository.
+ */
+
 import {
   Product,
   Order,
@@ -15,522 +28,5168 @@ import {
   InventoryTransactionType,
 } from '../types';
 
-// 40 Warehouse Locations across 5 distinct zones
+// 40 Warehouse Locations across 5 distinct zones (unchanged)
 export const mockWarehouseLocations: WarehouseLocation[] = [
-  // Fast Moving Zone (Aisle A)
-  { id: 'loc-a01-1', aisle: 'A', rack: '01', shelf: '1', zone: 'Fast Moving' },
-  { id: 'loc-a01-2', aisle: 'A', rack: '01', shelf: '2', zone: 'Fast Moving' },
-  { id: 'loc-a02-1', aisle: 'A', rack: '02', shelf: '1', zone: 'Fast Moving' },
-  { id: 'loc-a02-2', aisle: 'A', rack: '02', shelf: '2', zone: 'Fast Moving' },
-  { id: 'loc-a03-1', aisle: 'A', rack: '03', shelf: '1', zone: 'Fast Moving' },
-  { id: 'loc-a03-2', aisle: 'A', rack: '03', shelf: '2', zone: 'Fast Moving' },
-  { id: 'loc-a04-1', aisle: 'A', rack: '04', shelf: '1', zone: 'Fast Moving' },
-  { id: 'loc-a04-2', aisle: 'A', rack: '04', shelf: '2', zone: 'Fast Moving' },
-
-  // High Value Zone (Aisle B - Secure Cage)
-  { id: 'loc-b01-1', aisle: 'B', rack: '01', shelf: '1', zone: 'High Value' },
-  { id: 'loc-b01-2', aisle: 'B', rack: '01', shelf: '2', zone: 'High Value' },
-  { id: 'loc-b02-1', aisle: 'B', rack: '02', shelf: '1', zone: 'High Value' },
-  { id: 'loc-b02-2', aisle: 'B', rack: '02', shelf: '2', zone: 'High Value' },
-  { id: 'loc-b03-1', aisle: 'B', rack: '03', shelf: '1', zone: 'High Value' },
-  { id: 'loc-b03-2', aisle: 'B', rack: '03', shelf: '2', zone: 'High Value' },
-  { id: 'loc-b04-1', aisle: 'B', rack: '04', shelf: '1', zone: 'High Value' },
-  { id: 'loc-b04-2', aisle: 'B', rack: '04', shelf: '2', zone: 'High Value' },
-
-  // Cold Storage Zone (Aisle C - Temperature Controlled)
-  { id: 'loc-c01-1', aisle: 'C', rack: '01', shelf: '1', zone: 'Cold Storage' },
-  { id: 'loc-c01-2', aisle: 'C', rack: '01', shelf: '2', zone: 'Cold Storage' },
-  { id: 'loc-c02-1', aisle: 'C', rack: '02', shelf: '1', zone: 'Cold Storage' },
-  { id: 'loc-c02-2', aisle: 'C', rack: '02', shelf: '2', zone: 'Cold Storage' },
-  { id: 'loc-c03-1', aisle: 'C', rack: '03', shelf: '1', zone: 'Cold Storage' },
-  { id: 'loc-c03-2', aisle: 'C', rack: '03', shelf: '2', zone: 'Cold Storage' },
-  { id: 'loc-c04-1', aisle: 'C', rack: '04', shelf: '1', zone: 'Cold Storage' },
-  { id: 'loc-c04-2', aisle: 'C', rack: '04', shelf: '2', zone: 'Cold Storage' },
-
-  // Bulk Cargo Zone (Aisle D - Pallet Racking)
-  { id: 'loc-d01-1', aisle: 'D', rack: '01', shelf: '1', zone: 'Bulk Cargo' },
-  { id: 'loc-d01-2', aisle: 'D', rack: '01', shelf: '2', zone: 'Bulk Cargo' },
-  { id: 'loc-d02-1', aisle: 'D', rack: '02', shelf: '1', zone: 'Bulk Cargo' },
-  { id: 'loc-d02-2', aisle: 'D', rack: '02', shelf: '2', zone: 'Bulk Cargo' },
-  { id: 'loc-d03-1', aisle: 'D', rack: '03', shelf: '1', zone: 'Bulk Cargo' },
-  { id: 'loc-d03-2', aisle: 'D', rack: '03', shelf: '2', zone: 'Bulk Cargo' },
-  { id: 'loc-d04-1', aisle: 'D', rack: '04', shelf: '1', zone: 'Bulk Cargo' },
-  { id: 'loc-d04-2', aisle: 'D', rack: '04', shelf: '2', zone: 'Bulk Cargo' },
-
-  // Standard Zone (Aisle E)
-  { id: 'loc-e01-1', aisle: 'E', rack: '01', shelf: '1', zone: 'Standard' },
-  { id: 'loc-e01-2', aisle: 'E', rack: '01', shelf: '2', zone: 'Standard' },
-  { id: 'loc-e02-1', aisle: 'E', rack: '02', shelf: '1', zone: 'Standard' },
-  { id: 'loc-e02-2', aisle: 'E', rack: '02', shelf: '2', zone: 'Standard' },
-  { id: 'loc-e03-1', aisle: 'E', rack: '03', shelf: '1', zone: 'Standard' },
-  { id: 'loc-e03-2', aisle: 'E', rack: '03', shelf: '2', zone: 'Standard' },
-  { id: 'loc-e04-1', aisle: 'E', rack: '04', shelf: '1', zone: 'Standard' },
-  { id: 'loc-e04-2', aisle: 'E', rack: '04', shelf: '2', zone: 'Standard' },
+  {
+    "id": "loc-a01-1",
+    "aisle": "A",
+    "rack": "01",
+    "shelf": "1",
+    "zone": "Fast Moving"
+  },
+  {
+    "id": "loc-a01-2",
+    "aisle": "A",
+    "rack": "01",
+    "shelf": "2",
+    "zone": "Fast Moving"
+  },
+  {
+    "id": "loc-a02-1",
+    "aisle": "A",
+    "rack": "02",
+    "shelf": "1",
+    "zone": "Fast Moving"
+  },
+  {
+    "id": "loc-a02-2",
+    "aisle": "A",
+    "rack": "02",
+    "shelf": "2",
+    "zone": "Fast Moving"
+  },
+  {
+    "id": "loc-a03-1",
+    "aisle": "A",
+    "rack": "03",
+    "shelf": "1",
+    "zone": "Fast Moving"
+  },
+  {
+    "id": "loc-a03-2",
+    "aisle": "A",
+    "rack": "03",
+    "shelf": "2",
+    "zone": "Fast Moving"
+  },
+  {
+    "id": "loc-a04-1",
+    "aisle": "A",
+    "rack": "04",
+    "shelf": "1",
+    "zone": "Fast Moving"
+  },
+  {
+    "id": "loc-a04-2",
+    "aisle": "A",
+    "rack": "04",
+    "shelf": "2",
+    "zone": "Fast Moving"
+  },
+  {
+    "id": "loc-b01-1",
+    "aisle": "B",
+    "rack": "01",
+    "shelf": "1",
+    "zone": "High Value"
+  },
+  {
+    "id": "loc-b01-2",
+    "aisle": "B",
+    "rack": "01",
+    "shelf": "2",
+    "zone": "High Value"
+  },
+  {
+    "id": "loc-b02-1",
+    "aisle": "B",
+    "rack": "02",
+    "shelf": "1",
+    "zone": "High Value"
+  },
+  {
+    "id": "loc-b02-2",
+    "aisle": "B",
+    "rack": "02",
+    "shelf": "2",
+    "zone": "High Value"
+  },
+  {
+    "id": "loc-b03-1",
+    "aisle": "B",
+    "rack": "03",
+    "shelf": "1",
+    "zone": "High Value"
+  },
+  {
+    "id": "loc-b03-2",
+    "aisle": "B",
+    "rack": "03",
+    "shelf": "2",
+    "zone": "High Value"
+  },
+  {
+    "id": "loc-b04-1",
+    "aisle": "B",
+    "rack": "04",
+    "shelf": "1",
+    "zone": "High Value"
+  },
+  {
+    "id": "loc-b04-2",
+    "aisle": "B",
+    "rack": "04",
+    "shelf": "2",
+    "zone": "High Value"
+  },
+  {
+    "id": "loc-c01-1",
+    "aisle": "C",
+    "rack": "01",
+    "shelf": "1",
+    "zone": "Cold Storage"
+  },
+  {
+    "id": "loc-c01-2",
+    "aisle": "C",
+    "rack": "01",
+    "shelf": "2",
+    "zone": "Cold Storage"
+  },
+  {
+    "id": "loc-c02-1",
+    "aisle": "C",
+    "rack": "02",
+    "shelf": "1",
+    "zone": "Cold Storage"
+  },
+  {
+    "id": "loc-c02-2",
+    "aisle": "C",
+    "rack": "02",
+    "shelf": "2",
+    "zone": "Cold Storage"
+  },
+  {
+    "id": "loc-c03-1",
+    "aisle": "C",
+    "rack": "03",
+    "shelf": "1",
+    "zone": "Cold Storage"
+  },
+  {
+    "id": "loc-c03-2",
+    "aisle": "C",
+    "rack": "03",
+    "shelf": "2",
+    "zone": "Cold Storage"
+  },
+  {
+    "id": "loc-c04-1",
+    "aisle": "C",
+    "rack": "04",
+    "shelf": "1",
+    "zone": "Cold Storage"
+  },
+  {
+    "id": "loc-c04-2",
+    "aisle": "C",
+    "rack": "04",
+    "shelf": "2",
+    "zone": "Cold Storage"
+  },
+  {
+    "id": "loc-d01-1",
+    "aisle": "D",
+    "rack": "01",
+    "shelf": "1",
+    "zone": "Bulk Cargo"
+  },
+  {
+    "id": "loc-d01-2",
+    "aisle": "D",
+    "rack": "01",
+    "shelf": "2",
+    "zone": "Bulk Cargo"
+  },
+  {
+    "id": "loc-d02-1",
+    "aisle": "D",
+    "rack": "02",
+    "shelf": "1",
+    "zone": "Bulk Cargo"
+  },
+  {
+    "id": "loc-d02-2",
+    "aisle": "D",
+    "rack": "02",
+    "shelf": "2",
+    "zone": "Bulk Cargo"
+  },
+  {
+    "id": "loc-d03-1",
+    "aisle": "D",
+    "rack": "03",
+    "shelf": "1",
+    "zone": "Bulk Cargo"
+  },
+  {
+    "id": "loc-d03-2",
+    "aisle": "D",
+    "rack": "03",
+    "shelf": "2",
+    "zone": "Bulk Cargo"
+  },
+  {
+    "id": "loc-d04-1",
+    "aisle": "D",
+    "rack": "04",
+    "shelf": "1",
+    "zone": "Bulk Cargo"
+  },
+  {
+    "id": "loc-d04-2",
+    "aisle": "D",
+    "rack": "04",
+    "shelf": "2",
+    "zone": "Bulk Cargo"
+  },
+  {
+    "id": "loc-e01-1",
+    "aisle": "E",
+    "rack": "01",
+    "shelf": "1",
+    "zone": "Standard"
+  },
+  {
+    "id": "loc-e01-2",
+    "aisle": "E",
+    "rack": "01",
+    "shelf": "2",
+    "zone": "Standard"
+  },
+  {
+    "id": "loc-e02-1",
+    "aisle": "E",
+    "rack": "02",
+    "shelf": "1",
+    "zone": "Standard"
+  },
+  {
+    "id": "loc-e02-2",
+    "aisle": "E",
+    "rack": "02",
+    "shelf": "2",
+    "zone": "Standard"
+  },
+  {
+    "id": "loc-e03-1",
+    "aisle": "E",
+    "rack": "03",
+    "shelf": "1",
+    "zone": "Standard"
+  },
+  {
+    "id": "loc-e03-2",
+    "aisle": "E",
+    "rack": "03",
+    "shelf": "2",
+    "zone": "Standard"
+  },
+  {
+    "id": "loc-e04-1",
+    "aisle": "E",
+    "rack": "04",
+    "shelf": "1",
+    "zone": "Standard"
+  },
+  {
+    "id": "loc-e04-2",
+    "aisle": "E",
+    "rack": "04",
+    "shelf": "2",
+    "zone": "Standard"
+  }
 ];
 
-// 20 Warehouse Employees
+// 20 Warehouse Employees (unchanged)
 export const mockEmployees: WarehouseEmployee[] = [
-  // Supervisors
-  { id: 'emp-01', name: 'Marcus Vance', role: 'Supervisor', efficiencyScore: 97.5, activeOrders: 0, shift: 'Morning' },
-  { id: 'emp-02', name: 'Elena Rostova', role: 'Supervisor', efficiencyScore: 96.0, activeOrders: 0, shift: 'Evening' },
-  { id: 'emp-03', name: 'David Chen', role: 'Supervisor', efficiencyScore: 94.8, activeOrders: 0, shift: 'Night' },
-
-  // Pickers - Morning
-  { id: 'emp-04', name: 'Sarah Jenkins', role: 'Picker', efficiencyScore: 92.4, activeOrders: 4, shift: 'Morning' },
-  { id: 'emp-05', name: 'Carlos Mendez', role: 'Picker', efficiencyScore: 88.6, activeOrders: 5, shift: 'Morning' },
-  { id: 'emp-06', name: 'Aisha Patel', role: 'Picker', efficiencyScore: 95.1, activeOrders: 3, shift: 'Morning' },
-  { id: 'emp-07', name: 'Liam O’Connor', role: 'Picker', efficiencyScore: 84.2, activeOrders: 6, shift: 'Morning' },
-
-  // Pickers - Evening
-  { id: 'emp-08', name: 'Devon Brooks', role: 'Picker', efficiencyScore: 91.0, activeOrders: 4, shift: 'Evening' },
-  { id: 'emp-09', name: 'Mei-Ling Zhou', role: 'Picker', efficiencyScore: 93.8, activeOrders: 3, shift: 'Evening' },
-  { id: 'emp-10', name: 'Tariq Al-Mansoor', role: 'Picker', efficiencyScore: 86.5, activeOrders: 5, shift: 'Evening' },
-  { id: 'emp-11', name: 'Hanna Lindqvist', role: 'Picker', efficiencyScore: 89.2, activeOrders: 4, shift: 'Evening' },
-
-  // Pickers - Night
-  { id: 'emp-12', name: 'Jackson Reed', role: 'Picker', efficiencyScore: 87.0, activeOrders: 2, shift: 'Night' },
-  { id: 'emp-13', name: 'Fatima Zahra', role: 'Picker', efficiencyScore: 90.5, activeOrders: 3, shift: 'Night' },
-
-  // Packers - Morning
-  { id: 'emp-14', name: 'James Wilson', role: 'Packer', efficiencyScore: 94.0, activeOrders: 5, shift: 'Morning' },
-  { id: 'emp-15', name: 'Chloe Dubois', role: 'Packer', efficiencyScore: 91.5, activeOrders: 4, shift: 'Morning' },
-  { id: 'emp-16', name: 'Rajesh Kumar', role: 'Packer', efficiencyScore: 96.2, activeOrders: 6, shift: 'Morning' },
-
-  // Packers - Evening
-  { id: 'emp-17', name: 'Sofia Rodriguez', role: 'Packer', efficiencyScore: 89.9, activeOrders: 4, shift: 'Evening' },
-  { id: 'emp-18', name: 'Lucas Meyer', role: 'Packer', efficiencyScore: 92.7, activeOrders: 5, shift: 'Evening' },
-
-  // Packers - Night
-  { id: 'emp-19', name: 'Kavita Sharma', role: 'Packer', efficiencyScore: 88.0, activeOrders: 2, shift: 'Night' },
-  { id: 'emp-20', name: 'Dmitri Volkov', role: 'Packer', efficiencyScore: 93.3, activeOrders: 3, shift: 'Night' },
+  {
+    "id": "emp-01",
+    "name": "Marcus Vance",
+    "role": "Supervisor",
+    "efficiencyScore": 97.5,
+    "activeOrders": 0,
+    "shift": "Morning"
+  },
+  {
+    "id": "emp-02",
+    "name": "Elena Rostova",
+    "role": "Supervisor",
+    "efficiencyScore": 96,
+    "activeOrders": 0,
+    "shift": "Evening"
+  },
+  {
+    "id": "emp-03",
+    "name": "David Chen",
+    "role": "Supervisor",
+    "efficiencyScore": 94.8,
+    "activeOrders": 0,
+    "shift": "Night"
+  },
+  {
+    "id": "emp-04",
+    "name": "Sarah Jenkins",
+    "role": "Picker",
+    "efficiencyScore": 92.4,
+    "activeOrders": 4,
+    "shift": "Morning"
+  },
+  {
+    "id": "emp-05",
+    "name": "Carlos Mendez",
+    "role": "Picker",
+    "efficiencyScore": 88.6,
+    "activeOrders": 5,
+    "shift": "Morning"
+  },
+  {
+    "id": "emp-06",
+    "name": "Aisha Patel",
+    "role": "Picker",
+    "efficiencyScore": 95.1,
+    "activeOrders": 3,
+    "shift": "Morning"
+  },
+  {
+    "id": "emp-07",
+    "name": "Liam OConnor",
+    "role": "Picker",
+    "efficiencyScore": 84.2,
+    "activeOrders": 6,
+    "shift": "Morning"
+  },
+  {
+    "id": "emp-08",
+    "name": "Devon Brooks",
+    "role": "Picker",
+    "efficiencyScore": 91,
+    "activeOrders": 4,
+    "shift": "Evening"
+  },
+  {
+    "id": "emp-09",
+    "name": "Mei-Ling Zhou",
+    "role": "Picker",
+    "efficiencyScore": 93.8,
+    "activeOrders": 3,
+    "shift": "Evening"
+  },
+  {
+    "id": "emp-10",
+    "name": "Tariq Al-Mansoor",
+    "role": "Picker",
+    "efficiencyScore": 86.5,
+    "activeOrders": 5,
+    "shift": "Evening"
+  },
+  {
+    "id": "emp-11",
+    "name": "Hanna Lindqvist",
+    "role": "Picker",
+    "efficiencyScore": 89.2,
+    "activeOrders": 4,
+    "shift": "Evening"
+  },
+  {
+    "id": "emp-12",
+    "name": "Jackson Reed",
+    "role": "Picker",
+    "efficiencyScore": 87,
+    "activeOrders": 2,
+    "shift": "Night"
+  },
+  {
+    "id": "emp-13",
+    "name": "Fatima Zahra",
+    "role": "Picker",
+    "efficiencyScore": 90.5,
+    "activeOrders": 3,
+    "shift": "Night"
+  },
+  {
+    "id": "emp-14",
+    "name": "James Wilson",
+    "role": "Packer",
+    "efficiencyScore": 94,
+    "activeOrders": 5,
+    "shift": "Morning"
+  },
+  {
+    "id": "emp-15",
+    "name": "Chloe Dubois",
+    "role": "Packer",
+    "efficiencyScore": 91.5,
+    "activeOrders": 4,
+    "shift": "Morning"
+  },
+  {
+    "id": "emp-16",
+    "name": "Rajesh Kumar",
+    "role": "Packer",
+    "efficiencyScore": 96.2,
+    "activeOrders": 6,
+    "shift": "Morning"
+  },
+  {
+    "id": "emp-17",
+    "name": "Sofia Rodriguez",
+    "role": "Packer",
+    "efficiencyScore": 89.9,
+    "activeOrders": 4,
+    "shift": "Evening"
+  },
+  {
+    "id": "emp-18",
+    "name": "Lucas Meyer",
+    "role": "Packer",
+    "efficiencyScore": 92.7,
+    "activeOrders": 5,
+    "shift": "Evening"
+  },
+  {
+    "id": "emp-19",
+    "name": "Kavita Sharma",
+    "role": "Packer",
+    "efficiencyScore": 88,
+    "activeOrders": 2,
+    "shift": "Night"
+  },
+  {
+    "id": "emp-20",
+    "name": "Dmitri Volkov",
+    "role": "Packer",
+    "efficiencyScore": 93.3,
+    "activeOrders": 3,
+    "shift": "Night"
+  }
 ];
 
-// Product Template Items for 100 Products across 6 categories
-const rawProductTemplates: Array<{
-  name: string;
-  category: ProductCategory;
-  description: string;
-  stock: number;
-  reservedStock: number;
-  damagedStock: number;
-  reorderLevel: number;
-  supplier: string;
-  unitPrice: number;
-  demandScore: number;
-  preferredZone: WarehouseZone;
-}> = [
-  // 1-20 Electronics (High Value & Fast Moving)
-  { name: 'Quantum Pro 4K Monitor 27"', category: 'Electronics', description: 'UHD 144Hz IPS display with HDR600', stock: 45, reservedStock: 12, damagedStock: 0, reorderLevel: 20, supplier: 'Apex Display Corp', unitPrice: 429.99, demandScore: 8.8, preferredZone: 'High Value' },
-  { name: 'AeroSound Noise-Cancelling Headphones', category: 'Electronics', description: 'Wireless ANC headphones with 40hr battery', stock: 120, reservedStock: 35, damagedStock: 2, reorderLevel: 30, supplier: 'SonicWave Labs', unitPrice: 249.50, demandScore: 9.2, preferredZone: 'High Value' },
-  { name: 'Vortex Mechanical Gaming Keyboard RGB', category: 'Electronics', description: 'Hot-swappable linear optical switches', stock: 85, reservedStock: 18, damagedStock: 1, reorderLevel: 25, supplier: 'PeriphX Inc', unitPrice: 129.99, demandScore: 7.9, preferredZone: 'Fast Moving' },
-  { name: 'HyperDrive NVMe Gen4 SSD 2TB', category: 'Electronics', description: '7400MB/s Read PCIe 4.0 storage', stock: 8, reservedStock: 8, damagedStock: 0, reorderLevel: 25, supplier: 'SiliconEdge Ltd', unitPrice: 169.00, demandScore: 9.5, preferredZone: 'High Value' }, // LOW STOCK
-  { name: 'UltraStream 4K AI Webcam', category: 'Electronics', description: 'Dual mic auto-framing 60fps sensor', stock: 0, reservedStock: 0, damagedStock: 4, reorderLevel: 15, supplier: 'Apex Display Corp', unitPrice: 99.00, demandScore: 8.1, preferredZone: 'High Value' }, // OUT OF STOCK + DAMAGED
-  { name: 'PowerHub 140W GaN Fast Charger', category: 'Electronics', description: '3x USB-C PD 3.1 multi-device brick', stock: 210, reservedStock: 40, damagedStock: 3, reorderLevel: 50, supplier: 'Voltaic Systems', unitPrice: 69.99, demandScore: 8.7, preferredZone: 'Fast Moving' },
-  { name: 'OmniSmart Mesh WiFi 7 Router', category: 'Electronics', description: 'Tri-band up to 10 Gbps 6000 sq ft coverage', stock: 32, reservedStock: 10, damagedStock: 0, reorderLevel: 15, supplier: 'NetCore Networks', unitPrice: 299.99, demandScore: 7.4, preferredZone: 'High Value' },
-  { name: 'EchoGrip Wireless Ergonomic Mouse', category: 'Electronics', description: 'Vertical 57-degree ergonomic bluetooth mouse', stock: 95, reservedStock: 22, damagedStock: 0, reorderLevel: 30, supplier: 'PeriphX Inc', unitPrice: 79.95, demandScore: 6.8, preferredZone: 'Fast Moving' },
-  { name: 'TitanShield Rugged Power Bank 30,000mAh', category: 'Electronics', description: 'IP67 waterproof solar-assisted battery', stock: 14, reservedStock: 10, damagedStock: 2, reorderLevel: 30, supplier: 'Voltaic Systems', unitPrice: 89.50, demandScore: 8.3, preferredZone: 'Fast Moving' }, // LOW STOCK
-  { name: 'Lumina Smart Ambient Light Bar 2-Pack', category: 'Electronics', description: 'Screen syncing RGB lighting bars', stock: 65, reservedStock: 14, damagedStock: 0, reorderLevel: 20, supplier: 'Lumina Tech', unitPrice: 119.00, demandScore: 7.2, preferredZone: 'Standard' },
-  { name: 'ProCapture Drone 4K Gimbal', category: 'Electronics', description: 'Foldable obstacle avoidance quadcopter', stock: 18, reservedStock: 5, damagedStock: 1, reorderLevel: 10, supplier: 'SkyHigh Aero', unitPrice: 799.00, demandScore: 8.9, preferredZone: 'High Value' },
-  { name: 'SmartDock 12-in-1 Thunderbolt 4 Dock', category: 'Electronics', description: 'Dual 4K display 96W host charging station', stock: 54, reservedStock: 16, damagedStock: 0, reorderLevel: 15, supplier: 'SiliconEdge Ltd', unitPrice: 219.00, demandScore: 7.6, preferredZone: 'High Value' },
-  { name: 'StudioLink USB-C Condenser Mic', category: 'Electronics', description: 'Cardioid polar pattern 24bit/96kHz audio', stock: 40, reservedStock: 12, damagedStock: 0, reorderLevel: 15, supplier: 'SonicWave Labs', unitPrice: 139.99, demandScore: 6.5, preferredZone: 'Fast Moving' },
-  { name: 'SyncTab 11" Android Pro Tablet', category: 'Electronics', description: '120Hz OLED 256GB with stylus support', stock: 3, reservedStock: 3, damagedStock: 2, reorderLevel: 20, supplier: 'Apex Display Corp', unitPrice: 489.00, demandScore: 8.5, preferredZone: 'High Value' }, // LOW STOCK + DAMAGED
-  { name: 'PulseFit Smart Fitness Tracker Gen3', category: 'Electronics', description: 'Continuous SpO2 ECG heart rate band', stock: 145, reservedStock: 30, damagedStock: 0, reorderLevel: 40, supplier: 'PulseTech Wearables', unitPrice: 99.95, demandScore: 9.1, preferredZone: 'Fast Moving' },
-  { name: 'ApexVR Headset Spatial Audio 512GB', category: 'Electronics', description: 'Standalone mixed reality headset', stock: 22, reservedStock: 8, damagedStock: 0, reorderLevel: 10, supplier: 'Apex Display Corp', unitPrice: 649.99, demandScore: 8.4, preferredZone: 'High Value' },
-  { name: 'MagSafe Multi-Stand Qi2 15W', category: 'Electronics', description: '3-in-1 folding magnetic charging stand', stock: 180, reservedStock: 45, damagedStock: 5, reorderLevel: 40, supplier: 'Voltaic Systems', unitPrice: 59.99, demandScore: 8.0, preferredZone: 'Fast Moving' },
-  { name: 'SoundBeam Dolby Atmos Soundbar', category: 'Electronics', description: 'Compact soundbar with wireless subwoofer', stock: 28, reservedStock: 6, damagedStock: 0, reorderLevel: 10, supplier: 'SonicWave Labs', unitPrice: 349.00, demandScore: 7.1, preferredZone: 'Bulk Cargo' },
-  { name: 'MicroPoint Laser Barcode Scanner', category: 'Electronics', description: 'Industrial wireless 2D QR reader', stock: 62, reservedStock: 10, damagedStock: 0, reorderLevel: 15, supplier: 'PeriphX Inc', unitPrice: 159.00, demandScore: 6.2, preferredZone: 'Standard' },
-  { name: 'OptiClean Ultrasonic Record Cleaner', category: 'Electronics', description: 'Automated vinyl groove cleaning machine', stock: 15, reservedStock: 2, damagedStock: 0, reorderLevel: 8, supplier: 'SonicWave Labs', unitPrice: 289.00, demandScore: 5.4, preferredZone: 'High Value' },
+// ─── 100 REAL Products from UCI Online Retail II Dataset ─────────────────────
+export const mockProducts: Product[] = [
+  {
+    "id": "prod-real-001",
+    "sku": "85123A",
+    "name": "White Hanging Heart T-Light Holder",
+    "category": "Furniture",
+    "description": "White Hanging Heart T-Light Holder — Sourced from UCI Online Retail dataset (141 real orders)",
+    "stock": 128,
+    "reservedStock": 16,
+    "damagedStock": 6,
+    "reorderLevel": 84,
+    "supplier": "Pacific Trade Corp",
+    "warehouseLocation": "loc-a01-1",
+    "warehouseId": "hub-01",
+    "unitPrice": 2.95,
+    "demandScore": 10,
+    "createdAt": "2026-04-11T06:13:07.498Z",
+    "updatedAt": "2026-07-31T06:13:07.498Z"
+  },
+  {
+    "id": "prod-real-002",
+    "sku": "22086",
+    "name": "Paper Chain Kit 50'S Christmas",
+    "category": "Electronics",
+    "description": "Paper Chain Kit 50'S Christmas — Sourced from UCI Online Retail dataset (108 real orders)",
+    "stock": 153,
+    "reservedStock": 36,
+    "damagedStock": 2,
+    "reorderLevel": 66,
+    "supplier": "Summit Supplies PLC",
+    "warehouseLocation": "loc-a01-2",
+    "warehouseId": "hub-02",
+    "unitPrice": 2.95,
+    "demandScore": 7.7,
+    "createdAt": "2026-04-12T06:13:07.498Z",
+    "updatedAt": "2026-08-10T06:13:07.498Z"
+  },
+  {
+    "id": "prod-real-003",
+    "sku": "22111",
+    "name": "Scottie Dog Hot Water Bottle",
+    "category": "Electronics",
+    "description": "Scottie Dog Hot Water Bottle — Sourced from UCI Online Retail dataset (91 real orders)",
+    "stock": 28,
+    "reservedStock": 3,
+    "damagedStock": 1,
+    "reorderLevel": 21,
+    "supplier": "Global Wholesale UK",
+    "warehouseLocation": "loc-a02-1",
+    "warehouseId": "hub-03",
+    "unitPrice": 4.25,
+    "demandScore": 6.5,
+    "createdAt": "2026-04-07T06:13:07.498Z",
+    "updatedAt": "2026-07-28T06:13:07.498Z"
+  },
+  {
+    "id": "prod-real-004",
+    "sku": "21232",
+    "name": "Strawberry Ceramic Trinket Box",
+    "category": "Furniture",
+    "description": "Strawberry Ceramic Trinket Box — Sourced from UCI Online Retail dataset (87 real orders)",
+    "stock": 106,
+    "reservedStock": 18,
+    "damagedStock": 0,
+    "reorderLevel": 54,
+    "supplier": "Nordic Supply Co",
+    "warehouseLocation": "loc-a02-2",
+    "warehouseId": "hub-04",
+    "unitPrice": 1.25,
+    "demandScore": 6.2,
+    "createdAt": "2025-11-21T06:13:07.498Z",
+    "updatedAt": "2026-08-10T06:13:07.498Z"
+  },
+  {
+    "id": "prod-real-005",
+    "sku": "22139",
+    "name": "Retro Spot Tea Set Ceramic 11 Pc",
+    "category": "Groceries",
+    "description": "Retro Spot Tea Set Ceramic 11 Pc — Sourced from UCI Online Retail dataset (85 real orders)",
+    "stock": 36,
+    "reservedStock": 4,
+    "damagedStock": 1,
+    "reorderLevel": 15,
+    "supplier": "Atlantic Trading Co",
+    "warehouseLocation": "loc-a03-1",
+    "warehouseId": "hub-01",
+    "unitPrice": 4.95,
+    "demandScore": 6,
+    "createdAt": "2025-10-07T06:13:07.498Z",
+    "updatedAt": "2026-08-03T06:13:07.498Z"
+  },
+  {
+    "id": "prod-real-006",
+    "sku": "22114",
+    "name": "Hot Water Bottle Tea And Sympathy",
+    "category": "Groceries",
+    "description": "Hot Water Bottle Tea And Sympathy — Sourced from UCI Online Retail dataset (83 real orders)",
+    "stock": 35,
+    "reservedStock": 0,
+    "damagedStock": 1,
+    "reorderLevel": 24,
+    "supplier": "Apex Distribution Ltd",
+    "warehouseLocation": "loc-a03-2",
+    "warehouseId": "hub-02",
+    "unitPrice": 3.95,
+    "demandScore": 5.9,
+    "createdAt": "2026-07-13T06:13:07.498Z",
+    "updatedAt": "2026-07-31T06:13:07.498Z"
+  },
+  {
+    "id": "prod-real-007",
+    "sku": "22138",
+    "name": "Baking Set 9 Piece Retrospot",
+    "category": "Electronics",
+    "description": "Baking Set 9 Piece Retrospot — Sourced from UCI Online Retail dataset (81 real orders)",
+    "stock": 22,
+    "reservedStock": 1,
+    "damagedStock": 0,
+    "reorderLevel": 15,
+    "supplier": "Continental Goods Ltd",
+    "warehouseLocation": "loc-a04-1",
+    "warehouseId": "hub-03",
+    "unitPrice": 4.95,
+    "demandScore": 5.7,
+    "createdAt": "2025-09-09T06:13:07.498Z",
+    "updatedAt": "2026-07-22T06:13:07.498Z"
+  },
+  {
+    "id": "prod-real-008",
+    "sku": "85099B",
+    "name": "Jumbo Bag Red White Spotty",
+    "category": "Fashion",
+    "description": "Jumbo Bag Red White Spotty — Sourced from UCI Online Retail dataset (67 real orders)",
+    "stock": 154,
+    "reservedStock": 25,
+    "damagedStock": 2,
+    "reorderLevel": 69,
+    "supplier": "Eastern Imports Ltd",
+    "warehouseLocation": "loc-a04-2",
+    "warehouseId": "hub-04",
+    "unitPrice": 1.95,
+    "demandScore": 4.8,
+    "createdAt": "2026-02-12T06:13:07.498Z",
+    "updatedAt": "2026-08-14T06:13:07.498Z"
+  },
+  {
+    "id": "prod-real-009",
+    "sku": "21212",
+    "name": "Pack Of 72 Retro Spot Cake Cases",
+    "category": "Groceries",
+    "description": "Pack Of 72 Retro Spot Cake Cases — Sourced from UCI Online Retail dataset (66 real orders)",
+    "stock": 100,
+    "reservedStock": 8,
+    "damagedStock": 5,
+    "reorderLevel": 81,
+    "supplier": "Pacific Trade Corp",
+    "warehouseLocation": "loc-b01-1",
+    "warehouseId": "hub-01",
+    "unitPrice": 0.55,
+    "demandScore": 4.7,
+    "createdAt": "2026-06-11T06:13:07.498Z",
+    "updatedAt": "2026-07-31T06:13:07.498Z"
+  },
+  {
+    "id": "prod-real-010",
+    "sku": "21479",
+    "name": "White Skull Hot Water Bottle",
+    "category": "Electronics",
+    "description": "White Skull Hot Water Bottle — Sourced from UCI Online Retail dataset (63 real orders)",
+    "stock": 24,
+    "reservedStock": 5,
+    "damagedStock": 0,
+    "reorderLevel": 15,
+    "supplier": "Summit Supplies PLC",
+    "warehouseLocation": "loc-b01-2",
+    "warehouseId": "hub-02",
+    "unitPrice": 3.75,
+    "demandScore": 4.5,
+    "createdAt": "2025-12-26T06:13:07.498Z",
+    "updatedAt": "2026-07-31T06:13:07.498Z"
+  },
+  {
+    "id": "prod-real-011",
+    "sku": "21034",
+    "name": "Rex Cash+Carry Jumbo Shopper",
+    "category": "Automotive",
+    "description": "Rex Cash+Carry Jumbo Shopper — Sourced from UCI Online Retail dataset (63 real orders)",
+    "stock": 4,
+    "reservedStock": 0,
+    "damagedStock": 0,
+    "reorderLevel": 10,
+    "supplier": "Global Wholesale UK",
+    "warehouseLocation": "loc-b02-1",
+    "warehouseId": "hub-03",
+    "unitPrice": 0.95,
+    "demandScore": 4.5,
+    "createdAt": "2026-02-18T06:13:07.498Z",
+    "updatedAt": "2026-08-15T06:13:07.498Z"
+  },
+  {
+    "id": "prod-real-012",
+    "sku": "21733",
+    "name": "Red Hanging Heart T-Light Holder",
+    "category": "Furniture",
+    "description": "Red Hanging Heart T-Light Holder — Sourced from UCI Online Retail dataset (60 real orders)",
+    "stock": 65,
+    "reservedStock": 2,
+    "damagedStock": 1,
+    "reorderLevel": 33,
+    "supplier": "Heritage Wholesale Ltd",
+    "warehouseLocation": "loc-b02-2",
+    "warehouseId": "hub-04",
+    "unitPrice": 2.55,
+    "demandScore": 4.3,
+    "createdAt": "2025-10-12T06:13:07.498Z",
+    "updatedAt": "2026-07-27T06:13:07.498Z"
+  },
+  {
+    "id": "prod-real-013",
+    "sku": "21485",
+    "name": "Red Spot Heart Hot Water Bottle",
+    "category": "Electronics",
+    "description": "Red Spot Heart Hot Water Bottle — Sourced from UCI Online Retail dataset (60 real orders)",
+    "stock": 58,
+    "reservedStock": 5,
+    "damagedStock": 1,
+    "reorderLevel": 18,
+    "supplier": "Heritage Wholesale Ltd",
+    "warehouseLocation": "loc-b03-1",
+    "warehouseId": "hub-01",
+    "unitPrice": 4.95,
+    "demandScore": 4.3,
+    "createdAt": "2025-09-07T06:13:07.498Z",
+    "updatedAt": "2026-08-09T06:13:07.498Z"
+  },
+  {
+    "id": "prod-real-014",
+    "sku": "21231",
+    "name": "Sweetheart Ceramic Trinket Box",
+    "category": "Furniture",
+    "description": "Sweetheart Ceramic Trinket Box — Sourced from UCI Online Retail dataset (60 real orders)",
+    "stock": 91,
+    "reservedStock": 24,
+    "damagedStock": 2,
+    "reorderLevel": 39,
+    "supplier": "Summit Supplies PLC",
+    "warehouseLocation": "loc-b03-2",
+    "warehouseId": "hub-02",
+    "unitPrice": 1.25,
+    "demandScore": 4.3,
+    "createdAt": "2026-04-21T06:13:07.498Z",
+    "updatedAt": "2026-08-09T06:13:07.498Z"
+  },
+  {
+    "id": "prod-real-015",
+    "sku": "22112",
+    "name": "Chocolate Hot Water Bottle",
+    "category": "Electronics",
+    "description": "Chocolate Hot Water Bottle — Sourced from UCI Online Retail dataset (59 real orders)",
+    "stock": 39,
+    "reservedStock": 9,
+    "damagedStock": 1,
+    "reorderLevel": 24,
+    "supplier": "Apex Distribution Ltd",
+    "warehouseLocation": "loc-b04-1",
+    "warehouseId": "hub-03",
+    "unitPrice": 4.95,
+    "demandScore": 4.2,
+    "createdAt": "2026-03-25T06:13:07.498Z",
+    "updatedAt": "2026-07-20T06:13:07.498Z"
+  },
+  {
+    "id": "prod-real-016",
+    "sku": "85014B",
+    "name": "Red/White Dots Ruffled Umbrella",
+    "category": "Electronics",
+    "description": "Red/White Dots Ruffled Umbrella — Sourced from UCI Online Retail dataset (59 real orders)",
+    "stock": 54,
+    "reservedStock": 11,
+    "damagedStock": 1,
+    "reorderLevel": 45,
+    "supplier": "Atlantic Trading Co",
+    "warehouseLocation": "loc-b04-2",
+    "warehouseId": "hub-04",
+    "unitPrice": 5.95,
+    "demandScore": 4.2,
+    "createdAt": "2025-10-08T06:13:07.498Z",
+    "updatedAt": "2026-08-18T06:13:07.498Z"
+  },
+  {
+    "id": "prod-real-017",
+    "sku": "82482",
+    "name": "Wooden Picture Frame White Finish",
+    "category": "Furniture",
+    "description": "Wooden Picture Frame White Finish — Sourced from UCI Online Retail dataset (58 real orders)",
+    "stock": 65,
+    "reservedStock": 12,
+    "damagedStock": 0,
+    "reorderLevel": 24,
+    "supplier": "Summit Supplies PLC",
+    "warehouseLocation": "loc-c01-1",
+    "warehouseId": "hub-01",
+    "unitPrice": 2.55,
+    "demandScore": 4.1,
+    "createdAt": "2025-11-08T06:13:07.498Z",
+    "updatedAt": "2026-07-26T06:13:07.498Z"
+  },
+  {
+    "id": "prod-real-018",
+    "sku": "72756",
+    "name": "Fairy Cake Candles",
+    "category": "Furniture",
+    "description": "Fairy Cake Candles — Sourced from UCI Online Retail dataset (57 real orders)",
+    "stock": 74,
+    "reservedStock": 8,
+    "damagedStock": 2,
+    "reorderLevel": 72,
+    "supplier": "Pacific Trade Corp",
+    "warehouseLocation": "loc-c01-2",
+    "warehouseId": "hub-02",
+    "unitPrice": 1.49,
+    "demandScore": 4,
+    "createdAt": "2025-09-15T06:13:07.498Z",
+    "updatedAt": "2026-08-08T06:13:07.498Z"
+  },
+  {
+    "id": "prod-real-019",
+    "sku": "79323W",
+    "name": "White Cherry Lights",
+    "category": "Electronics",
+    "description": "White Cherry Lights — Sourced from UCI Online Retail dataset (56 real orders)",
+    "stock": 28,
+    "reservedStock": 1,
+    "damagedStock": 1,
+    "reorderLevel": 27,
+    "supplier": "Nordic Supply Co",
+    "warehouseLocation": "loc-c02-1",
+    "warehouseId": "hub-03",
+    "unitPrice": 6.75,
+    "demandScore": 4,
+    "createdAt": "2025-11-17T06:13:07.498Z",
+    "updatedAt": "2026-08-19T06:13:07.498Z"
+  },
+  {
+    "id": "prod-real-020",
+    "sku": "84879",
+    "name": "Assorted Colour Bird Ornament",
+    "category": "Electronics",
+    "description": "Assorted Colour Bird Ornament — Sourced from UCI Online Retail dataset (54 real orders)",
+    "stock": 156,
+    "reservedStock": 39,
+    "damagedStock": 3,
+    "reorderLevel": 132,
+    "supplier": "Premier Source Inc",
+    "warehouseLocation": "loc-c02-2",
+    "warehouseId": "hub-04",
+    "unitPrice": 1.69,
+    "demandScore": 3.8,
+    "createdAt": "2025-09-19T06:13:07.498Z",
+    "updatedAt": "2026-08-12T06:13:07.498Z"
+  },
+  {
+    "id": "prod-real-021",
+    "sku": "82494L",
+    "name": "Wooden Frame Antique White",
+    "category": "Furniture",
+    "description": "Wooden Frame Antique White — Sourced from UCI Online Retail dataset (54 real orders)",
+    "stock": 66,
+    "reservedStock": 15,
+    "damagedStock": 1,
+    "reorderLevel": 24,
+    "supplier": "Continental Goods Ltd",
+    "warehouseLocation": "loc-c03-1",
+    "warehouseId": "hub-01",
+    "unitPrice": 2.95,
+    "demandScore": 3.8,
+    "createdAt": "2026-06-15T06:13:07.498Z",
+    "updatedAt": "2026-07-29T06:13:07.498Z"
+  },
+  {
+    "id": "prod-real-022",
+    "sku": "21181",
+    "name": "Please One Person Metal Sign",
+    "category": "Electronics",
+    "description": "Please One Person Metal Sign — Sourced from UCI Online Retail dataset (53 real orders)",
+    "stock": 28,
+    "reservedStock": 1,
+    "damagedStock": 1,
+    "reorderLevel": 27,
+    "supplier": "Heritage Wholesale Ltd",
+    "warehouseLocation": "loc-c03-2",
+    "warehouseId": "hub-02",
+    "unitPrice": 2.1,
+    "demandScore": 3.8,
+    "createdAt": "2026-05-08T06:13:07.498Z",
+    "updatedAt": "2026-07-29T06:13:07.498Z"
+  },
+  {
+    "id": "prod-real-023",
+    "sku": "84029E",
+    "name": "Red Woolly Hottie White Heart.",
+    "category": "Electronics",
+    "description": "Red Woolly Hottie White Heart. — Sourced from UCI Online Retail dataset (53 real orders)",
+    "stock": 74,
+    "reservedStock": 20,
+    "damagedStock": 0,
+    "reorderLevel": 36,
+    "supplier": "Pacific Trade Corp",
+    "warehouseLocation": "loc-c04-1",
+    "warehouseId": "hub-03",
+    "unitPrice": 2.95,
+    "demandScore": 3.8,
+    "createdAt": "2026-01-13T06:13:07.498Z",
+    "updatedAt": "2026-08-07T06:13:07.498Z"
+  },
+  {
+    "id": "prod-real-024",
+    "sku": "22083",
+    "name": "Paper Chain Kit Retro Spot",
+    "category": "Electronics",
+    "description": "Paper Chain Kit Retro Spot — Sourced from UCI Online Retail dataset (53 real orders)",
+    "stock": 112,
+    "reservedStock": 30,
+    "damagedStock": 4,
+    "reorderLevel": 42,
+    "supplier": "Global Wholesale UK",
+    "warehouseLocation": "loc-c04-2",
+    "warehouseId": "hub-04",
+    "unitPrice": 2.95,
+    "demandScore": 3.8,
+    "createdAt": "2025-12-31T06:13:07.498Z",
+    "updatedAt": "2026-08-03T06:13:07.498Z"
+  },
+  {
+    "id": "prod-real-025",
+    "sku": "21754",
+    "name": "Home Building Block Word",
+    "category": "Electronics",
+    "description": "Home Building Block Word — Sourced from UCI Online Retail dataset (50 real orders)",
+    "stock": 11,
+    "reservedStock": 3,
+    "damagedStock": 0,
+    "reorderLevel": 12,
+    "supplier": "Premier Source Inc",
+    "warehouseLocation": "loc-d01-1",
+    "warehouseId": "hub-01",
+    "unitPrice": 5.95,
+    "demandScore": 3.5,
+    "createdAt": "2025-10-04T06:13:07.498Z",
+    "updatedAt": "2026-07-26T06:13:07.498Z"
+  },
+  {
+    "id": "prod-real-026",
+    "sku": "84946",
+    "name": "Antique Silver Tea Glass Etched",
+    "category": "Groceries",
+    "description": "Antique Silver Tea Glass Etched — Sourced from UCI Online Retail dataset (50 real orders)",
+    "stock": 99,
+    "reservedStock": 19,
+    "damagedStock": 0,
+    "reorderLevel": 60,
+    "supplier": "Pacific Trade Corp",
+    "warehouseLocation": "loc-d01-2",
+    "warehouseId": "hub-02",
+    "unitPrice": 1.25,
+    "demandScore": 3.5,
+    "createdAt": "2025-12-13T06:13:07.498Z",
+    "updatedAt": "2026-07-23T06:13:07.498Z"
+  },
+  {
+    "id": "prod-real-027",
+    "sku": "84029G",
+    "name": "Knitted Union Flag Hot Water Bottle",
+    "category": "Electronics",
+    "description": "Knitted Union Flag Hot Water Bottle — Sourced from UCI Online Retail dataset (50 real orders)",
+    "stock": 92,
+    "reservedStock": 10,
+    "damagedStock": 0,
+    "reorderLevel": 30,
+    "supplier": "Atlantic Trading Co",
+    "warehouseLocation": "loc-d02-1",
+    "warehouseId": "hub-03",
+    "unitPrice": 3.75,
+    "demandScore": 3.5,
+    "createdAt": "2025-09-20T06:13:07.498Z",
+    "updatedAt": "2026-08-13T06:13:07.498Z"
+  },
+  {
+    "id": "prod-real-028",
+    "sku": "79323P",
+    "name": "Pink Cherry Lights",
+    "category": "Electronics",
+    "description": "Pink Cherry Lights — Sourced from UCI Online Retail dataset (49 real orders)",
+    "stock": 89,
+    "reservedStock": 10,
+    "damagedStock": 4,
+    "reorderLevel": 27,
+    "supplier": "Continental Goods Ltd",
+    "warehouseLocation": "loc-d02-2",
+    "warehouseId": "hub-04",
+    "unitPrice": 6.75,
+    "demandScore": 3.5,
+    "createdAt": "2026-07-03T06:13:07.498Z",
+    "updatedAt": "2026-07-28T06:13:07.498Z"
+  },
+  {
+    "id": "prod-real-029",
+    "sku": "21491",
+    "name": "Set Of Three Vintage Gift Wraps",
+    "category": "Fashion",
+    "description": "Set Of Three Vintage Gift Wraps — Sourced from UCI Online Retail dataset (49 real orders)",
+    "stock": 65,
+    "reservedStock": 11,
+    "damagedStock": 3,
+    "reorderLevel": 30,
+    "supplier": "Global Wholesale UK",
+    "warehouseLocation": "loc-d03-1",
+    "warehouseId": "hub-01",
+    "unitPrice": 1.95,
+    "demandScore": 3.5,
+    "createdAt": "2025-08-25T06:13:07.498Z",
+    "updatedAt": "2026-08-09T06:13:07.498Z"
+  },
+  {
+    "id": "prod-real-030",
+    "sku": "22113",
+    "name": "Grey Heart Hot Water Bottle",
+    "category": "Electronics",
+    "description": "Grey Heart Hot Water Bottle — Sourced from UCI Online Retail dataset (49 real orders)",
+    "stock": 74,
+    "reservedStock": 1,
+    "damagedStock": 0,
+    "reorderLevel": 24,
+    "supplier": "Summit Supplies PLC",
+    "warehouseLocation": "loc-d03-2",
+    "warehouseId": "hub-02",
+    "unitPrice": 3.45,
+    "demandScore": 3.5,
+    "createdAt": "2026-08-11T06:13:07.498Z",
+    "updatedAt": "2026-07-30T06:13:07.498Z"
+  },
+  {
+    "id": "prod-real-031",
+    "sku": "21931",
+    "name": "Jumbo Storage Bag Suki",
+    "category": "Fashion",
+    "description": "Jumbo Storage Bag Suki — Sourced from UCI Online Retail dataset (48 real orders)",
+    "stock": 49,
+    "reservedStock": 8,
+    "damagedStock": 0,
+    "reorderLevel": 27,
+    "supplier": "Nordic Supply Co",
+    "warehouseLocation": "loc-d04-1",
+    "warehouseId": "hub-03",
+    "unitPrice": 1.95,
+    "demandScore": 3.4,
+    "createdAt": "2026-07-19T06:13:07.498Z",
+    "updatedAt": "2026-08-07T06:13:07.498Z"
+  },
+  {
+    "id": "prod-real-032",
+    "sku": "21955",
+    "name": "Union Jack Guns & Roses Doormat",
+    "category": "Electronics",
+    "description": "Union Jack Guns & Roses Doormat — Sourced from UCI Online Retail dataset (47 real orders)",
+    "stock": 16,
+    "reservedStock": 2,
+    "damagedStock": 0,
+    "reorderLevel": 12,
+    "supplier": "Heritage Wholesale Ltd",
+    "warehouseLocation": "loc-d04-2",
+    "warehouseId": "hub-04",
+    "unitPrice": 6.75,
+    "demandScore": 3.3,
+    "createdAt": "2025-10-03T06:13:07.498Z",
+    "updatedAt": "2026-08-13T06:13:07.498Z"
+  },
+  {
+    "id": "prod-real-033",
+    "sku": "20685",
+    "name": "Red Spotty Coir Doormat",
+    "category": "Electronics",
+    "description": "Red Spotty Coir Doormat — Sourced from UCI Online Retail dataset (47 real orders)",
+    "stock": 39,
+    "reservedStock": 2,
+    "damagedStock": 0,
+    "reorderLevel": 12,
+    "supplier": "Pacific Trade Corp",
+    "warehouseLocation": "loc-e01-1",
+    "warehouseId": "hub-01",
+    "unitPrice": 6.75,
+    "demandScore": 3.3,
+    "createdAt": "2025-08-29T06:13:07.498Z",
+    "updatedAt": "2026-08-14T06:13:07.498Z"
+  },
+  {
+    "id": "prod-real-034",
+    "sku": "20914",
+    "name": "Set/5 Red Spotty Lid Glass Bowls",
+    "category": "Electronics",
+    "description": "Set/5 Red Spotty Lid Glass Bowls — Sourced from UCI Online Retail dataset (47 real orders)",
+    "stock": 55,
+    "reservedStock": 2,
+    "damagedStock": 0,
+    "reorderLevel": 21,
+    "supplier": "Continental Goods Ltd",
+    "warehouseLocation": "loc-e01-2",
+    "warehouseId": "hub-02",
+    "unitPrice": 2.95,
+    "demandScore": 3.3,
+    "createdAt": "2025-10-15T06:13:07.498Z",
+    "updatedAt": "2026-08-09T06:13:07.498Z"
+  },
+  {
+    "id": "prod-real-035",
+    "sku": "21481",
+    "name": "Fawn Blue Hot Water Bottle",
+    "category": "Electronics",
+    "description": "Fawn Blue Hot Water Bottle — Sourced from UCI Online Retail dataset (46 real orders)",
+    "stock": 45,
+    "reservedStock": 6,
+    "damagedStock": 2,
+    "reorderLevel": 15,
+    "supplier": "Global Wholesale UK",
+    "warehouseLocation": "loc-e02-1",
+    "warehouseId": "hub-03",
+    "unitPrice": 2.95,
+    "demandScore": 3.3,
+    "createdAt": "2025-12-25T06:13:07.498Z",
+    "updatedAt": "2026-07-20T06:13:07.498Z"
+  },
+  {
+    "id": "prod-real-036",
+    "sku": "21490",
+    "name": "Set Of Three 50'S Gift Wraps",
+    "category": "Fashion",
+    "description": "Set Of Three 50'S Gift Wraps — Sourced from UCI Online Retail dataset (46 real orders)",
+    "stock": 71,
+    "reservedStock": 10,
+    "damagedStock": 2,
+    "reorderLevel": 42,
+    "supplier": "Premier Source Inc",
+    "warehouseLocation": "loc-e02-2",
+    "warehouseId": "hub-04",
+    "unitPrice": 1.95,
+    "demandScore": 3.3,
+    "createdAt": "2026-08-16T06:13:07.498Z",
+    "updatedAt": "2026-07-26T06:13:07.498Z"
+  },
+  {
+    "id": "prod-real-037",
+    "sku": "20725",
+    "name": "Lunch Bag Red Spotty",
+    "category": "Fashion",
+    "description": "Lunch Bag Red Spotty — Sourced from UCI Online Retail dataset (44 real orders)",
+    "stock": 26,
+    "reservedStock": 2,
+    "damagedStock": 0,
+    "reorderLevel": 27,
+    "supplier": "Heritage Wholesale Ltd",
+    "warehouseLocation": "loc-e03-1",
+    "warehouseId": "hub-01",
+    "unitPrice": 1.65,
+    "demandScore": 3.1,
+    "createdAt": "2026-01-31T06:13:07.498Z",
+    "updatedAt": "2026-07-31T06:13:07.498Z"
+  },
+  {
+    "id": "prod-real-038",
+    "sku": "21868",
+    "name": "Potting Shed Tea Mug",
+    "category": "Furniture",
+    "description": "Potting Shed Tea Mug — Sourced from UCI Online Retail dataset (44 real orders)",
+    "stock": 50,
+    "reservedStock": 8,
+    "damagedStock": 0,
+    "reorderLevel": 30,
+    "supplier": "Continental Goods Ltd",
+    "warehouseLocation": "loc-e03-2",
+    "warehouseId": "hub-02",
+    "unitPrice": 1.25,
+    "demandScore": 3.1,
+    "createdAt": "2026-08-06T06:13:07.498Z",
+    "updatedAt": "2026-08-13T06:13:07.498Z"
+  },
+  {
+    "id": "prod-real-039",
+    "sku": "22348",
+    "name": "Tea Bag Plate Red Spotty",
+    "category": "Fashion",
+    "description": "Tea Bag Plate Red Spotty — Sourced from UCI Online Retail dataset (44 real orders)",
+    "stock": 155,
+    "reservedStock": 17,
+    "damagedStock": 4,
+    "reorderLevel": 75,
+    "supplier": "Summit Supplies PLC",
+    "warehouseLocation": "loc-e04-1",
+    "warehouseId": "hub-03",
+    "unitPrice": 0.85,
+    "demandScore": 3.1,
+    "createdAt": "2026-04-21T06:13:07.498Z",
+    "updatedAt": "2026-08-02T06:13:07.498Z"
+  },
+  {
+    "id": "prod-real-040",
+    "sku": "84836",
+    "name": "Zinc Metal Heart Decoration",
+    "category": "Electronics",
+    "description": "Zinc Metal Heart Decoration — Sourced from UCI Online Retail dataset (43 real orders)",
+    "stock": 156,
+    "reservedStock": 26,
+    "damagedStock": 5,
+    "reorderLevel": 51,
+    "supplier": "Global Wholesale UK",
+    "warehouseLocation": "loc-e04-2",
+    "warehouseId": "hub-04",
+    "unitPrice": 1.25,
+    "demandScore": 3,
+    "createdAt": "2026-03-22T06:13:07.498Z",
+    "updatedAt": "2026-08-12T06:13:07.498Z"
+  },
+  {
+    "id": "prod-real-041",
+    "sku": "22189",
+    "name": "Cream Heart Card Holder",
+    "category": "Furniture",
+    "description": "Cream Heart Card Holder — Sourced from UCI Online Retail dataset (43 real orders)",
+    "stock": 73,
+    "reservedStock": 0,
+    "damagedStock": 0,
+    "reorderLevel": 27,
+    "supplier": "Eastern Imports Ltd",
+    "warehouseLocation": "loc-a01-1",
+    "warehouseId": "hub-01",
+    "unitPrice": 3.95,
+    "demandScore": 3,
+    "createdAt": "2025-09-13T06:13:07.498Z",
+    "updatedAt": "2026-08-05T06:13:07.498Z"
+  },
+  {
+    "id": "prod-real-042",
+    "sku": "21755",
+    "name": "Love Building Block Word",
+    "category": "Electronics",
+    "description": "Love Building Block Word — Sourced from UCI Online Retail dataset (42 real orders)",
+    "stock": 13,
+    "reservedStock": 1,
+    "damagedStock": 0,
+    "reorderLevel": 12,
+    "supplier": "Eastern Imports Ltd",
+    "warehouseLocation": "loc-a01-2",
+    "warehouseId": "hub-02",
+    "unitPrice": 5.45,
+    "demandScore": 3,
+    "createdAt": "2025-12-17T06:13:07.498Z",
+    "updatedAt": "2026-07-21T06:13:07.498Z"
+  },
+  {
+    "id": "prod-real-043",
+    "sku": "21791",
+    "name": "Vintage Heads And Tails Card Game",
+    "category": "Automotive",
+    "description": "Vintage Heads And Tails Card Game — Sourced from UCI Online Retail dataset (42 real orders)",
+    "stock": 96,
+    "reservedStock": 7,
+    "damagedStock": 3,
+    "reorderLevel": 30,
+    "supplier": "Premier Source Inc",
+    "warehouseLocation": "loc-a02-1",
+    "warehouseId": "hub-03",
+    "unitPrice": 1.06,
+    "demandScore": 3,
+    "createdAt": "2026-07-04T06:13:07.498Z",
+    "updatedAt": "2026-08-18T06:13:07.498Z"
+  },
+  {
+    "id": "prod-real-044",
+    "sku": "21527",
+    "name": "Retro Spot Traditional Teapot",
+    "category": "Groceries",
+    "description": "Retro Spot Traditional Teapot — Sourced from UCI Online Retail dataset (42 real orders)",
+    "stock": 34,
+    "reservedStock": 5,
+    "damagedStock": 0,
+    "reorderLevel": 12,
+    "supplier": "Continental Goods Ltd",
+    "warehouseLocation": "loc-a02-2",
+    "warehouseId": "hub-04",
+    "unitPrice": 7.95,
+    "demandScore": 3,
+    "createdAt": "2026-02-16T06:13:07.498Z",
+    "updatedAt": "2026-08-09T06:13:07.498Z"
+  },
+  {
+    "id": "prod-real-045",
+    "sku": "21523",
+    "name": "Fancy Font Home Sweet Home Doormat",
+    "category": "Electronics",
+    "description": "Fancy Font Home Sweet Home Doormat — Sourced from UCI Online Retail dataset (41 real orders)",
+    "stock": 28,
+    "reservedStock": 7,
+    "damagedStock": 1,
+    "reorderLevel": 15,
+    "supplier": "Summit Supplies PLC",
+    "warehouseLocation": "loc-a03-1",
+    "warehouseId": "hub-01",
+    "unitPrice": 5.95,
+    "demandScore": 2.9,
+    "createdAt": "2026-07-22T06:13:07.498Z",
+    "updatedAt": "2026-07-26T06:13:07.498Z"
+  },
+  {
+    "id": "prod-real-046",
+    "sku": "21790",
+    "name": "Vintage Snap Cards",
+    "category": "Automotive",
+    "description": "Vintage Snap Cards — Sourced from UCI Online Retail dataset (41 real orders)",
+    "stock": 86,
+    "reservedStock": 20,
+    "damagedStock": 0,
+    "reorderLevel": 27,
+    "supplier": "Eastern Imports Ltd",
+    "warehouseLocation": "loc-a03-2",
+    "warehouseId": "hub-02",
+    "unitPrice": 0.85,
+    "demandScore": 2.9,
+    "createdAt": "2025-10-08T06:13:07.498Z",
+    "updatedAt": "2026-08-15T06:13:07.498Z"
+  },
+  {
+    "id": "prod-real-047",
+    "sku": "22125",
+    "name": "Union Jack Hot Water Bottle",
+    "category": "Electronics",
+    "description": "Union Jack Hot Water Bottle — Sourced from UCI Online Retail dataset (41 real orders)",
+    "stock": 50,
+    "reservedStock": 13,
+    "damagedStock": 2,
+    "reorderLevel": 15,
+    "supplier": "Continental Goods Ltd",
+    "warehouseLocation": "loc-a04-1",
+    "warehouseId": "hub-03",
+    "unitPrice": 5.95,
+    "demandScore": 2.9,
+    "createdAt": "2026-08-09T06:13:07.498Z",
+    "updatedAt": "2026-08-08T06:13:07.498Z"
+  },
+  {
+    "id": "prod-real-048",
+    "sku": "82486",
+    "name": "Wood S/3 Cabinet Ant White Finish",
+    "category": "Electronics",
+    "description": "Wood S/3 Cabinet Ant White Finish — Sourced from UCI Online Retail dataset (41 real orders)",
+    "stock": 32,
+    "reservedStock": 4,
+    "damagedStock": 1,
+    "reorderLevel": 15,
+    "supplier": "Atlantic Trading Co",
+    "warehouseLocation": "loc-a04-2",
+    "warehouseId": "hub-04",
+    "unitPrice": 7.95,
+    "demandScore": 2.9,
+    "createdAt": "2025-11-22T06:13:07.498Z",
+    "updatedAt": "2026-08-14T06:13:07.498Z"
+  },
+  {
+    "id": "prod-real-049",
+    "sku": "21843",
+    "name": "Retro Spot Cake Stand",
+    "category": "Groceries",
+    "description": "Retro Spot Cake Stand — Sourced from UCI Online Retail dataset (41 real orders)",
+    "stock": 15,
+    "reservedStock": 0,
+    "damagedStock": 0,
+    "reorderLevel": 10,
+    "supplier": "Global Wholesale UK",
+    "warehouseLocation": "loc-b01-1",
+    "warehouseId": "hub-01",
+    "unitPrice": 21.7,
+    "demandScore": 2.9,
+    "createdAt": "2026-05-08T06:13:07.498Z",
+    "updatedAt": "2026-08-14T06:13:07.498Z"
+  },
+  {
+    "id": "prod-real-050",
+    "sku": "21080",
+    "name": "Set/20 Red Spotty Paper Napkins",
+    "category": "Electronics",
+    "description": "Set/20 Red Spotty Paper Napkins — Sourced from UCI Online Retail dataset (40 real orders)",
+    "stock": 72,
+    "reservedStock": 20,
+    "damagedStock": 1,
+    "reorderLevel": 30,
+    "supplier": "Heritage Wholesale Ltd",
+    "warehouseLocation": "loc-b01-2",
+    "warehouseId": "hub-02",
+    "unitPrice": 0.85,
+    "demandScore": 2.8,
+    "createdAt": "2026-08-09T06:13:07.498Z",
+    "updatedAt": "2026-08-06T06:13:07.498Z"
+  },
+  {
+    "id": "prod-real-051",
+    "sku": "85014A",
+    "name": "Black/Blue Dots Ruffled Umbrella",
+    "category": "Electronics",
+    "description": "Black/Blue Dots Ruffled Umbrella — Sourced from UCI Online Retail dataset (39 real orders)",
+    "stock": 199,
+    "reservedStock": 47,
+    "damagedStock": 4,
+    "reorderLevel": 60,
+    "supplier": "Eastern Imports Ltd",
+    "warehouseLocation": "loc-b02-1",
+    "warehouseId": "hub-03",
+    "unitPrice": 5.95,
+    "demandScore": 2.8,
+    "createdAt": "2025-11-06T06:13:07.498Z",
+    "updatedAt": "2026-07-31T06:13:07.498Z"
+  },
+  {
+    "id": "prod-real-052",
+    "sku": "21484",
+    "name": "Chick Grey Hot Water Bottle",
+    "category": "Electronics",
+    "description": "Chick Grey Hot Water Bottle — Sourced from UCI Online Retail dataset (39 real orders)",
+    "stock": 56,
+    "reservedStock": 11,
+    "damagedStock": 0,
+    "reorderLevel": 24,
+    "supplier": "Global Wholesale UK",
+    "warehouseLocation": "loc-b02-2",
+    "warehouseId": "hub-04",
+    "unitPrice": 3.45,
+    "demandScore": 2.8,
+    "createdAt": "2025-10-04T06:13:07.498Z",
+    "updatedAt": "2026-07-25T06:13:07.498Z"
+  },
+  {
+    "id": "prod-real-053",
+    "sku": "84991",
+    "name": "60 Teatime Fairy Cake Cases",
+    "category": "Groceries",
+    "description": "60 Teatime Fairy Cake Cases — Sourced from UCI Online Retail dataset (38 real orders)",
+    "stock": 192,
+    "reservedStock": 39,
+    "damagedStock": 8,
+    "reorderLevel": 60,
+    "supplier": "Summit Supplies PLC",
+    "warehouseLocation": "loc-b03-1",
+    "warehouseId": "hub-01",
+    "unitPrice": 0.55,
+    "demandScore": 2.7,
+    "createdAt": "2025-10-29T06:13:07.498Z",
+    "updatedAt": "2026-07-30T06:13:07.498Z"
+  },
+  {
+    "id": "prod-real-054",
+    "sku": "21175",
+    "name": "Gin + Tonic Diet Metal Sign",
+    "category": "Electronics",
+    "description": "Gin + Tonic Diet Metal Sign — Sourced from UCI Online Retail dataset (38 real orders)",
+    "stock": 15,
+    "reservedStock": 2,
+    "damagedStock": 0,
+    "reorderLevel": 18,
+    "supplier": "Eastern Imports Ltd",
+    "warehouseLocation": "loc-b03-2",
+    "warehouseId": "hub-02",
+    "unitPrice": 2.1,
+    "demandScore": 2.7,
+    "createdAt": "2026-01-24T06:13:07.498Z",
+    "updatedAt": "2026-08-18T06:13:07.498Z"
+  },
+  {
+    "id": "prod-real-055",
+    "sku": "15056BL",
+    "name": "Edwardian Parasol Black",
+    "category": "Electronics",
+    "description": "Edwardian Parasol Black — Sourced from UCI Online Retail dataset (38 real orders)",
+    "stock": 211,
+    "reservedStock": 46,
+    "damagedStock": 9,
+    "reorderLevel": 96,
+    "supplier": "Continental Goods Ltd",
+    "warehouseLocation": "loc-b04-1",
+    "warehouseId": "hub-03",
+    "unitPrice": 5.95,
+    "demandScore": 2.7,
+    "createdAt": "2025-10-12T06:13:07.498Z",
+    "updatedAt": "2026-08-15T06:13:07.498Z"
+  },
+  {
+    "id": "prod-real-056",
+    "sku": "82483",
+    "name": "Wood 2 Drawer Cabinet White Finish",
+    "category": "Electronics",
+    "description": "Wood 2 Drawer Cabinet White Finish — Sourced from UCI Online Retail dataset (37 real orders)",
+    "stock": 37,
+    "reservedStock": 0,
+    "damagedStock": 1,
+    "reorderLevel": 15,
+    "supplier": "Pacific Trade Corp",
+    "warehouseLocation": "loc-b04-2",
+    "warehouseId": "hub-04",
+    "unitPrice": 5.95,
+    "demandScore": 2.6,
+    "createdAt": "2026-04-25T06:13:07.498Z",
+    "updatedAt": "2026-08-04T06:13:07.498Z"
+  },
+  {
+    "id": "prod-real-057",
+    "sku": "47591D",
+    "name": "Pink Fairy Cake Child'S Apron",
+    "category": "Fashion",
+    "description": "Pink Fairy Cake Child'S Apron — Sourced from UCI Online Retail dataset (37 real orders)",
+    "stock": 81,
+    "reservedStock": 13,
+    "damagedStock": 4,
+    "reorderLevel": 33,
+    "supplier": "Heritage Wholesale Ltd",
+    "warehouseLocation": "loc-c01-1",
+    "warehouseId": "hub-01",
+    "unitPrice": 1.65,
+    "demandScore": 2.6,
+    "createdAt": "2025-09-14T06:13:07.498Z",
+    "updatedAt": "2026-08-05T06:13:07.498Z"
+  },
+  {
+    "id": "prod-real-058",
+    "sku": "35400",
+    "name": "Wooden Box Advent Calendar",
+    "category": "Furniture",
+    "description": "Wooden Box Advent Calendar — Sourced from UCI Online Retail dataset (36 real orders)",
+    "stock": 28,
+    "reservedStock": 5,
+    "damagedStock": 0,
+    "reorderLevel": 10,
+    "supplier": "Apex Distribution Ltd",
+    "warehouseLocation": "loc-c01-2",
+    "warehouseId": "hub-02",
+    "unitPrice": 8.95,
+    "demandScore": 2.6,
+    "createdAt": "2025-10-18T06:13:07.498Z",
+    "updatedAt": "2026-07-30T06:13:07.498Z"
+  },
+  {
+    "id": "prod-real-059",
+    "sku": "20975",
+    "name": "12 Pencils Small Tube Red Spotty",
+    "category": "Electronics",
+    "description": "12 Pencils Small Tube Red Spotty — Sourced from UCI Online Retail dataset (35 real orders)",
+    "stock": 86,
+    "reservedStock": 25,
+    "damagedStock": 2,
+    "reorderLevel": 30,
+    "supplier": "Premier Source Inc",
+    "warehouseLocation": "loc-c02-1",
+    "warehouseId": "hub-03",
+    "unitPrice": 0.65,
+    "demandScore": 2.5,
+    "createdAt": "2025-12-28T06:13:07.498Z",
+    "updatedAt": "2026-08-09T06:13:07.498Z"
+  },
+  {
+    "id": "prod-real-060",
+    "sku": "22352",
+    "name": "Lunchbox With Cutlery Retrospot",
+    "category": "Furniture",
+    "description": "Lunchbox With Cutlery Retrospot — Sourced from UCI Online Retail dataset (34 real orders)",
+    "stock": 45,
+    "reservedStock": 11,
+    "damagedStock": 2,
+    "reorderLevel": 21,
+    "supplier": "Apex Distribution Ltd",
+    "warehouseLocation": "loc-c02-2",
+    "warehouseId": "hub-04",
+    "unitPrice": 2.55,
+    "demandScore": 2.4,
+    "createdAt": "2025-10-15T06:13:07.498Z",
+    "updatedAt": "2026-08-07T06:13:07.498Z"
+  },
+  {
+    "id": "prod-real-061",
+    "sku": "20754",
+    "name": "Retro Red Spotty Washing Up Gloves",
+    "category": "Fashion",
+    "description": "Retro Red Spotty Washing Up Gloves — Sourced from UCI Online Retail dataset (34 real orders)",
+    "stock": 36,
+    "reservedStock": 1,
+    "damagedStock": 0,
+    "reorderLevel": 15,
+    "supplier": "Summit Supplies PLC",
+    "warehouseLocation": "loc-c03-1",
+    "warehouseId": "hub-01",
+    "unitPrice": 2.1,
+    "demandScore": 2.4,
+    "createdAt": "2026-04-14T06:13:07.498Z",
+    "updatedAt": "2026-08-16T06:13:07.498Z"
+  },
+  {
+    "id": "prod-real-062",
+    "sku": "21217",
+    "name": "Red Spotty Round Cake Tins",
+    "category": "Furniture",
+    "description": "Red Spotty Round Cake Tins — Sourced from UCI Online Retail dataset (34 real orders)",
+    "stock": 34,
+    "reservedStock": 1,
+    "damagedStock": 0,
+    "reorderLevel": 12,
+    "supplier": "Eastern Imports Ltd",
+    "warehouseLocation": "loc-c03-2",
+    "warehouseId": "hub-02",
+    "unitPrice": 8.95,
+    "demandScore": 2.4,
+    "createdAt": "2026-08-14T06:13:07.498Z",
+    "updatedAt": "2026-07-20T06:13:07.498Z"
+  },
+  {
+    "id": "prod-real-063",
+    "sku": "21429",
+    "name": "Red Gingham Rose Jewellery Box",
+    "category": "Furniture",
+    "description": "Red Gingham Rose Jewellery Box — Sourced from UCI Online Retail dataset (34 real orders)",
+    "stock": 14,
+    "reservedStock": 1,
+    "damagedStock": 0,
+    "reorderLevel": 15,
+    "supplier": "Nordic Supply Co",
+    "warehouseLocation": "loc-c04-1",
+    "warehouseId": "hub-03",
+    "unitPrice": 1.65,
+    "demandScore": 2.4,
+    "createdAt": "2026-02-15T06:13:07.498Z",
+    "updatedAt": "2026-07-23T06:13:07.498Z"
+  },
+  {
+    "id": "prod-real-064",
+    "sku": "84347",
+    "name": "Rotating Silver Angels T-Light Hldr",
+    "category": "Furniture",
+    "description": "Rotating Silver Angels T-Light Hldr — Sourced from UCI Online Retail dataset (34 real orders)",
+    "stock": 180,
+    "reservedStock": 14,
+    "damagedStock": 4,
+    "reorderLevel": 168,
+    "supplier": "Eastern Imports Ltd",
+    "warehouseLocation": "loc-c04-2",
+    "warehouseId": "hub-04",
+    "unitPrice": 2.55,
+    "demandScore": 2.4,
+    "createdAt": "2025-10-12T06:13:07.498Z",
+    "updatedAt": "2026-08-17T06:13:07.498Z"
+  },
+  {
+    "id": "prod-real-065",
+    "sku": "20727",
+    "name": "Lunch Bag Black Skull.",
+    "category": "Fashion",
+    "description": "Lunch Bag Black Skull. — Sourced from UCI Online Retail dataset (34 real orders)",
+    "stock": 38,
+    "reservedStock": 11,
+    "damagedStock": 0,
+    "reorderLevel": 24,
+    "supplier": "Summit Supplies PLC",
+    "warehouseLocation": "loc-d01-1",
+    "warehouseId": "hub-01",
+    "unitPrice": 1.65,
+    "demandScore": 2.4,
+    "createdAt": "2026-05-30T06:13:07.498Z",
+    "updatedAt": "2026-08-02T06:13:07.498Z"
+  },
+  {
+    "id": "prod-real-066",
+    "sku": "20679",
+    "name": "Edwardian Parasol Red",
+    "category": "Electronics",
+    "description": "Edwardian Parasol Red — Sourced from UCI Online Retail dataset (34 real orders)",
+    "stock": 219,
+    "reservedStock": 7,
+    "damagedStock": 1,
+    "reorderLevel": 87,
+    "supplier": "Apex Distribution Ltd",
+    "warehouseLocation": "loc-d01-2",
+    "warehouseId": "hub-02",
+    "unitPrice": 5.95,
+    "demandScore": 2.4,
+    "createdAt": "2025-11-12T06:13:07.498Z",
+    "updatedAt": "2026-08-03T06:13:07.498Z"
+  },
+  {
+    "id": "prod-real-067",
+    "sku": "22109",
+    "name": "Full English Breakfast Plate",
+    "category": "Electronics",
+    "description": "Full English Breakfast Plate — Sourced from UCI Online Retail dataset (33 real orders)",
+    "stock": 19,
+    "reservedStock": 2,
+    "damagedStock": 0,
+    "reorderLevel": 18,
+    "supplier": "Atlantic Trading Co",
+    "warehouseLocation": "loc-d02-1",
+    "warehouseId": "hub-03",
+    "unitPrice": 3.39,
+    "demandScore": 2.3,
+    "createdAt": "2026-04-28T06:13:07.498Z",
+    "updatedAt": "2026-08-02T06:13:07.498Z"
+  },
+  {
+    "id": "prod-real-068",
+    "sku": "21912",
+    "name": "Vintage Snakes & Ladders",
+    "category": "Electronics",
+    "description": "Vintage Snakes & Ladders — Sourced from UCI Online Retail dataset (33 real orders)",
+    "stock": 26,
+    "reservedStock": 6,
+    "damagedStock": 0,
+    "reorderLevel": 12,
+    "supplier": "Heritage Wholesale Ltd",
+    "warehouseLocation": "loc-d02-2",
+    "warehouseId": "hub-04",
+    "unitPrice": 3.75,
+    "demandScore": 2.3,
+    "createdAt": "2026-06-04T06:13:07.498Z",
+    "updatedAt": "2026-07-27T06:13:07.498Z"
+  },
+  {
+    "id": "prod-real-069",
+    "sku": "22294",
+    "name": "Heart Filigree Dove Small",
+    "category": "Electronics",
+    "description": "Heart Filigree Dove Small — Sourced from UCI Online Retail dataset (33 real orders)",
+    "stock": 210,
+    "reservedStock": 2,
+    "damagedStock": 3,
+    "reorderLevel": 69,
+    "supplier": "Premier Source Inc",
+    "warehouseLocation": "loc-d03-1",
+    "warehouseId": "hub-01",
+    "unitPrice": 1.25,
+    "demandScore": 2.3,
+    "createdAt": "2026-07-11T06:13:07.498Z",
+    "updatedAt": "2026-08-04T06:13:07.498Z"
+  },
+  {
+    "id": "prod-real-070",
+    "sku": "22356",
+    "name": "Charlotte Bag , Pink/White Spots",
+    "category": "Fashion",
+    "description": "Charlotte Bag , Pink/White Spots — Sourced from UCI Online Retail dataset (33 real orders)",
+    "stock": 103,
+    "reservedStock": 20,
+    "damagedStock": 2,
+    "reorderLevel": 39,
+    "supplier": "Eastern Imports Ltd",
+    "warehouseLocation": "loc-d03-2",
+    "warehouseId": "hub-02",
+    "unitPrice": 0.85,
+    "demandScore": 2.3,
+    "createdAt": "2026-03-30T06:13:07.498Z",
+    "updatedAt": "2026-08-08T06:13:07.498Z"
+  },
+  {
+    "id": "prod-real-071",
+    "sku": "20724",
+    "name": "Red Spotty Charlotte Bag",
+    "category": "Fashion",
+    "description": "Red Spotty Charlotte Bag — Sourced from UCI Online Retail dataset (33 real orders)",
+    "stock": 116,
+    "reservedStock": 1,
+    "damagedStock": 4,
+    "reorderLevel": 39,
+    "supplier": "Nordic Supply Co",
+    "warehouseLocation": "loc-d04-1",
+    "warehouseId": "hub-03",
+    "unitPrice": 0.85,
+    "demandScore": 2.3,
+    "createdAt": "2025-11-01T06:13:07.498Z",
+    "updatedAt": "2026-08-17T06:13:07.498Z"
+  },
+  {
+    "id": "prod-real-072",
+    "sku": "21977",
+    "name": "Pack Of 60 Pink Paisley Cake Cases",
+    "category": "Groceries",
+    "description": "Pack Of 60 Pink Paisley Cake Cases — Sourced from UCI Online Retail dataset (33 real orders)",
+    "stock": 134,
+    "reservedStock": 38,
+    "damagedStock": 6,
+    "reorderLevel": 66,
+    "supplier": "Eastern Imports Ltd",
+    "warehouseLocation": "loc-d04-2",
+    "warehouseId": "hub-04",
+    "unitPrice": 0.55,
+    "demandScore": 2.3,
+    "createdAt": "2025-12-10T06:13:07.498Z",
+    "updatedAt": "2026-07-27T06:13:07.498Z"
+  },
+  {
+    "id": "prod-real-073",
+    "sku": "85231B",
+    "name": "Cinammon Set Of 9 T-Lights",
+    "category": "Electronics",
+    "description": "Cinammon Set Of 9 T-Lights — Sourced from UCI Online Retail dataset (33 real orders)",
+    "stock": 18,
+    "reservedStock": 3,
+    "damagedStock": 0,
+    "reorderLevel": 21,
+    "supplier": "Atlantic Trading Co",
+    "warehouseLocation": "loc-e01-1",
+    "warehouseId": "hub-01",
+    "unitPrice": 0.85,
+    "demandScore": 2.3,
+    "createdAt": "2025-10-04T06:13:07.498Z",
+    "updatedAt": "2026-07-28T06:13:07.498Z"
+  },
+  {
+    "id": "prod-real-074",
+    "sku": "22355",
+    "name": "Charlotte Bag , Suki Design",
+    "category": "Fashion",
+    "description": "Charlotte Bag , Suki Design — Sourced from UCI Online Retail dataset (33 real orders)",
+    "stock": 81,
+    "reservedStock": 0,
+    "damagedStock": 0,
+    "reorderLevel": 33,
+    "supplier": "Premier Source Inc",
+    "warehouseLocation": "loc-e01-2",
+    "warehouseId": "hub-02",
+    "unitPrice": 0.85,
+    "demandScore": 2.3,
+    "createdAt": "2026-01-27T06:13:07.498Z",
+    "updatedAt": "2026-08-11T06:13:07.498Z"
+  },
+  {
+    "id": "prod-real-075",
+    "sku": "20979",
+    "name": "36 Pencils Tube Red Spotty",
+    "category": "Electronics",
+    "description": "36 Pencils Tube Red Spotty — Sourced from UCI Online Retail dataset (33 real orders)",
+    "stock": 30,
+    "reservedStock": 3,
+    "damagedStock": 0,
+    "reorderLevel": 39,
+    "supplier": "Continental Goods Ltd",
+    "warehouseLocation": "loc-e02-1",
+    "warehouseId": "hub-03",
+    "unitPrice": 1.25,
+    "demandScore": 2.3,
+    "createdAt": "2026-01-04T06:13:07.498Z",
+    "updatedAt": "2026-08-19T06:13:07.498Z"
+  },
+  {
+    "id": "prod-real-076",
+    "sku": "22353",
+    "name": "Lunchbox With Cutlery Fairy Cakes",
+    "category": "Furniture",
+    "description": "Lunchbox With Cutlery Fairy Cakes — Sourced from UCI Online Retail dataset (32 real orders)",
+    "stock": 20,
+    "reservedStock": 4,
+    "damagedStock": 1,
+    "reorderLevel": 12,
+    "supplier": "Nordic Supply Co",
+    "warehouseLocation": "loc-e02-2",
+    "warehouseId": "hub-04",
+    "unitPrice": 2.55,
+    "demandScore": 2.3,
+    "createdAt": "2026-05-22T06:13:07.498Z",
+    "updatedAt": "2026-08-14T06:13:07.498Z"
+  },
+  {
+    "id": "prod-real-077",
+    "sku": "22271",
+    "name": "Feltcraft Doll Rosie",
+    "category": "Electronics",
+    "description": "Feltcraft Doll Rosie — Sourced from UCI Online Retail dataset (32 real orders)",
+    "stock": 47,
+    "reservedStock": 11,
+    "damagedStock": 1,
+    "reorderLevel": 24,
+    "supplier": "Apex Distribution Ltd",
+    "warehouseLocation": "loc-e03-1",
+    "warehouseId": "hub-01",
+    "unitPrice": 2.95,
+    "demandScore": 2.3,
+    "createdAt": "2026-06-03T06:13:07.498Z",
+    "updatedAt": "2026-07-25T06:13:07.498Z"
+  },
+  {
+    "id": "prod-real-078",
+    "sku": "22273",
+    "name": "Feltcraft Doll Molly",
+    "category": "Electronics",
+    "description": "Feltcraft Doll Molly — Sourced from UCI Online Retail dataset (32 real orders)",
+    "stock": 61,
+    "reservedStock": 6,
+    "damagedStock": 2,
+    "reorderLevel": 24,
+    "supplier": "Pacific Trade Corp",
+    "warehouseLocation": "loc-e03-2",
+    "warehouseId": "hub-02",
+    "unitPrice": 2.95,
+    "demandScore": 2.3,
+    "createdAt": "2026-06-29T06:13:07.498Z",
+    "updatedAt": "2026-08-05T06:13:07.498Z"
+  },
+  {
+    "id": "prod-real-079",
+    "sku": "85042",
+    "name": "Antique Lily Fairy Lights",
+    "category": "Electronics",
+    "description": "Antique Lily Fairy Lights — Sourced from UCI Online Retail dataset (32 real orders)",
+    "stock": 30,
+    "reservedStock": 7,
+    "damagedStock": 0,
+    "reorderLevel": 27,
+    "supplier": "Nordic Supply Co",
+    "warehouseLocation": "loc-e04-1",
+    "warehouseId": "hub-03",
+    "unitPrice": 4.25,
+    "demandScore": 2.3,
+    "createdAt": "2026-06-09T06:13:07.498Z",
+    "updatedAt": "2026-08-08T06:13:07.498Z"
+  },
+  {
+    "id": "prod-real-080",
+    "sku": "22082",
+    "name": "Ribbon Reel Stripes Design",
+    "category": "Fashion",
+    "description": "Ribbon Reel Stripes Design — Sourced from UCI Online Retail dataset (32 real orders)",
+    "stock": 60,
+    "reservedStock": 0,
+    "damagedStock": 3,
+    "reorderLevel": 33,
+    "supplier": "Atlantic Trading Co",
+    "warehouseLocation": "loc-e04-2",
+    "warehouseId": "hub-04",
+    "unitPrice": 1.65,
+    "demandScore": 2.3,
+    "createdAt": "2026-01-02T06:13:07.498Z",
+    "updatedAt": "2026-08-16T06:13:07.498Z"
+  },
+  {
+    "id": "prod-real-081",
+    "sku": "22196",
+    "name": "Small Heart Measuring Spoons",
+    "category": "Electronics",
+    "description": "Small Heart Measuring Spoons — Sourced from UCI Online Retail dataset (32 real orders)",
+    "stock": 13,
+    "reservedStock": 2,
+    "damagedStock": 0,
+    "reorderLevel": 18,
+    "supplier": "Premier Source Inc",
+    "warehouseLocation": "loc-a01-1",
+    "warehouseId": "hub-01",
+    "unitPrice": 0.85,
+    "demandScore": 2.3,
+    "createdAt": "2026-05-30T06:13:07.498Z",
+    "updatedAt": "2026-08-10T06:13:07.498Z"
+  },
+  {
+    "id": "prod-real-082",
+    "sku": "21622",
+    "name": "Vintage Union Jack Cushion Cover",
+    "category": "Electronics",
+    "description": "Vintage Union Jack Cushion Cover — Sourced from UCI Online Retail dataset (32 real orders)",
+    "stock": 15,
+    "reservedStock": 3,
+    "damagedStock": 0,
+    "reorderLevel": 15,
+    "supplier": "Pacific Trade Corp",
+    "warehouseLocation": "loc-a01-2",
+    "warehouseId": "hub-02",
+    "unitPrice": 4.95,
+    "demandScore": 2.3,
+    "createdAt": "2026-05-11T06:13:07.498Z",
+    "updatedAt": "2026-07-31T06:13:07.498Z"
+  },
+  {
+    "id": "prod-real-083",
+    "sku": "22149",
+    "name": "Feltcraft 6 Flower Friends",
+    "category": "Electronics",
+    "description": "Feltcraft 6 Flower Friends — Sourced from UCI Online Retail dataset (32 real orders)",
+    "stock": 93,
+    "reservedStock": 19,
+    "damagedStock": 2,
+    "reorderLevel": 42,
+    "supplier": "Global Wholesale UK",
+    "warehouseLocation": "loc-a02-1",
+    "warehouseId": "hub-03",
+    "unitPrice": 4.3,
+    "demandScore": 2.3,
+    "createdAt": "2025-08-20T06:13:07.498Z",
+    "updatedAt": "2026-08-17T06:13:07.498Z"
+  },
+  {
+    "id": "prod-real-084",
+    "sku": "82600",
+    "name": "No Singing Metal Sign",
+    "category": "Electronics",
+    "description": "No Singing Metal Sign — Sourced from UCI Online Retail dataset (31 real orders)",
+    "stock": 18,
+    "reservedStock": 5,
+    "damagedStock": 0,
+    "reorderLevel": 24,
+    "supplier": "Eastern Imports Ltd",
+    "warehouseLocation": "loc-a02-2",
+    "warehouseId": "hub-04",
+    "unitPrice": 2.1,
+    "demandScore": 2.2,
+    "createdAt": "2025-12-07T06:13:07.498Z",
+    "updatedAt": "2026-08-04T06:13:07.498Z"
+  },
+  {
+    "id": "prod-real-085",
+    "sku": "21889",
+    "name": "Wooden Box Of Dominoes",
+    "category": "Furniture",
+    "description": "Wooden Box Of Dominoes — Sourced from UCI Online Retail dataset (31 real orders)",
+    "stock": 39,
+    "reservedStock": 4,
+    "damagedStock": 0,
+    "reorderLevel": 27,
+    "supplier": "Continental Goods Ltd",
+    "warehouseLocation": "loc-a03-1",
+    "warehouseId": "hub-01",
+    "unitPrice": 1.25,
+    "demandScore": 2.2,
+    "createdAt": "2025-10-20T06:13:07.498Z",
+    "updatedAt": "2026-07-31T06:13:07.498Z"
+  },
+  {
+    "id": "prod-real-086",
+    "sku": "21186",
+    "name": "White Dove Honeycomb Paper Garland",
+    "category": "Groceries",
+    "description": "White Dove Honeycomb Paper Garland — Sourced from UCI Online Retail dataset (31 real orders)",
+    "stock": 41,
+    "reservedStock": 10,
+    "damagedStock": 0,
+    "reorderLevel": 33,
+    "supplier": "Premier Source Inc",
+    "warehouseLocation": "loc-a03-2",
+    "warehouseId": "hub-02",
+    "unitPrice": 1.65,
+    "demandScore": 2.2,
+    "createdAt": "2026-02-17T06:13:07.498Z",
+    "updatedAt": "2026-07-30T06:13:07.498Z"
+  },
+  {
+    "id": "prod-real-087",
+    "sku": "37503",
+    "name": "Tea Time Cake Stand In Gift Box",
+    "category": "Furniture",
+    "description": "Tea Time Cake Stand In Gift Box — Sourced from UCI Online Retail dataset (31 real orders)",
+    "stock": 36,
+    "reservedStock": 8,
+    "damagedStock": 0,
+    "reorderLevel": 12,
+    "supplier": "Apex Distribution Ltd",
+    "warehouseLocation": "loc-a04-1",
+    "warehouseId": "hub-03",
+    "unitPrice": 10.75,
+    "demandScore": 2.2,
+    "createdAt": "2025-11-17T06:13:07.498Z",
+    "updatedAt": "2026-07-28T06:13:07.498Z"
+  },
+  {
+    "id": "prod-real-088",
+    "sku": "20750",
+    "name": "Red/White Dot Mini Cases",
+    "category": "Electronics",
+    "description": "Red/White Dot Mini Cases — Sourced from UCI Online Retail dataset (31 real orders)",
+    "stock": 23,
+    "reservedStock": 1,
+    "damagedStock": 1,
+    "reorderLevel": 10,
+    "supplier": "Global Wholesale UK",
+    "warehouseLocation": "loc-a04-2",
+    "warehouseId": "hub-04",
+    "unitPrice": 7.95,
+    "demandScore": 2.2,
+    "createdAt": "2026-04-18T06:13:07.498Z",
+    "updatedAt": "2026-07-31T06:13:07.498Z"
+  },
+  {
+    "id": "prod-real-089",
+    "sku": "21888",
+    "name": "Bingo Set",
+    "category": "Electronics",
+    "description": "Bingo Set — Sourced from UCI Online Retail dataset (30 real orders)",
+    "stock": 35,
+    "reservedStock": 10,
+    "damagedStock": 0,
+    "reorderLevel": 12,
+    "supplier": "Pacific Trade Corp",
+    "warehouseLocation": "loc-b01-1",
+    "warehouseId": "hub-01",
+    "unitPrice": 3.75,
+    "demandScore": 2.1,
+    "createdAt": "2025-10-09T06:13:07.498Z",
+    "updatedAt": "2026-08-19T06:13:07.498Z"
+  },
+  {
+    "id": "prod-real-090",
+    "sku": "21929",
+    "name": "Jumbo Bag Pink Vintage Paisley",
+    "category": "Fashion",
+    "description": "Jumbo Bag Pink Vintage Paisley — Sourced from UCI Online Retail dataset (30 real orders)",
+    "stock": 32,
+    "reservedStock": 8,
+    "damagedStock": 0,
+    "reorderLevel": 24,
+    "supplier": "Summit Supplies PLC",
+    "warehouseLocation": "loc-b01-2",
+    "warehouseId": "hub-02",
+    "unitPrice": 1.95,
+    "demandScore": 2.1,
+    "createdAt": "2026-07-21T06:13:07.498Z",
+    "updatedAt": "2026-08-03T06:13:07.498Z"
+  },
+  {
+    "id": "prod-real-091",
+    "sku": "48187",
+    "name": "Door Mat New England",
+    "category": "Electronics",
+    "description": "Door Mat New England — Sourced from UCI Online Retail dataset (30 real orders)",
+    "stock": 24,
+    "reservedStock": 3,
+    "damagedStock": 0,
+    "reorderLevel": 10,
+    "supplier": "Premier Source Inc",
+    "warehouseLocation": "loc-b02-1",
+    "warehouseId": "hub-03",
+    "unitPrice": 6.75,
+    "demandScore": 2.1,
+    "createdAt": "2025-08-31T06:13:07.498Z",
+    "updatedAt": "2026-07-25T06:13:07.498Z"
+  },
+  {
+    "id": "prod-real-092",
+    "sku": "21535",
+    "name": "Retro Spot Small Milk Jug",
+    "category": "Electronics",
+    "description": "Retro Spot Small Milk Jug — Sourced from UCI Online Retail dataset (30 real orders)",
+    "stock": 11,
+    "reservedStock": 1,
+    "damagedStock": 0,
+    "reorderLevel": 12,
+    "supplier": "Eastern Imports Ltd",
+    "warehouseLocation": "loc-b02-2",
+    "warehouseId": "hub-04",
+    "unitPrice": 2.55,
+    "demandScore": 2.1,
+    "createdAt": "2026-06-05T06:13:07.498Z",
+    "updatedAt": "2026-07-30T06:13:07.498Z"
+  },
+  {
+    "id": "prod-real-093",
+    "sku": "21488",
+    "name": "Red White Scarf Hot Water Bottle",
+    "category": "Fashion",
+    "description": "Red White Scarf Hot Water Bottle — Sourced from UCI Online Retail dataset (30 real orders)",
+    "stock": 24,
+    "reservedStock": 6,
+    "damagedStock": 1,
+    "reorderLevel": 24,
+    "supplier": "Continental Goods Ltd",
+    "warehouseLocation": "loc-b03-1",
+    "warehouseId": "hub-01",
+    "unitPrice": 3.95,
+    "demandScore": 2.1,
+    "createdAt": "2025-11-04T06:13:07.498Z",
+    "updatedAt": "2026-07-24T06:13:07.498Z"
+  },
+  {
+    "id": "prod-real-094",
+    "sku": "85099C",
+    "name": "Jumbo Bag Baroque Black White",
+    "category": "Fashion",
+    "description": "Jumbo Bag Baroque Black White — Sourced from UCI Online Retail dataset (30 real orders)",
+    "stock": 138,
+    "reservedStock": 16,
+    "damagedStock": 1,
+    "reorderLevel": 75,
+    "supplier": "Global Wholesale UK",
+    "warehouseLocation": "loc-b03-2",
+    "warehouseId": "hub-02",
+    "unitPrice": 1.95,
+    "demandScore": 2.1,
+    "createdAt": "2026-02-05T06:13:07.498Z",
+    "updatedAt": "2026-07-22T06:13:07.498Z"
+  },
+  {
+    "id": "prod-real-095",
+    "sku": "21558",
+    "name": "Skull Lunchbox With Cutlery",
+    "category": "Furniture",
+    "description": "Skull Lunchbox With Cutlery — Sourced from UCI Online Retail dataset (30 real orders)",
+    "stock": 25,
+    "reservedStock": 7,
+    "damagedStock": 0,
+    "reorderLevel": 12,
+    "supplier": "Atlantic Trading Co",
+    "warehouseLocation": "loc-b04-1",
+    "warehouseId": "hub-03",
+    "unitPrice": 2.55,
+    "demandScore": 2.1,
+    "createdAt": "2025-09-13T06:13:07.498Z",
+    "updatedAt": "2026-08-14T06:13:07.498Z"
+  },
+  {
+    "id": "prod-real-096",
+    "sku": "20974",
+    "name": "12 Pencils Small Tube Skull",
+    "category": "Electronics",
+    "description": "12 Pencils Small Tube Skull — Sourced from UCI Online Retail dataset (30 real orders)",
+    "stock": 13,
+    "reservedStock": 1,
+    "damagedStock": 0,
+    "reorderLevel": 15,
+    "supplier": "Apex Distribution Ltd",
+    "warehouseLocation": "loc-b04-2",
+    "warehouseId": "hub-04",
+    "unitPrice": 0.65,
+    "demandScore": 2.1,
+    "createdAt": "2026-03-26T06:13:07.498Z",
+    "updatedAt": "2026-08-05T06:13:07.498Z"
+  },
+  {
+    "id": "prod-real-097",
+    "sku": "22195",
+    "name": "Heart Measuring Spoons Large",
+    "category": "Electronics",
+    "description": "Heart Measuring Spoons Large — Sourced from UCI Online Retail dataset (29 real orders)",
+    "stock": 34,
+    "reservedStock": 7,
+    "damagedStock": 0,
+    "reorderLevel": 27,
+    "supplier": "Summit Supplies PLC",
+    "warehouseLocation": "loc-c01-1",
+    "warehouseId": "hub-01",
+    "unitPrice": 1.65,
+    "demandScore": 2.1,
+    "createdAt": "2026-04-09T06:13:07.498Z",
+    "updatedAt": "2026-08-05T06:13:07.498Z"
+  },
+  {
+    "id": "prod-real-098",
+    "sku": "22142",
+    "name": "Christmas Craft White Fairy",
+    "category": "Electronics",
+    "description": "Christmas Craft White Fairy — Sourced from UCI Online Retail dataset (29 real orders)",
+    "stock": 38,
+    "reservedStock": 0,
+    "damagedStock": 1,
+    "reorderLevel": 21,
+    "supplier": "Global Wholesale UK",
+    "warehouseLocation": "loc-c01-2",
+    "warehouseId": "hub-02",
+    "unitPrice": 1.45,
+    "demandScore": 2.1,
+    "createdAt": "2026-01-19T06:13:07.498Z",
+    "updatedAt": "2026-08-04T06:13:07.498Z"
+  },
+  {
+    "id": "prod-real-099",
+    "sku": "22130",
+    "name": "Party Cone Christmas Decoration",
+    "category": "Electronics",
+    "description": "Party Cone Christmas Decoration — Sourced from UCI Online Retail dataset (29 real orders)",
+    "stock": 138,
+    "reservedStock": 5,
+    "damagedStock": 0,
+    "reorderLevel": 42,
+    "supplier": "Global Wholesale UK",
+    "warehouseLocation": "loc-c02-1",
+    "warehouseId": "hub-03",
+    "unitPrice": 0.85,
+    "demandScore": 2.1,
+    "createdAt": "2026-07-28T06:13:07.498Z",
+    "updatedAt": "2026-07-26T06:13:07.498Z"
+  },
+  {
+    "id": "prod-real-100",
+    "sku": "20728",
+    "name": "Lunch Bag Cars Blue",
+    "category": "Fashion",
+    "description": "Lunch Bag Cars Blue — Sourced from UCI Online Retail dataset (29 real orders)",
+    "stock": 56,
+    "reservedStock": 10,
+    "damagedStock": 2,
+    "reorderLevel": 18,
+    "supplier": "Nordic Supply Co",
+    "warehouseLocation": "loc-c02-2",
+    "warehouseId": "hub-04",
+    "unitPrice": 1.65,
+    "demandScore": 2.1,
+    "createdAt": "2026-04-09T06:13:07.498Z",
+    "updatedAt": "2026-07-30T06:13:07.498Z"
+  }
+] as unknown as Product[];
 
-  // 21-36 Groceries & Perishables (Cold Storage & Fast Moving)
-  { name: 'Artisan Aged Gruyère Cheese 500g', category: 'Groceries', description: 'Swiss raw milk cave-aged cheese', stock: 60, reservedStock: 15, damagedStock: 0, reorderLevel: 20, supplier: 'Alpine Dairy Exports', unitPrice: 18.50, demandScore: 8.2, preferredZone: 'Cold Storage' },
-  { name: 'Organic Cold Pressed EVOO 1L', category: 'Groceries', description: 'Single origin extra virgin olive oil', stock: 140, reservedStock: 30, damagedStock: 4, reorderLevel: 35, supplier: 'Mediterranean Grove', unitPrice: 24.99, demandScore: 8.9, preferredZone: 'Standard' },
-  { name: 'Wild Alaskan Sockeye Salmon Fillet 1kg', category: 'Groceries', description: 'Flash frozen vacuum sealed wild salmon', stock: 5, reservedStock: 5, damagedStock: 2, reorderLevel: 25, supplier: 'Pacific Coast Seafood', unitPrice: 38.00, demandScore: 9.3, preferredZone: 'Cold Storage' }, // LOW STOCK
-  { name: 'Fair Trade Espresso Roast Beans 1kg', category: 'Groceries', description: '100% Arabica shade-grown whole beans', stock: 220, reservedStock: 50, damagedStock: 0, reorderLevel: 45, supplier: 'Equator Botanicals', unitPrice: 22.00, demandScore: 9.6, preferredZone: 'Fast Moving' },
-  { name: 'Raw Manuka Honey MGO 550+ 250g', category: 'Groceries', description: 'Certified New Zealand active monovector honey', stock: 45, reservedStock: 8, damagedStock: 0, reorderLevel: 15, supplier: 'Kiwi Apiaries Ltd', unitPrice: 54.00, demandScore: 7.8, preferredZone: 'High Value' },
-  { name: 'A5 Miyazaki Wagyu Ribeye Steak 400g', category: 'Groceries', description: 'Certified Japanese black cattle BMS 11', stock: 0, reservedStock: 0, damagedStock: 0, reorderLevel: 10, supplier: 'Nippon Premium Meats', unitPrice: 120.00, demandScore: 8.7, preferredZone: 'Cold Storage' }, // OUT OF STOCK
-  { name: 'Matcha Ceremonial Grade Green Tea 100g', category: 'Groceries', description: 'First harvest stone-ground Uji matcha', stock: 85, reservedStock: 20, damagedStock: 1, reorderLevel: 20, supplier: 'Kyoto Tea House', unitPrice: 32.50, demandScore: 8.0, preferredZone: 'Standard' },
-  { name: 'Alfonso Mango Puree Frozen 2kg', category: 'Groceries', description: 'Unsweetened premium pulp for culinary use', stock: 75, reservedStock: 14, damagedStock: 0, reorderLevel: 25, supplier: 'TropiHarvest Foods', unitPrice: 16.20, demandScore: 6.9, preferredZone: 'Cold Storage' },
-  { name: 'Gluten-Free Artisan Sourdough 6-Pack', category: 'Groceries', description: 'Fermented ancient grain sandwich loaf', stock: 12, reservedStock: 8, damagedStock: 3, reorderLevel: 30, supplier: 'BakeCraft Mills', unitPrice: 28.50, demandScore: 7.5, preferredZone: 'Cold Storage' }, // LOW STOCK + DAMAGED
-  { name: 'Organic Cold-Pressed Juice Variety 12-Pack', category: 'Groceries', description: 'Raw HPP treated cleanse juices 350ml', stock: 90, reservedStock: 25, damagedStock: 0, reorderLevel: 30, supplier: 'PureVitality Brands', unitPrice: 42.00, demandScore: 8.4, preferredZone: 'Cold Storage' },
-  { name: 'Black Truffle Infused Sea Salt 200g', category: 'Groceries', description: 'Guerande sea salt with dehydrated summer truffle', stock: 110, reservedStock: 18, damagedStock: 0, reorderLevel: 25, supplier: 'Mediterranean Grove', unitPrice: 19.95, demandScore: 6.4, preferredZone: 'Standard' },
-  { name: 'Organic Almond Milk Barista Blend 6x1L', category: 'Groceries', description: 'Creamy frothable plant-based milk', stock: 180, reservedStock: 40, damagedStock: 0, reorderLevel: 50, supplier: 'Equator Botanicals', unitPrice: 26.00, demandScore: 8.6, preferredZone: 'Fast Moving' },
-  { name: 'Single Estate Dark Chocolate 72% 500g', category: 'Groceries', description: 'Bean-to-bar Madagascar criollo cacao', stock: 65, reservedStock: 10, damagedStock: 0, reorderLevel: 20, supplier: 'Cacao Origins', unitPrice: 21.00, demandScore: 7.1, preferredZone: 'Standard' },
-  { name: 'Premium Greek Saffron Stigmas 5g', category: 'Groceries', description: 'Krokos Kozanis PDO certified saffron', stock: 35, reservedStock: 6, damagedStock: 0, reorderLevel: 10, supplier: 'Mediterranean Grove', unitPrice: 45.00, demandScore: 6.1, preferredZone: 'High Value' },
-  { name: 'Aged Balsamic Vinegar of Modena 250ml', category: 'Groceries', description: 'Traditional IGP 12-year barrel aged condimento', stock: 48, reservedStock: 12, damagedStock: 0, reorderLevel: 15, supplier: 'Mediterranean Grove', unitPrice: 36.00, demandScore: 7.0, preferredZone: 'Standard' },
-  { name: 'Organic Quinoa & Ancient Seed Mix 5kg', category: 'Groceries', description: 'Triple washed royal white, red & black quinoa', stock: 95, reservedStock: 15, damagedStock: 0, reorderLevel: 25, supplier: 'Andean Superfoods', unitPrice: 34.00, demandScore: 6.8, preferredZone: 'Bulk Cargo' },
+// ─── 50 REAL Orders derived from UCI Invoice data ────────────────────────────
+export const mockOrders: Order[] = [
+  {
+    "id": "ord-real-001",
+    "orderNumber": "ORD-UCI-490074",
+    "customerName": "Eastside Wholesale Co",
+    "customerTier": "Platinum",
+    "priority": "URGENT",
+    "shippingType": "SameDay",
+    "deliveryDeadline": "2009-12-04T09:08:50.000Z",
+    "orderValue": 5637.96,
+    "status": "PENDING",
+    "totalItems": 5,
+    "createdAt": "2009-12-03T09:08:50.000Z",
+    "items": [
+      {
+        "id": "oi-real-001-1",
+        "productId": "prod-real-071",
+        "quantity": 9,
+        "allocatedQuantity": 7,
+        "status": "PARTIALLY_ALLOCATED"
+      },
+      {
+        "id": "oi-real-001-2",
+        "productId": "prod-real-037",
+        "quantity": 1,
+        "allocatedQuantity": 1,
+        "status": "ALLOCATED"
+      },
+      {
+        "id": "oi-real-001-3",
+        "productId": "prod-real-096",
+        "quantity": 2,
+        "allocatedQuantity": 1,
+        "status": "PARTIALLY_ALLOCATED"
+      },
+      {
+        "id": "oi-real-001-4",
+        "productId": "prod-real-059",
+        "quantity": 2,
+        "allocatedQuantity": 1,
+        "status": "PARTIALLY_ALLOCATED"
+      },
+      {
+        "id": "oi-real-001-5",
+        "productId": "prod-real-075",
+        "quantity": 2,
+        "allocatedQuantity": 0,
+        "status": "PARTIALLY_ALLOCATED"
+      }
+    ]
+  },
+  {
+    "id": "ord-real-002",
+    "orderNumber": "ORD-UCI-490149",
+    "customerName": "Thames Valley Retail",
+    "customerTier": "Platinum",
+    "priority": "URGENT",
+    "shippingType": "SameDay",
+    "deliveryDeadline": "2009-12-05T04:12:50.000Z",
+    "orderValue": 5607.06,
+    "status": "SHIPPED",
+    "totalItems": 5,
+    "createdAt": "2009-12-04T04:12:50.000Z",
+    "items": [
+      {
+        "id": "oi-real-002-1",
+        "productId": "prod-real-073",
+        "quantity": 1,
+        "allocatedQuantity": 0,
+        "status": "PARTIALLY_ALLOCATED"
+      },
+      {
+        "id": "oi-real-002-2",
+        "productId": "prod-real-033",
+        "quantity": 1,
+        "allocatedQuantity": 0,
+        "status": "PICKED"
+      },
+      {
+        "id": "oi-real-002-3",
+        "productId": "prod-real-071",
+        "quantity": 3,
+        "allocatedQuantity": 1,
+        "status": "PARTIALLY_ALLOCATED"
+      },
+      {
+        "id": "oi-real-002-4",
+        "productId": "prod-real-003",
+        "quantity": 2,
+        "allocatedQuantity": 2,
+        "status": "PARTIALLY_ALLOCATED"
+      },
+      {
+        "id": "oi-real-002-5",
+        "productId": "prod-real-039",
+        "quantity": 1,
+        "allocatedQuantity": 0,
+        "status": "PARTIALLY_ALLOCATED"
+      }
+    ]
+  },
+  {
+    "id": "ord-real-003",
+    "orderNumber": "ORD-UCI-490741",
+    "customerName": "Northern Wholesale Ltd",
+    "customerTier": "Platinum",
+    "priority": "URGENT",
+    "shippingType": "SameDay",
+    "deliveryDeadline": "2009-12-08T12:25:50.000Z",
+    "orderValue": 5508.08,
+    "status": "DELIVERED",
+    "totalItems": 5,
+    "createdAt": "2009-12-07T12:25:50.000Z",
+    "items": [
+      {
+        "id": "oi-real-003-1",
+        "productId": "prod-real-078",
+        "quantity": 1,
+        "allocatedQuantity": 0,
+        "status": "PICKED"
+      },
+      {
+        "id": "oi-real-003-2",
+        "productId": "prod-real-069",
+        "quantity": 2,
+        "allocatedQuantity": 1,
+        "status": "ALLOCATED"
+      },
+      {
+        "id": "oi-real-003-3",
+        "productId": "prod-real-039",
+        "quantity": 7,
+        "allocatedQuantity": 0,
+        "status": "PACKED"
+      },
+      {
+        "id": "oi-real-003-4",
+        "productId": "prod-real-076",
+        "quantity": 2,
+        "allocatedQuantity": 1,
+        "status": "PACKED"
+      },
+      {
+        "id": "oi-real-003-5",
+        "productId": "prod-real-074",
+        "quantity": 12,
+        "allocatedQuantity": 10,
+        "status": "ALLOCATED"
+      }
+    ]
+  },
+  {
+    "id": "ord-real-004",
+    "orderNumber": "ORD-UCI-489857",
+    "customerName": "Premier Gift Distributors",
+    "customerTier": "Platinum",
+    "priority": "URGENT",
+    "shippingType": "SameDay",
+    "deliveryDeadline": "2009-12-03T09:12:49.999Z",
+    "orderValue": 4966.72,
+    "status": "PACKED",
+    "totalItems": 5,
+    "createdAt": "2009-12-02T09:12:49.999Z",
+    "items": [
+      {
+        "id": "oi-real-004-1",
+        "productId": "prod-real-094",
+        "quantity": 1,
+        "allocatedQuantity": 0,
+        "status": "PICKED"
+      },
+      {
+        "id": "oi-real-004-2",
+        "productId": "prod-real-001",
+        "quantity": 1,
+        "allocatedQuantity": 1,
+        "status": "ALLOCATED"
+      },
+      {
+        "id": "oi-real-004-3",
+        "productId": "prod-real-073",
+        "quantity": 3,
+        "allocatedQuantity": 2,
+        "status": "PACKED"
+      },
+      {
+        "id": "oi-real-004-4",
+        "productId": "prod-real-041",
+        "quantity": 3,
+        "allocatedQuantity": 0,
+        "status": "PARTIALLY_ALLOCATED"
+      },
+      {
+        "id": "oi-real-004-5",
+        "productId": "prod-real-097",
+        "quantity": 3,
+        "allocatedQuantity": 0,
+        "status": "ALLOCATED"
+      }
+    ]
+  },
+  {
+    "id": "ord-real-005",
+    "orderNumber": "ORD-UCI-490745",
+    "customerName": "Cedar Grove Trading",
+    "customerTier": "Platinum",
+    "priority": "URGENT",
+    "shippingType": "SameDay",
+    "deliveryDeadline": "2009-12-08T12:31:49.999Z",
+    "orderValue": 4571.02,
+    "status": "SHIPPED",
+    "totalItems": 5,
+    "createdAt": "2009-12-07T12:31:49.999Z",
+    "items": [
+      {
+        "id": "oi-real-005-1",
+        "productId": "prod-real-071",
+        "quantity": 2,
+        "allocatedQuantity": 2,
+        "status": "PICKED"
+      },
+      {
+        "id": "oi-real-005-2",
+        "productId": "prod-real-065",
+        "quantity": 1,
+        "allocatedQuantity": 1,
+        "status": "PICKED"
+      },
+      {
+        "id": "oi-real-005-3",
+        "productId": "prod-real-100",
+        "quantity": 1,
+        "allocatedQuantity": 1,
+        "status": "PARTIALLY_ALLOCATED"
+      },
+      {
+        "id": "oi-real-005-4",
+        "productId": "prod-real-061",
+        "quantity": 1,
+        "allocatedQuantity": 0,
+        "status": "PICKED"
+      },
+      {
+        "id": "oi-real-005-5",
+        "productId": "prod-real-096",
+        "quantity": 3,
+        "allocatedQuantity": 3,
+        "status": "PICKED"
+      }
+    ]
+  },
+  {
+    "id": "ord-real-006",
+    "orderNumber": "ORD-UCI-489597",
+    "customerName": "Nordic Home Supplies",
+    "customerTier": "Platinum",
+    "priority": "URGENT",
+    "shippingType": "SameDay",
+    "deliveryDeadline": "2009-12-02T08:57:50.000Z",
+    "orderValue": 4450.63,
+    "status": "DELIVERED",
+    "totalItems": 5,
+    "createdAt": "2009-12-01T08:57:50.000Z",
+    "items": [
+      {
+        "id": "oi-real-006-1",
+        "productId": "prod-real-071",
+        "quantity": 3,
+        "allocatedQuantity": 3,
+        "status": "PARTIALLY_ALLOCATED"
+      },
+      {
+        "id": "oi-real-006-2",
+        "productId": "prod-real-037",
+        "quantity": 1,
+        "allocatedQuantity": 0,
+        "status": "PARTIALLY_ALLOCATED"
+      },
+      {
+        "id": "oi-real-006-3",
+        "productId": "prod-real-061",
+        "quantity": 2,
+        "allocatedQuantity": 1,
+        "status": "PICKED"
+      },
+      {
+        "id": "oi-real-006-4",
+        "productId": "prod-real-034",
+        "quantity": 1,
+        "allocatedQuantity": 1,
+        "status": "ALLOCATED"
+      },
+      {
+        "id": "oi-real-006-5",
+        "productId": "prod-real-096",
+        "quantity": 1,
+        "allocatedQuantity": 1,
+        "status": "PARTIALLY_ALLOCATED"
+      }
+    ]
+  },
+  {
+    "id": "ord-real-007",
+    "orderNumber": "ORD-UCI-490963",
+    "customerName": "Continental Imports UK",
+    "customerTier": "Platinum",
+    "priority": "URGENT",
+    "shippingType": "SameDay",
+    "deliveryDeadline": "2009-12-09T10:18:50.000Z",
+    "orderValue": 4085.62,
+    "status": "PICKED",
+    "totalItems": 5,
+    "createdAt": "2009-12-08T10:18:50.000Z",
+    "items": [
+      {
+        "id": "oi-real-007-1",
+        "productId": "prod-real-055",
+        "quantity": 1,
+        "allocatedQuantity": 0,
+        "status": "PARTIALLY_ALLOCATED"
+      },
+      {
+        "id": "oi-real-007-2",
+        "productId": "prod-real-066",
+        "quantity": 1,
+        "allocatedQuantity": 0,
+        "status": "ALLOCATED"
+      },
+      {
+        "id": "oi-real-007-3",
+        "productId": "prod-real-033",
+        "quantity": 2,
+        "allocatedQuantity": 1,
+        "status": "PICKED"
+      },
+      {
+        "id": "oi-real-007-4",
+        "productId": "prod-real-071",
+        "quantity": 2,
+        "allocatedQuantity": 1,
+        "status": "PARTIALLY_ALLOCATED"
+      },
+      {
+        "id": "oi-real-007-5",
+        "productId": "prod-real-037",
+        "quantity": 1,
+        "allocatedQuantity": 0,
+        "status": "ALLOCATED"
+      }
+    ]
+  },
+  {
+    "id": "ord-real-008",
+    "orderNumber": "ORD-UCI-489856",
+    "customerName": "Midlands Supply Group",
+    "customerTier": "Platinum",
+    "priority": "URGENT",
+    "shippingType": "SameDay",
+    "deliveryDeadline": "2009-12-03T09:05:49.999Z",
+    "orderValue": 3993.5,
+    "status": "PICKED",
+    "totalItems": 5,
+    "createdAt": "2009-12-02T09:05:49.999Z",
+    "items": [
+      {
+        "id": "oi-real-008-1",
+        "productId": "prod-real-073",
+        "quantity": 1,
+        "allocatedQuantity": 1,
+        "status": "PARTIALLY_ALLOCATED"
+      },
+      {
+        "id": "oi-real-008-2",
+        "productId": "prod-real-028",
+        "quantity": 1,
+        "allocatedQuantity": 1,
+        "status": "ALLOCATED"
+      },
+      {
+        "id": "oi-real-008-3",
+        "productId": "prod-real-019",
+        "quantity": 2,
+        "allocatedQuantity": 1,
+        "status": "PICKED"
+      },
+      {
+        "id": "oi-real-008-4",
+        "productId": "prod-real-084",
+        "quantity": 1,
+        "allocatedQuantity": 0,
+        "status": "PICKED"
+      },
+      {
+        "id": "oi-real-008-5",
+        "productId": "prod-real-064",
+        "quantity": 1,
+        "allocatedQuantity": 1,
+        "status": "PICKED"
+      }
+    ]
+  },
+  {
+    "id": "ord-real-009",
+    "orderNumber": "ORD-UCI-491041",
+    "customerName": "Harrington Retail Group",
+    "customerTier": "Platinum",
+    "priority": "URGENT",
+    "shippingType": "SameDay",
+    "deliveryDeadline": "2009-12-10T04:11:50.000Z",
+    "orderValue": 2024,
+    "status": "PROCESSING",
+    "totalItems": 5,
+    "createdAt": "2009-12-09T04:11:50.000Z",
+    "items": [
+      {
+        "id": "oi-real-009-1",
+        "productId": "prod-real-065",
+        "quantity": 1,
+        "allocatedQuantity": 1,
+        "status": "PICKED"
+      },
+      {
+        "id": "oi-real-009-2",
+        "productId": "prod-real-100",
+        "quantity": 1,
+        "allocatedQuantity": 1,
+        "status": "PACKED"
+      },
+      {
+        "id": "oi-real-009-3",
+        "productId": "prod-real-061",
+        "quantity": 2,
+        "allocatedQuantity": 0,
+        "status": "PACKED"
+      },
+      {
+        "id": "oi-real-009-4",
+        "productId": "prod-real-034",
+        "quantity": 1,
+        "allocatedQuantity": 1,
+        "status": "ALLOCATED"
+      },
+      {
+        "id": "oi-real-009-5",
+        "productId": "prod-real-096",
+        "quantity": 1,
+        "allocatedQuantity": 0,
+        "status": "PARTIALLY_ALLOCATED"
+      }
+    ]
+  },
+  {
+    "id": "ord-real-010",
+    "orderNumber": "ORD-UCI-490957",
+    "customerName": "BlueBell Stores Ltd",
+    "customerTier": "Platinum",
+    "priority": "URGENT",
+    "shippingType": "SameDay",
+    "deliveryDeadline": "2009-12-09T09:41:50.000Z",
+    "orderValue": 3796.37,
+    "status": "PROCESSING",
+    "totalItems": 5,
+    "createdAt": "2009-12-08T09:41:50.000Z",
+    "items": [
+      {
+        "id": "oi-real-010-1",
+        "productId": "prod-real-027",
+        "quantity": 12,
+        "allocatedQuantity": 0,
+        "status": "PACKED"
+      },
+      {
+        "id": "oi-real-010-2",
+        "productId": "prod-real-013",
+        "quantity": 6,
+        "allocatedQuantity": 4,
+        "status": "ALLOCATED"
+      },
+      {
+        "id": "oi-real-010-3",
+        "productId": "prod-real-052",
+        "quantity": 8,
+        "allocatedQuantity": 8,
+        "status": "PACKED"
+      },
+      {
+        "id": "oi-real-010-4",
+        "productId": "prod-real-003",
+        "quantity": 9,
+        "allocatedQuantity": 6,
+        "status": "PARTIALLY_ALLOCATED"
+      },
+      {
+        "id": "oi-real-010-5",
+        "productId": "prod-real-030",
+        "quantity": 12,
+        "allocatedQuantity": 2,
+        "status": "PICKED"
+      }
+    ]
+  },
+  {
+    "id": "ord-real-011",
+    "orderNumber": "ORD-UCI-489536",
+    "customerName": "Highland Merchants Ltd",
+    "customerTier": "Gold",
+    "priority": "HIGH",
+    "shippingType": "Express",
+    "deliveryDeadline": "2009-12-03T06:42:50.000Z",
+    "orderValue": 367.41,
+    "status": "DELIVERED",
+    "totalItems": 5,
+    "createdAt": "2009-12-01T06:42:50.000Z",
+    "items": [
+      {
+        "id": "oi-real-011-1",
+        "productId": "prod-real-067",
+        "quantity": 1,
+        "allocatedQuantity": 1,
+        "status": "PICKED"
+      },
+      {
+        "id": "oi-real-011-2",
+        "productId": "prod-real-086",
+        "quantity": 2,
+        "allocatedQuantity": 1,
+        "status": "PARTIALLY_ALLOCATED"
+      },
+      {
+        "id": "oi-real-011-3",
+        "productId": "prod-real-002",
+        "quantity": 1,
+        "allocatedQuantity": 1,
+        "status": "PICKED"
+      },
+      {
+        "id": "oi-real-011-4",
+        "productId": "prod-real-030",
+        "quantity": 2,
+        "allocatedQuantity": 1,
+        "status": "ALLOCATED"
+      },
+      {
+        "id": "oi-real-011-5",
+        "productId": "prod-real-061",
+        "quantity": 1,
+        "allocatedQuantity": 1,
+        "status": "PICKED"
+      }
+    ]
+  },
+  {
+    "id": "ord-real-012",
+    "orderNumber": "ORD-UCI-489866",
+    "customerName": "Midlands Supply Group",
+    "customerTier": "Platinum",
+    "priority": "URGENT",
+    "shippingType": "SameDay",
+    "deliveryDeadline": "2009-12-03T09:33:50.000Z",
+    "orderValue": 1003.83,
+    "status": "PICKED",
+    "totalItems": 5,
+    "createdAt": "2009-12-02T09:33:50.000Z",
+    "items": [
+      {
+        "id": "oi-real-012-1",
+        "productId": "prod-real-030",
+        "quantity": 2,
+        "allocatedQuantity": 0,
+        "status": "PICKED"
+      },
+      {
+        "id": "oi-real-012-2",
+        "productId": "prod-real-013",
+        "quantity": 2,
+        "allocatedQuantity": 1,
+        "status": "ALLOCATED"
+      },
+      {
+        "id": "oi-real-012-3",
+        "productId": "prod-real-035",
+        "quantity": 2,
+        "allocatedQuantity": 1,
+        "status": "ALLOCATED"
+      },
+      {
+        "id": "oi-real-012-4",
+        "productId": "prod-real-012",
+        "quantity": 11,
+        "allocatedQuantity": 9,
+        "status": "PACKED"
+      },
+      {
+        "id": "oi-real-012-5",
+        "productId": "prod-real-001",
+        "quantity": 10,
+        "allocatedQuantity": 0,
+        "status": "PARTIALLY_ALLOCATED"
+      }
+    ]
+  },
+  {
+    "id": "ord-real-013",
+    "orderNumber": "ORD-UCI-490461",
+    "customerName": "Greenfield Distributors",
+    "customerTier": "Platinum",
+    "priority": "URGENT",
+    "shippingType": "SameDay",
+    "deliveryDeadline": "2009-12-07T06:36:50.000Z",
+    "orderValue": 720.79,
+    "status": "PENDING",
+    "totalItems": 5,
+    "createdAt": "2009-12-06T06:36:50.000Z",
+    "items": [
+      {
+        "id": "oi-real-013-1",
+        "productId": "prod-real-014",
+        "quantity": 2,
+        "allocatedQuantity": 1,
+        "status": "PICKED"
+      },
+      {
+        "id": "oi-real-013-2",
+        "productId": "prod-real-053",
+        "quantity": 20,
+        "allocatedQuantity": 19,
+        "status": "ALLOCATED"
+      },
+      {
+        "id": "oi-real-013-3",
+        "productId": "prod-real-039",
+        "quantity": 6,
+        "allocatedQuantity": 1,
+        "status": "PICKED"
+      },
+      {
+        "id": "oi-real-013-4",
+        "productId": "prod-real-009",
+        "quantity": 20,
+        "allocatedQuantity": 13,
+        "status": "PARTIALLY_ALLOCATED"
+      },
+      {
+        "id": "oi-real-013-5",
+        "productId": "prod-real-004",
+        "quantity": 8,
+        "allocatedQuantity": 4,
+        "status": "PICKED"
+      }
+    ]
+  },
+  {
+    "id": "ord-real-014",
+    "orderNumber": "ORD-UCI-489522",
+    "customerName": "Midlands Supply Group",
+    "customerTier": "Platinum",
+    "priority": "URGENT",
+    "shippingType": "SameDay",
+    "deliveryDeadline": "2009-12-02T06:14:50.000Z",
+    "orderValue": 700.31,
+    "status": "PROCESSING",
+    "totalItems": 5,
+    "createdAt": "2009-12-01T06:14:50.000Z",
+    "items": [
+      {
+        "id": "oi-real-014-1",
+        "productId": "prod-real-010",
+        "quantity": 2,
+        "allocatedQuantity": 0,
+        "status": "ALLOCATED"
+      },
+      {
+        "id": "oi-real-014-2",
+        "productId": "prod-real-030",
+        "quantity": 4,
+        "allocatedQuantity": 1,
+        "status": "ALLOCATED"
+      },
+      {
+        "id": "oi-real-014-3",
+        "productId": "prod-real-003",
+        "quantity": 2,
+        "allocatedQuantity": 0,
+        "status": "PARTIALLY_ALLOCATED"
+      },
+      {
+        "id": "oi-real-014-4",
+        "productId": "prod-real-027",
+        "quantity": 1,
+        "allocatedQuantity": 0,
+        "status": "PARTIALLY_ALLOCATED"
+      },
+      {
+        "id": "oi-real-014-5",
+        "productId": "prod-real-006",
+        "quantity": 1,
+        "allocatedQuantity": 1,
+        "status": "ALLOCATED"
+      }
+    ]
+  },
+  {
+    "id": "ord-real-015",
+    "orderNumber": "ORD-UCI-490017",
+    "customerName": "Premier Gift Distributors",
+    "customerTier": "Gold",
+    "priority": "HIGH",
+    "shippingType": "Express",
+    "deliveryDeadline": "2009-12-05T07:00:50.000Z",
+    "orderValue": 393.65,
+    "status": "SHIPPED",
+    "totalItems": 5,
+    "createdAt": "2009-12-03T07:00:50.000Z",
+    "items": [
+      {
+        "id": "oi-real-015-1",
+        "productId": "prod-real-094",
+        "quantity": 1,
+        "allocatedQuantity": 1,
+        "status": "PICKED"
+      },
+      {
+        "id": "oi-real-015-2",
+        "productId": "prod-real-040",
+        "quantity": 6,
+        "allocatedQuantity": 3,
+        "status": "PICKED"
+      },
+      {
+        "id": "oi-real-015-3",
+        "productId": "prod-real-071",
+        "quantity": 2,
+        "allocatedQuantity": 0,
+        "status": "PARTIALLY_ALLOCATED"
+      },
+      {
+        "id": "oi-real-015-4",
+        "productId": "prod-real-074",
+        "quantity": 2,
+        "allocatedQuantity": 0,
+        "status": "PACKED"
+      },
+      {
+        "id": "oi-real-015-5",
+        "productId": "prod-real-037",
+        "quantity": 2,
+        "allocatedQuantity": 2,
+        "status": "PICKED"
+      }
+    ]
+  },
+  {
+    "id": "ord-real-016",
+    "orderNumber": "ORD-UCI-489875",
+    "customerName": "Harrington Retail Group",
+    "customerTier": "Platinum",
+    "priority": "URGENT",
+    "shippingType": "SameDay",
+    "deliveryDeadline": "2009-12-03T10:10:50.000Z",
+    "orderValue": 530.76,
+    "status": "DELIVERED",
+    "totalItems": 5,
+    "createdAt": "2009-12-02T10:10:50.000Z",
+    "items": [
+      {
+        "id": "oi-real-016-1",
+        "productId": "prod-real-008",
+        "quantity": 2,
+        "allocatedQuantity": 2,
+        "status": "PARTIALLY_ALLOCATED"
+      },
+      {
+        "id": "oi-real-016-2",
+        "productId": "prod-real-065",
+        "quantity": 1,
+        "allocatedQuantity": 0,
+        "status": "PACKED"
+      },
+      {
+        "id": "oi-real-016-3",
+        "productId": "prod-real-070",
+        "quantity": 2,
+        "allocatedQuantity": 0,
+        "status": "PICKED"
+      },
+      {
+        "id": "oi-real-016-4",
+        "productId": "prod-real-071",
+        "quantity": 1,
+        "allocatedQuantity": 1,
+        "status": "ALLOCATED"
+      },
+      {
+        "id": "oi-real-016-5",
+        "productId": "prod-real-037",
+        "quantity": 1,
+        "allocatedQuantity": 1,
+        "status": "PARTIALLY_ALLOCATED"
+      }
+    ]
+  },
+  {
+    "id": "ord-real-017",
+    "orderNumber": "ORD-UCI-490403",
+    "customerName": "Thames Valley Retail",
+    "customerTier": "Gold",
+    "priority": "HIGH",
+    "shippingType": "Express",
+    "deliveryDeadline": "2009-12-08T05:42:50.000Z",
+    "orderValue": 316.74,
+    "status": "SHIPPED",
+    "totalItems": 5,
+    "createdAt": "2009-12-06T05:42:50.000Z",
+    "items": [
+      {
+        "id": "oi-real-017-1",
+        "productId": "prod-real-027",
+        "quantity": 3,
+        "allocatedQuantity": 0,
+        "status": "ALLOCATED"
+      },
+      {
+        "id": "oi-real-017-2",
+        "productId": "prod-real-011",
+        "quantity": 3,
+        "allocatedQuantity": 2,
+        "status": "ALLOCATED"
+      },
+      {
+        "id": "oi-real-017-3",
+        "productId": "prod-real-063",
+        "quantity": 1,
+        "allocatedQuantity": 0,
+        "status": "PARTIALLY_ALLOCATED"
+      },
+      {
+        "id": "oi-real-017-4",
+        "productId": "prod-real-003",
+        "quantity": 1,
+        "allocatedQuantity": 0,
+        "status": "ALLOCATED"
+      },
+      {
+        "id": "oi-real-017-5",
+        "productId": "prod-real-013",
+        "quantity": 1,
+        "allocatedQuantity": 1,
+        "status": "PARTIALLY_ALLOCATED"
+      }
+    ]
+  },
+  {
+    "id": "ord-real-018",
+    "orderNumber": "ORD-UCI-490014",
+    "customerName": "Apex Consumer Goods",
+    "customerTier": "Platinum",
+    "priority": "URGENT",
+    "shippingType": "SameDay",
+    "deliveryDeadline": "2009-12-04T06:57:49.999Z",
+    "orderValue": 744.21,
+    "status": "DELIVERED",
+    "totalItems": 5,
+    "createdAt": "2009-12-03T06:57:49.999Z",
+    "items": [
+      {
+        "id": "oi-real-018-1",
+        "productId": "prod-real-040",
+        "quantity": 12,
+        "allocatedQuantity": 12,
+        "status": "PACKED"
+      },
+      {
+        "id": "oi-real-018-2",
+        "productId": "prod-real-059",
+        "quantity": 2,
+        "allocatedQuantity": 0,
+        "status": "PARTIALLY_ALLOCATED"
+      },
+      {
+        "id": "oi-real-018-3",
+        "productId": "prod-real-009",
+        "quantity": 6,
+        "allocatedQuantity": 4,
+        "status": "PICKED"
+      },
+      {
+        "id": "oi-real-018-4",
+        "productId": "prod-real-075",
+        "quantity": 2,
+        "allocatedQuantity": 0,
+        "status": "PICKED"
+      },
+      {
+        "id": "oi-real-018-5",
+        "productId": "prod-real-096",
+        "quantity": 2,
+        "allocatedQuantity": 0,
+        "status": "ALLOCATED"
+      }
+    ]
+  },
+  {
+    "id": "ord-real-019",
+    "orderNumber": "ORD-UCI-490300",
+    "customerName": "Orion Retail Solutions",
+    "customerTier": "Gold",
+    "priority": "HIGH",
+    "shippingType": "Express",
+    "deliveryDeadline": "2009-12-06T08:48:50.000Z",
+    "orderValue": 259.58,
+    "status": "PENDING",
+    "totalItems": 5,
+    "createdAt": "2009-12-04T08:48:50.000Z",
+    "items": [
+      {
+        "id": "oi-real-019-1",
+        "productId": "prod-real-090",
+        "quantity": 1,
+        "allocatedQuantity": 0,
+        "status": "PARTIALLY_ALLOCATED"
+      },
+      {
+        "id": "oi-real-019-2",
+        "productId": "prod-real-046",
+        "quantity": 1,
+        "allocatedQuantity": 1,
+        "status": "ALLOCATED"
+      },
+      {
+        "id": "oi-real-019-3",
+        "productId": "prod-real-059",
+        "quantity": 1,
+        "allocatedQuantity": 0,
+        "status": "PACKED"
+      },
+      {
+        "id": "oi-real-019-4",
+        "productId": "prod-real-096",
+        "quantity": 1,
+        "allocatedQuantity": 1,
+        "status": "ALLOCATED"
+      },
+      {
+        "id": "oi-real-019-5",
+        "productId": "prod-real-043",
+        "quantity": 2,
+        "allocatedQuantity": 1,
+        "status": "PARTIALLY_ALLOCATED"
+      }
+    ]
+  },
+  {
+    "id": "ord-real-020",
+    "orderNumber": "ORD-UCI-490685",
+    "customerName": "Orion Retail Solutions",
+    "customerTier": "Platinum",
+    "priority": "URGENT",
+    "shippingType": "SameDay",
+    "deliveryDeadline": "2009-12-08T08:17:49.999Z",
+    "orderValue": 1066.82,
+    "status": "SHIPPED",
+    "totalItems": 5,
+    "createdAt": "2009-12-07T08:17:49.999Z",
+    "items": [
+      {
+        "id": "oi-real-020-1",
+        "productId": "prod-real-029",
+        "quantity": 12,
+        "allocatedQuantity": 12,
+        "status": "PICKED"
+      },
+      {
+        "id": "oi-real-020-2",
+        "productId": "prod-real-005",
+        "quantity": 1,
+        "allocatedQuantity": 1,
+        "status": "PARTIALLY_ALLOCATED"
+      },
+      {
+        "id": "oi-real-020-3",
+        "productId": "prod-real-002",
+        "quantity": 6,
+        "allocatedQuantity": 5,
+        "status": "ALLOCATED"
+      },
+      {
+        "id": "oi-real-020-4",
+        "productId": "prod-real-007",
+        "quantity": 4,
+        "allocatedQuantity": 3,
+        "status": "ALLOCATED"
+      },
+      {
+        "id": "oi-real-020-5",
+        "productId": "prod-real-097",
+        "quantity": 6,
+        "allocatedQuantity": 1,
+        "status": "PICKED"
+      }
+    ]
+  },
+  {
+    "id": "ord-real-021",
+    "orderNumber": "ORD-UCI-489814",
+    "customerName": "Continental Imports UK",
+    "customerTier": "Platinum",
+    "priority": "URGENT",
+    "shippingType": "SameDay",
+    "deliveryDeadline": "2009-12-03T07:35:49.999Z",
+    "orderValue": 824.18,
+    "status": "DELIVERED",
+    "totalItems": 5,
+    "createdAt": "2009-12-02T07:35:49.999Z",
+    "items": [
+      {
+        "id": "oi-real-021-1",
+        "productId": "prod-real-053",
+        "quantity": 20,
+        "allocatedQuantity": 10,
+        "status": "PARTIALLY_ALLOCATED"
+      },
+      {
+        "id": "oi-real-021-2",
+        "productId": "prod-real-034",
+        "quantity": 1,
+        "allocatedQuantity": 0,
+        "status": "PICKED"
+      },
+      {
+        "id": "oi-real-021-3",
+        "productId": "prod-real-077",
+        "quantity": 2,
+        "allocatedQuantity": 0,
+        "status": "PACKED"
+      },
+      {
+        "id": "oi-real-021-4",
+        "productId": "prod-real-073",
+        "quantity": 6,
+        "allocatedQuantity": 6,
+        "status": "PACKED"
+      },
+      {
+        "id": "oi-real-021-5",
+        "productId": "prod-real-002",
+        "quantity": 6,
+        "allocatedQuantity": 3,
+        "status": "ALLOCATED"
+      }
+    ]
+  },
+  {
+    "id": "ord-real-022",
+    "orderNumber": "ORD-UCI-490490",
+    "customerName": "Silver Birch Wholesale",
+    "customerTier": "Platinum",
+    "priority": "URGENT",
+    "shippingType": "SameDay",
+    "deliveryDeadline": "2009-12-07T07:39:50.000Z",
+    "orderValue": 547.73,
+    "status": "PENDING",
+    "totalItems": 5,
+    "createdAt": "2009-12-06T07:39:50.000Z",
+    "items": [
+      {
+        "id": "oi-real-022-1",
+        "productId": "prod-real-069",
+        "quantity": 6,
+        "allocatedQuantity": 2,
+        "status": "ALLOCATED"
+      },
+      {
+        "id": "oi-real-022-2",
+        "productId": "prod-real-097",
+        "quantity": 1,
+        "allocatedQuantity": 1,
+        "status": "PICKED"
+      },
+      {
+        "id": "oi-real-022-3",
+        "productId": "prod-real-001",
+        "quantity": 10,
+        "allocatedQuantity": 4,
+        "status": "ALLOCATED"
+      },
+      {
+        "id": "oi-real-022-4",
+        "productId": "prod-real-012",
+        "quantity": 6,
+        "allocatedQuantity": 6,
+        "status": "PACKED"
+      },
+      {
+        "id": "oi-real-022-5",
+        "productId": "prod-real-039",
+        "quantity": 6,
+        "allocatedQuantity": 2,
+        "status": "PARTIALLY_ALLOCATED"
+      }
+    ]
+  },
+  {
+    "id": "ord-real-023",
+    "orderNumber": "ORD-UCI-489572",
+    "customerName": "Cedar Grove Trading",
+    "customerTier": "Platinum",
+    "priority": "URGENT",
+    "shippingType": "SameDay",
+    "deliveryDeadline": "2009-12-02T07:58:50.000Z",
+    "orderValue": 507.49,
+    "status": "DELIVERED",
+    "totalItems": 5,
+    "createdAt": "2009-12-01T07:58:50.000Z",
+    "items": [
+      {
+        "id": "oi-real-023-1",
+        "productId": "prod-real-091",
+        "quantity": 2,
+        "allocatedQuantity": 1,
+        "status": "PARTIALLY_ALLOCATED"
+      },
+      {
+        "id": "oi-real-023-2",
+        "productId": "prod-real-033",
+        "quantity": 2,
+        "allocatedQuantity": 1,
+        "status": "PACKED"
+      },
+      {
+        "id": "oi-real-023-3",
+        "productId": "prod-real-021",
+        "quantity": 2,
+        "allocatedQuantity": 1,
+        "status": "ALLOCATED"
+      },
+      {
+        "id": "oi-real-023-4",
+        "productId": "prod-real-017",
+        "quantity": 2,
+        "allocatedQuantity": 2,
+        "status": "PACKED"
+      },
+      {
+        "id": "oi-real-023-5",
+        "productId": "prod-real-094",
+        "quantity": 2,
+        "allocatedQuantity": 2,
+        "status": "PACKED"
+      }
+    ]
+  },
+  {
+    "id": "ord-real-024",
+    "orderNumber": "ORD-UCI-490100",
+    "customerName": "Maple Leaf Imports",
+    "customerTier": "Platinum",
+    "priority": "URGENT",
+    "shippingType": "SameDay",
+    "deliveryDeadline": "2009-12-04T10:50:50.000Z",
+    "orderValue": 869.93,
+    "status": "PENDING",
+    "totalItems": 5,
+    "createdAt": "2009-12-03T10:50:50.000Z",
+    "items": [
+      {
+        "id": "oi-real-024-1",
+        "productId": "prod-real-001",
+        "quantity": 12,
+        "allocatedQuantity": 4,
+        "status": "PARTIALLY_ALLOCATED"
+      },
+      {
+        "id": "oi-real-024-2",
+        "productId": "prod-real-012",
+        "quantity": 4,
+        "allocatedQuantity": 2,
+        "status": "PICKED"
+      },
+      {
+        "id": "oi-real-024-3",
+        "productId": "prod-real-063",
+        "quantity": 3,
+        "allocatedQuantity": 1,
+        "status": "PICKED"
+      },
+      {
+        "id": "oi-real-024-4",
+        "productId": "prod-real-038",
+        "quantity": 1,
+        "allocatedQuantity": 1,
+        "status": "PARTIALLY_ALLOCATED"
+      },
+      {
+        "id": "oi-real-024-5",
+        "productId": "prod-real-005",
+        "quantity": 4,
+        "allocatedQuantity": 3,
+        "status": "PICKED"
+      }
+    ]
+  },
+  {
+    "id": "ord-real-025",
+    "orderNumber": "ORD-UCI-490279",
+    "customerName": "Cedar Grove Trading",
+    "customerTier": "Gold",
+    "priority": "HIGH",
+    "shippingType": "Express",
+    "deliveryDeadline": "2009-12-06T07:06:49.999Z",
+    "orderValue": 317.83,
+    "status": "PENDING",
+    "totalItems": 5,
+    "createdAt": "2009-12-04T07:06:49.999Z",
+    "items": [
+      {
+        "id": "oi-real-025-1",
+        "productId": "prod-real-027",
+        "quantity": 1,
+        "allocatedQuantity": 0,
+        "status": "PARTIALLY_ALLOCATED"
+      },
+      {
+        "id": "oi-real-025-2",
+        "productId": "prod-real-076",
+        "quantity": 1,
+        "allocatedQuantity": 1,
+        "status": "PARTIALLY_ALLOCATED"
+      },
+      {
+        "id": "oi-real-025-3",
+        "productId": "prod-real-020",
+        "quantity": 1,
+        "allocatedQuantity": 0,
+        "status": "PICKED"
+      },
+      {
+        "id": "oi-real-025-4",
+        "productId": "prod-real-082",
+        "quantity": 2,
+        "allocatedQuantity": 0,
+        "status": "PICKED"
+      },
+      {
+        "id": "oi-real-025-5",
+        "productId": "prod-real-006",
+        "quantity": 1,
+        "allocatedQuantity": 1,
+        "status": "ALLOCATED"
+      }
+    ]
+  },
+  {
+    "id": "ord-real-026",
+    "orderNumber": "ORD-UCI-489599",
+    "customerName": "Maple Leaf Imports",
+    "customerTier": "Platinum",
+    "priority": "URGENT",
+    "shippingType": "SameDay",
+    "deliveryDeadline": "2009-12-02T09:09:50.000Z",
+    "orderValue": 2454.68,
+    "status": "SHIPPED",
+    "totalItems": 5,
+    "createdAt": "2009-12-01T09:09:50.000Z",
+    "items": [
+      {
+        "id": "oi-real-026-1",
+        "productId": "prod-real-003",
+        "quantity": 3,
+        "allocatedQuantity": 2,
+        "status": "PACKED"
+      },
+      {
+        "id": "oi-real-026-2",
+        "productId": "prod-real-030",
+        "quantity": 8,
+        "allocatedQuantity": 5,
+        "status": "PACKED"
+      },
+      {
+        "id": "oi-real-026-3",
+        "productId": "prod-real-006",
+        "quantity": 8,
+        "allocatedQuantity": 1,
+        "status": "PICKED"
+      },
+      {
+        "id": "oi-real-026-4",
+        "productId": "prod-real-007",
+        "quantity": 3,
+        "allocatedQuantity": 0,
+        "status": "PICKED"
+      },
+      {
+        "id": "oi-real-026-5",
+        "productId": "prod-real-088",
+        "quantity": 12,
+        "allocatedQuantity": 9,
+        "status": "PACKED"
+      }
+    ]
+  },
+  {
+    "id": "ord-real-027",
+    "orderNumber": "ORD-UCI-490143",
+    "customerName": "Premier Gift Distributors",
+    "customerTier": "Platinum",
+    "priority": "URGENT",
+    "shippingType": "SameDay",
+    "deliveryDeadline": "2009-12-05T03:09:50.000Z",
+    "orderValue": 1610.52,
+    "status": "PICKED",
+    "totalItems": 5,
+    "createdAt": "2009-12-04T03:09:50.000Z",
+    "items": [
+      {
+        "id": "oi-real-027-1",
+        "productId": "prod-real-068",
+        "quantity": 12,
+        "allocatedQuantity": 8,
+        "status": "PARTIALLY_ALLOCATED"
+      },
+      {
+        "id": "oi-real-027-2",
+        "productId": "prod-real-088",
+        "quantity": 6,
+        "allocatedQuantity": 5,
+        "status": "ALLOCATED"
+      },
+      {
+        "id": "oi-real-027-3",
+        "productId": "prod-real-059",
+        "quantity": 20,
+        "allocatedQuantity": 19,
+        "status": "ALLOCATED"
+      },
+      {
+        "id": "oi-real-027-4",
+        "productId": "prod-real-036",
+        "quantity": 20,
+        "allocatedQuantity": 6,
+        "status": "PARTIALLY_ALLOCATED"
+      },
+      {
+        "id": "oi-real-027-5",
+        "productId": "prod-real-029",
+        "quantity": 20,
+        "allocatedQuantity": 2,
+        "status": "PACKED"
+      }
+    ]
+  },
+  {
+    "id": "ord-real-028",
+    "orderNumber": "ORD-UCI-490719",
+    "customerName": "Silver Birch Wholesale",
+    "customerTier": "Platinum",
+    "priority": "URGENT",
+    "shippingType": "SameDay",
+    "deliveryDeadline": "2009-12-08T10:11:50.000Z",
+    "orderValue": 668.1,
+    "status": "PENDING",
+    "totalItems": 5,
+    "createdAt": "2009-12-07T10:11:50.000Z",
+    "items": [
+      {
+        "id": "oi-real-028-1",
+        "productId": "prod-real-068",
+        "quantity": 4,
+        "allocatedQuantity": 1,
+        "status": "PICKED"
+      },
+      {
+        "id": "oi-real-028-2",
+        "productId": "prod-real-018",
+        "quantity": 9,
+        "allocatedQuantity": 7,
+        "status": "PICKED"
+      },
+      {
+        "id": "oi-real-028-3",
+        "productId": "prod-real-046",
+        "quantity": 4,
+        "allocatedQuantity": 2,
+        "status": "PARTIALLY_ALLOCATED"
+      },
+      {
+        "id": "oi-real-028-4",
+        "productId": "prod-real-080",
+        "quantity": 5,
+        "allocatedQuantity": 0,
+        "status": "PARTIALLY_ALLOCATED"
+      },
+      {
+        "id": "oi-real-028-5",
+        "productId": "prod-real-043",
+        "quantity": 3,
+        "allocatedQuantity": 0,
+        "status": "PACKED"
+      }
+    ]
+  },
+  {
+    "id": "ord-real-029",
+    "orderNumber": "ORD-UCI-490937",
+    "customerName": "Apex Consumer Goods",
+    "customerTier": "Platinum",
+    "priority": "URGENT",
+    "shippingType": "SameDay",
+    "deliveryDeadline": "2009-12-09T08:27:49.999Z",
+    "orderValue": 2285.58,
+    "status": "DELIVERED",
+    "totalItems": 5,
+    "createdAt": "2009-12-08T08:27:49.999Z",
+    "items": [
+      {
+        "id": "oi-real-029-1",
+        "productId": "prod-real-078",
+        "quantity": 20,
+        "allocatedQuantity": 1,
+        "status": "ALLOCATED"
+      },
+      {
+        "id": "oi-real-029-2",
+        "productId": "prod-real-072",
+        "quantity": 20,
+        "allocatedQuantity": 1,
+        "status": "PARTIALLY_ALLOCATED"
+      },
+      {
+        "id": "oi-real-029-3",
+        "productId": "prod-real-009",
+        "quantity": 20,
+        "allocatedQuantity": 2,
+        "status": "PARTIALLY_ALLOCATED"
+      },
+      {
+        "id": "oi-real-029-4",
+        "productId": "prod-real-001",
+        "quantity": 20,
+        "allocatedQuantity": 7,
+        "status": "PICKED"
+      },
+      {
+        "id": "oi-real-029-5",
+        "productId": "prod-real-077",
+        "quantity": 20,
+        "allocatedQuantity": 10,
+        "status": "PICKED"
+      }
+    ]
+  },
+  {
+    "id": "ord-real-030",
+    "orderNumber": "ORD-UCI-489787",
+    "customerName": "Eastside Wholesale Co",
+    "customerTier": "Gold",
+    "priority": "HIGH",
+    "shippingType": "Express",
+    "deliveryDeadline": "2009-12-04T06:22:50.000Z",
+    "orderValue": 319.54,
+    "status": "PROCESSING",
+    "totalItems": 5,
+    "createdAt": "2009-12-02T06:22:50.000Z",
+    "items": [
+      {
+        "id": "oi-real-030-1",
+        "productId": "prod-real-092",
+        "quantity": 1,
+        "allocatedQuantity": 0,
+        "status": "PICKED"
+      },
+      {
+        "id": "oi-real-030-2",
+        "productId": "prod-real-049",
+        "quantity": 1,
+        "allocatedQuantity": 1,
+        "status": "PACKED"
+      },
+      {
+        "id": "oi-real-030-3",
+        "productId": "prod-real-097",
+        "quantity": 1,
+        "allocatedQuantity": 0,
+        "status": "PACKED"
+      },
+      {
+        "id": "oi-real-030-4",
+        "productId": "prod-real-067",
+        "quantity": 1,
+        "allocatedQuantity": 1,
+        "status": "PACKED"
+      },
+      {
+        "id": "oi-real-030-5",
+        "productId": "prod-real-067",
+        "quantity": 1,
+        "allocatedQuantity": 0,
+        "status": "ALLOCATED"
+      }
+    ]
+  },
+  {
+    "id": "ord-real-031",
+    "orderNumber": "ORD-UCI-490099",
+    "customerName": "Silver Birch Wholesale",
+    "customerTier": "Platinum",
+    "priority": "URGENT",
+    "shippingType": "SameDay",
+    "deliveryDeadline": "2009-12-04T10:41:50.000Z",
+    "orderValue": 1225.98,
+    "status": "PICKED",
+    "totalItems": 5,
+    "createdAt": "2009-12-03T10:41:50.000Z",
+    "items": [
+      {
+        "id": "oi-real-031-1",
+        "productId": "prod-real-051",
+        "quantity": 3,
+        "allocatedQuantity": 0,
+        "status": "ALLOCATED"
+      },
+      {
+        "id": "oi-real-031-2",
+        "productId": "prod-real-016",
+        "quantity": 3,
+        "allocatedQuantity": 1,
+        "status": "PICKED"
+      },
+      {
+        "id": "oi-real-031-3",
+        "productId": "prod-real-079",
+        "quantity": 4,
+        "allocatedQuantity": 1,
+        "status": "PACKED"
+      },
+      {
+        "id": "oi-real-031-4",
+        "productId": "prod-real-094",
+        "quantity": 10,
+        "allocatedQuantity": 8,
+        "status": "PICKED"
+      },
+      {
+        "id": "oi-real-031-5",
+        "productId": "prod-real-066",
+        "quantity": 3,
+        "allocatedQuantity": 3,
+        "status": "PACKED"
+      }
+    ]
+  },
+  {
+    "id": "ord-real-032",
+    "orderNumber": "ORD-UCI-490711",
+    "customerName": "Cedar Grove Trading",
+    "customerTier": "Gold",
+    "priority": "HIGH",
+    "shippingType": "Express",
+    "deliveryDeadline": "2009-12-09T09:55:50.000Z",
+    "orderValue": 448.96,
+    "status": "PENDING",
+    "totalItems": 5,
+    "createdAt": "2009-12-07T09:55:50.000Z",
+    "items": [
+      {
+        "id": "oi-real-032-1",
+        "productId": "prod-real-074",
+        "quantity": 20,
+        "allocatedQuantity": 7,
+        "status": "PICKED"
+      },
+      {
+        "id": "oi-real-032-2",
+        "productId": "prod-real-022",
+        "quantity": 1,
+        "allocatedQuantity": 0,
+        "status": "PARTIALLY_ALLOCATED"
+      },
+      {
+        "id": "oi-real-032-3",
+        "productId": "prod-real-024",
+        "quantity": 2,
+        "allocatedQuantity": 0,
+        "status": "PARTIALLY_ALLOCATED"
+      },
+      {
+        "id": "oi-real-032-4",
+        "productId": "prod-real-073",
+        "quantity": 1,
+        "allocatedQuantity": 0,
+        "status": "PACKED"
+      },
+      {
+        "id": "oi-real-032-5",
+        "productId": "prod-real-037",
+        "quantity": 3,
+        "allocatedQuantity": 1,
+        "status": "PARTIALLY_ALLOCATED"
+      }
+    ]
+  },
+  {
+    "id": "ord-real-033",
+    "orderNumber": "ORD-UCI-489830",
+    "customerName": "Midlands Supply Group",
+    "customerTier": "Platinum",
+    "priority": "URGENT",
+    "shippingType": "SameDay",
+    "deliveryDeadline": "2009-12-03T08:26:50.000Z",
+    "orderValue": 637.04,
+    "status": "DELIVERED",
+    "totalItems": 5,
+    "createdAt": "2009-12-02T08:26:50.000Z",
+    "items": [
+      {
+        "id": "oi-real-033-1",
+        "productId": "prod-real-069",
+        "quantity": 1,
+        "allocatedQuantity": 0,
+        "status": "PACKED"
+      },
+      {
+        "id": "oi-real-033-2",
+        "productId": "prod-real-009",
+        "quantity": 2,
+        "allocatedQuantity": 1,
+        "status": "PACKED"
+      },
+      {
+        "id": "oi-real-033-3",
+        "productId": "prod-real-034",
+        "quantity": 1,
+        "allocatedQuantity": 1,
+        "status": "PARTIALLY_ALLOCATED"
+      },
+      {
+        "id": "oi-real-033-4",
+        "productId": "prod-real-002",
+        "quantity": 1,
+        "allocatedQuantity": 1,
+        "status": "ALLOCATED"
+      },
+      {
+        "id": "oi-real-033-5",
+        "productId": "prod-real-001",
+        "quantity": 1,
+        "allocatedQuantity": 1,
+        "status": "PICKED"
+      }
+    ]
+  },
+  {
+    "id": "ord-real-034",
+    "orderNumber": "ORD-UCI-490302",
+    "customerName": "Premier Gift Distributors",
+    "customerTier": "Gold",
+    "priority": "HIGH",
+    "shippingType": "Express",
+    "deliveryDeadline": "2009-12-06T08:58:50.000Z",
+    "orderValue": 303.62,
+    "status": "PACKED",
+    "totalItems": 5,
+    "createdAt": "2009-12-04T08:58:50.000Z",
+    "items": [
+      {
+        "id": "oi-real-034-1",
+        "productId": "prod-real-062",
+        "quantity": 2,
+        "allocatedQuantity": 0,
+        "status": "PACKED"
+      },
+      {
+        "id": "oi-real-034-2",
+        "productId": "prod-real-002",
+        "quantity": 3,
+        "allocatedQuantity": 1,
+        "status": "PACKED"
+      },
+      {
+        "id": "oi-real-034-3",
+        "productId": "prod-real-065",
+        "quantity": 1,
+        "allocatedQuantity": 1,
+        "status": "PARTIALLY_ALLOCATED"
+      },
+      {
+        "id": "oi-real-034-4",
+        "productId": "prod-real-037",
+        "quantity": 4,
+        "allocatedQuantity": 3,
+        "status": "PARTIALLY_ALLOCATED"
+      },
+      {
+        "id": "oi-real-034-5",
+        "productId": "prod-real-070",
+        "quantity": 5,
+        "allocatedQuantity": 2,
+        "status": "ALLOCATED"
+      }
+    ]
+  },
+  {
+    "id": "ord-real-035",
+    "orderNumber": "ORD-UCI-490465",
+    "customerName": "Nordic Home Supplies",
+    "customerTier": "Platinum",
+    "priority": "URGENT",
+    "shippingType": "SameDay",
+    "deliveryDeadline": "2009-12-07T06:43:50.000Z",
+    "orderValue": 933.35,
+    "status": "PACKED",
+    "totalItems": 5,
+    "createdAt": "2009-12-06T06:43:50.000Z",
+    "items": [
+      {
+        "id": "oi-real-035-1",
+        "productId": "prod-real-007",
+        "quantity": 1,
+        "allocatedQuantity": 1,
+        "status": "ALLOCATED"
+      },
+      {
+        "id": "oi-real-035-2",
+        "productId": "prod-real-088",
+        "quantity": 1,
+        "allocatedQuantity": 0,
+        "status": "PICKED"
+      },
+      {
+        "id": "oi-real-035-3",
+        "productId": "prod-real-024",
+        "quantity": 3,
+        "allocatedQuantity": 1,
+        "status": "PICKED"
+      },
+      {
+        "id": "oi-real-035-4",
+        "productId": "prod-real-014",
+        "quantity": 6,
+        "allocatedQuantity": 1,
+        "status": "PARTIALLY_ALLOCATED"
+      },
+      {
+        "id": "oi-real-035-5",
+        "productId": "prod-real-004",
+        "quantity": 6,
+        "allocatedQuantity": 4,
+        "status": "ALLOCATED"
+      }
+    ]
+  },
+  {
+    "id": "ord-real-036",
+    "orderNumber": "ORD-UCI-490990",
+    "customerName": "Apex Consumer Goods",
+    "customerTier": "Gold",
+    "priority": "HIGH",
+    "shippingType": "Express",
+    "deliveryDeadline": "2009-12-10T11:39:50.000Z",
+    "orderValue": 271.85,
+    "status": "PICKED",
+    "totalItems": 5,
+    "createdAt": "2009-12-08T11:39:50.000Z",
+    "items": [
+      {
+        "id": "oi-real-036-1",
+        "productId": "prod-real-009",
+        "quantity": 1,
+        "allocatedQuantity": 1,
+        "status": "ALLOCATED"
+      },
+      {
+        "id": "oi-real-036-2",
+        "productId": "prod-real-004",
+        "quantity": 1,
+        "allocatedQuantity": 0,
+        "status": "PACKED"
+      },
+      {
+        "id": "oi-real-036-3",
+        "productId": "prod-real-001",
+        "quantity": 1,
+        "allocatedQuantity": 1,
+        "status": "PICKED"
+      },
+      {
+        "id": "oi-real-036-4",
+        "productId": "prod-real-004",
+        "quantity": 1,
+        "allocatedQuantity": 1,
+        "status": "PARTIALLY_ALLOCATED"
+      },
+      {
+        "id": "oi-real-036-5",
+        "productId": "prod-real-014",
+        "quantity": 1,
+        "allocatedQuantity": 1,
+        "status": "ALLOCATED"
+      }
+    ]
+  },
+  {
+    "id": "ord-real-037",
+    "orderNumber": "ORD-UCI-489574",
+    "customerName": "Premier Gift Distributors",
+    "customerTier": "Platinum",
+    "priority": "URGENT",
+    "shippingType": "SameDay",
+    "deliveryDeadline": "2009-12-02T08:00:50.000Z",
+    "orderValue": 551.33,
+    "status": "PENDING",
+    "totalItems": 5,
+    "createdAt": "2009-12-01T08:00:50.000Z",
+    "items": [
+      {
+        "id": "oi-real-037-1",
+        "productId": "prod-real-091",
+        "quantity": 1,
+        "allocatedQuantity": 1,
+        "status": "PACKED"
+      },
+      {
+        "id": "oi-real-037-2",
+        "productId": "prod-real-016",
+        "quantity": 2,
+        "allocatedQuantity": 2,
+        "status": "PARTIALLY_ALLOCATED"
+      },
+      {
+        "id": "oi-real-037-3",
+        "productId": "prod-real-051",
+        "quantity": 2,
+        "allocatedQuantity": 0,
+        "status": "PICKED"
+      },
+      {
+        "id": "oi-real-037-4",
+        "productId": "prod-real-024",
+        "quantity": 5,
+        "allocatedQuantity": 0,
+        "status": "PARTIALLY_ALLOCATED"
+      },
+      {
+        "id": "oi-real-037-5",
+        "productId": "prod-real-047",
+        "quantity": 2,
+        "allocatedQuantity": 0,
+        "status": "PACKED"
+      }
+    ]
+  },
+  {
+    "id": "ord-real-038",
+    "orderNumber": "ORD-UCI-489791",
+    "customerName": "Royal Oak Supplies",
+    "customerTier": "Gold",
+    "priority": "HIGH",
+    "shippingType": "Express",
+    "deliveryDeadline": "2009-12-04T06:35:50.000Z",
+    "orderValue": 221.19,
+    "status": "SHIPPED",
+    "totalItems": 5,
+    "createdAt": "2009-12-02T06:35:50.000Z",
+    "items": [
+      {
+        "id": "oi-real-038-1",
+        "productId": "prod-real-006",
+        "quantity": 1,
+        "allocatedQuantity": 1,
+        "status": "PICKED"
+      },
+      {
+        "id": "oi-real-038-2",
+        "productId": "prod-real-027",
+        "quantity": 1,
+        "allocatedQuantity": 1,
+        "status": "PARTIALLY_ALLOCATED"
+      },
+      {
+        "id": "oi-real-038-3",
+        "productId": "prod-real-036",
+        "quantity": 3,
+        "allocatedQuantity": 0,
+        "status": "PARTIALLY_ALLOCATED"
+      },
+      {
+        "id": "oi-real-038-4",
+        "productId": "prod-real-004",
+        "quantity": 1,
+        "allocatedQuantity": 1,
+        "status": "PACKED"
+      },
+      {
+        "id": "oi-real-038-5",
+        "productId": "prod-real-085",
+        "quantity": 1,
+        "allocatedQuantity": 1,
+        "status": "ALLOCATED"
+      }
+    ]
+  },
+  {
+    "id": "ord-real-039",
+    "orderNumber": "ORD-UCI-490323",
+    "customerName": "Harrington Retail Group",
+    "customerTier": "Gold",
+    "priority": "HIGH",
+    "shippingType": "Express",
+    "deliveryDeadline": "2009-12-06T09:56:50.000Z",
+    "orderValue": 236.69,
+    "status": "PICKED",
+    "totalItems": 5,
+    "createdAt": "2009-12-04T09:56:50.000Z",
+    "items": [
+      {
+        "id": "oi-real-039-1",
+        "productId": "prod-real-058",
+        "quantity": 1,
+        "allocatedQuantity": 0,
+        "status": "PICKED"
+      },
+      {
+        "id": "oi-real-039-2",
+        "productId": "prod-real-069",
+        "quantity": 3,
+        "allocatedQuantity": 1,
+        "status": "ALLOCATED"
+      },
+      {
+        "id": "oi-real-039-3",
+        "productId": "prod-real-007",
+        "quantity": 1,
+        "allocatedQuantity": 1,
+        "status": "PACKED"
+      },
+      {
+        "id": "oi-real-039-4",
+        "productId": "prod-real-009",
+        "quantity": 1,
+        "allocatedQuantity": 1,
+        "status": "PICKED"
+      },
+      {
+        "id": "oi-real-039-5",
+        "productId": "prod-real-037",
+        "quantity": 1,
+        "allocatedQuantity": 0,
+        "status": "PACKED"
+      }
+    ]
+  },
+  {
+    "id": "ord-real-040",
+    "orderNumber": "ORD-UCI-490008",
+    "customerName": "Summit Retail Partners",
+    "customerTier": "Platinum",
+    "priority": "URGENT",
+    "shippingType": "SameDay",
+    "deliveryDeadline": "2009-12-04T06:39:50.000Z",
+    "orderValue": 503.93,
+    "status": "PROCESSING",
+    "totalItems": 5,
+    "createdAt": "2009-12-03T06:39:50.000Z",
+    "items": [
+      {
+        "id": "oi-real-040-1",
+        "productId": "prod-real-090",
+        "quantity": 4,
+        "allocatedQuantity": 2,
+        "status": "PACKED"
+      },
+      {
+        "id": "oi-real-040-2",
+        "productId": "prod-real-060",
+        "quantity": 1,
+        "allocatedQuantity": 1,
+        "status": "PICKED"
+      },
+      {
+        "id": "oi-real-040-3",
+        "productId": "prod-real-025",
+        "quantity": 1,
+        "allocatedQuantity": 0,
+        "status": "PICKED"
+      },
+      {
+        "id": "oi-real-040-4",
+        "productId": "prod-real-006",
+        "quantity": 1,
+        "allocatedQuantity": 0,
+        "status": "PARTIALLY_ALLOCATED"
+      },
+      {
+        "id": "oi-real-040-5",
+        "productId": "prod-real-087",
+        "quantity": 1,
+        "allocatedQuantity": 1,
+        "status": "PARTIALLY_ALLOCATED"
+      }
+    ]
+  },
+  {
+    "id": "ord-real-041",
+    "orderNumber": "ORD-UCI-490093",
+    "customerName": "Thames Valley Retail",
+    "customerTier": "Platinum",
+    "priority": "URGENT",
+    "shippingType": "SameDay",
+    "deliveryDeadline": "2009-12-04T10:25:50.000Z",
+    "orderValue": 1794.7,
+    "status": "PICKED",
+    "totalItems": 5,
+    "createdAt": "2009-12-03T10:25:50.000Z",
+    "items": [
+      {
+        "id": "oi-real-041-1",
+        "productId": "prod-real-027",
+        "quantity": 8,
+        "allocatedQuantity": 7,
+        "status": "ALLOCATED"
+      },
+      {
+        "id": "oi-real-041-2",
+        "productId": "prod-real-020",
+        "quantity": 16,
+        "allocatedQuantity": 4,
+        "status": "PACKED"
+      },
+      {
+        "id": "oi-real-041-3",
+        "productId": "prod-real-026",
+        "quantity": 20,
+        "allocatedQuantity": 16,
+        "status": "PICKED"
+      },
+      {
+        "id": "oi-real-041-4",
+        "productId": "prod-real-053",
+        "quantity": 20,
+        "allocatedQuantity": 0,
+        "status": "PARTIALLY_ALLOCATED"
+      },
+      {
+        "id": "oi-real-041-5",
+        "productId": "prod-real-001",
+        "quantity": 12,
+        "allocatedQuantity": 4,
+        "status": "PACKED"
+      }
+    ]
+  },
+  {
+    "id": "ord-real-042",
+    "orderNumber": "ORD-UCI-490292",
+    "customerName": "Royal Oak Supplies",
+    "customerTier": "Gold",
+    "priority": "HIGH",
+    "shippingType": "Express",
+    "deliveryDeadline": "2009-12-06T07:52:50.000Z",
+    "orderValue": 460.55,
+    "status": "PROCESSING",
+    "totalItems": 5,
+    "createdAt": "2009-12-04T07:52:50.000Z",
+    "items": [
+      {
+        "id": "oi-real-042-1",
+        "productId": "prod-real-046",
+        "quantity": 1,
+        "allocatedQuantity": 1,
+        "status": "PICKED"
+      },
+      {
+        "id": "oi-real-042-2",
+        "productId": "prod-real-072",
+        "quantity": 1,
+        "allocatedQuantity": 1,
+        "status": "PACKED"
+      },
+      {
+        "id": "oi-real-042-3",
+        "productId": "prod-real-021",
+        "quantity": 6,
+        "allocatedQuantity": 6,
+        "status": "PARTIALLY_ALLOCATED"
+      },
+      {
+        "id": "oi-real-042-4",
+        "productId": "prod-real-096",
+        "quantity": 4,
+        "allocatedQuantity": 2,
+        "status": "PARTIALLY_ALLOCATED"
+      },
+      {
+        "id": "oi-real-042-5",
+        "productId": "prod-real-059",
+        "quantity": 1,
+        "allocatedQuantity": 0,
+        "status": "PARTIALLY_ALLOCATED"
+      }
+    ]
+  },
+  {
+    "id": "ord-real-043",
+    "orderNumber": "ORD-UCI-490083",
+    "customerName": "BlueBell Stores Ltd",
+    "customerTier": "Platinum",
+    "priority": "URGENT",
+    "shippingType": "SameDay",
+    "deliveryDeadline": "2009-12-04T10:04:49.999Z",
+    "orderValue": 2506.14,
+    "status": "DELIVERED",
+    "totalItems": 5,
+    "createdAt": "2009-12-03T10:04:49.999Z",
+    "items": [
+      {
+        "id": "oi-real-043-1",
+        "productId": "prod-real-023",
+        "quantity": 20,
+        "allocatedQuantity": 12,
+        "status": "PICKED"
+      },
+      {
+        "id": "oi-real-043-2",
+        "productId": "prod-real-020",
+        "quantity": 20,
+        "allocatedQuantity": 5,
+        "status": "ALLOCATED"
+      },
+      {
+        "id": "oi-real-043-3",
+        "productId": "prod-real-027",
+        "quantity": 20,
+        "allocatedQuantity": 10,
+        "status": "PACKED"
+      },
+      {
+        "id": "oi-real-043-4",
+        "productId": "prod-real-016",
+        "quantity": 4,
+        "allocatedQuantity": 4,
+        "status": "PARTIALLY_ALLOCATED"
+      },
+      {
+        "id": "oi-real-043-5",
+        "productId": "prod-real-051",
+        "quantity": 4,
+        "allocatedQuantity": 0,
+        "status": "PICKED"
+      }
+    ]
+  },
+  {
+    "id": "ord-real-044",
+    "orderNumber": "ORD-UCI-490294",
+    "customerName": "Cedar Grove Trading",
+    "customerTier": "Gold",
+    "priority": "HIGH",
+    "shippingType": "Express",
+    "deliveryDeadline": "2009-12-06T08:10:50.000Z",
+    "orderValue": 378.96,
+    "status": "PICKED",
+    "totalItems": 5,
+    "createdAt": "2009-12-04T08:10:50.000Z",
+    "items": [
+      {
+        "id": "oi-real-044-1",
+        "productId": "prod-real-069",
+        "quantity": 2,
+        "allocatedQuantity": 2,
+        "status": "PICKED"
+      },
+      {
+        "id": "oi-real-044-2",
+        "productId": "prod-real-085",
+        "quantity": 3,
+        "allocatedQuantity": 0,
+        "status": "PICKED"
+      },
+      {
+        "id": "oi-real-044-3",
+        "productId": "prod-real-059",
+        "quantity": 4,
+        "allocatedQuantity": 1,
+        "status": "PACKED"
+      },
+      {
+        "id": "oi-real-044-4",
+        "productId": "prod-real-096",
+        "quantity": 4,
+        "allocatedQuantity": 3,
+        "status": "ALLOCATED"
+      },
+      {
+        "id": "oi-real-044-5",
+        "productId": "prod-real-073",
+        "quantity": 3,
+        "allocatedQuantity": 2,
+        "status": "ALLOCATED"
+      }
+    ]
+  },
+  {
+    "id": "ord-real-045",
+    "orderNumber": "ORD-UCI-490312",
+    "customerName": "Northern Wholesale Ltd",
+    "customerTier": "Gold",
+    "priority": "HIGH",
+    "shippingType": "Express",
+    "deliveryDeadline": "2009-12-06T09:45:50.000Z",
+    "orderValue": 326.13,
+    "status": "PENDING",
+    "totalItems": 3,
+    "createdAt": "2009-12-04T09:45:50.000Z",
+    "items": [
+      {
+        "id": "oi-real-045-1",
+        "productId": "prod-real-007",
+        "quantity": 3,
+        "allocatedQuantity": 1,
+        "status": "PACKED"
+      },
+      {
+        "id": "oi-real-045-2",
+        "productId": "prod-real-002",
+        "quantity": 10,
+        "allocatedQuantity": 7,
+        "status": "PICKED"
+      },
+      {
+        "id": "oi-real-045-3",
+        "productId": "prod-real-005",
+        "quantity": 4,
+        "allocatedQuantity": 0,
+        "status": "PACKED"
+      }
+    ]
+  },
+  {
+    "id": "ord-real-046",
+    "orderNumber": "ORD-UCI-490941",
+    "customerName": "Northern Wholesale Ltd",
+    "customerTier": "Platinum",
+    "priority": "URGENT",
+    "shippingType": "SameDay",
+    "deliveryDeadline": "2009-12-09T08:32:50.000Z",
+    "orderValue": 644.52,
+    "status": "PENDING",
+    "totalItems": 5,
+    "createdAt": "2009-12-08T08:32:50.000Z",
+    "items": [
+      {
+        "id": "oi-real-046-1",
+        "productId": "prod-real-001",
+        "quantity": 6,
+        "allocatedQuantity": 0,
+        "status": "PARTIALLY_ALLOCATED"
+      },
+      {
+        "id": "oi-real-046-2",
+        "productId": "prod-real-028",
+        "quantity": 1,
+        "allocatedQuantity": 1,
+        "status": "PARTIALLY_ALLOCATED"
+      },
+      {
+        "id": "oi-real-046-3",
+        "productId": "prod-real-019",
+        "quantity": 1,
+        "allocatedQuantity": 1,
+        "status": "PICKED"
+      },
+      {
+        "id": "oi-real-046-4",
+        "productId": "prod-real-093",
+        "quantity": 2,
+        "allocatedQuantity": 0,
+        "status": "ALLOCATED"
+      },
+      {
+        "id": "oi-real-046-5",
+        "productId": "prod-real-015",
+        "quantity": 2,
+        "allocatedQuantity": 2,
+        "status": "PICKED"
+      }
+    ]
+  },
+  {
+    "id": "ord-real-047",
+    "orderNumber": "ORD-UCI-490709",
+    "customerName": "Summit Retail Partners",
+    "customerTier": "Silver",
+    "priority": "MEDIUM",
+    "shippingType": "Standard",
+    "deliveryDeadline": "2009-12-12T09:44:50.000Z",
+    "orderValue": 198.98,
+    "status": "PENDING",
+    "totalItems": 5,
+    "createdAt": "2009-12-07T09:44:50.000Z",
+    "items": [
+      {
+        "id": "oi-real-047-1",
+        "productId": "prod-real-002",
+        "quantity": 1,
+        "allocatedQuantity": 1,
+        "status": "PACKED"
+      },
+      {
+        "id": "oi-real-047-2",
+        "productId": "prod-real-068",
+        "quantity": 1,
+        "allocatedQuantity": 0,
+        "status": "ALLOCATED"
+      },
+      {
+        "id": "oi-real-047-3",
+        "productId": "prod-real-089",
+        "quantity": 1,
+        "allocatedQuantity": 0,
+        "status": "PICKED"
+      },
+      {
+        "id": "oi-real-047-4",
+        "productId": "prod-real-027",
+        "quantity": 1,
+        "allocatedQuantity": 1,
+        "status": "PACKED"
+      },
+      {
+        "id": "oi-real-047-5",
+        "productId": "prod-real-052",
+        "quantity": 1,
+        "allocatedQuantity": 0,
+        "status": "PACKED"
+      }
+    ]
+  },
+  {
+    "id": "ord-real-048",
+    "orderNumber": "ORD-UCI-489537",
+    "customerName": "Greenfield Distributors",
+    "customerTier": "Platinum",
+    "priority": "URGENT",
+    "shippingType": "SameDay",
+    "deliveryDeadline": "2009-12-02T06:43:50.000Z",
+    "orderValue": 633.33,
+    "status": "PROCESSING",
+    "totalItems": 5,
+    "createdAt": "2009-12-01T06:43:50.000Z",
+    "items": [
+      {
+        "id": "oi-real-048-1",
+        "productId": "prod-real-045",
+        "quantity": 1,
+        "allocatedQuantity": 0,
+        "status": "PACKED"
+      },
+      {
+        "id": "oi-real-048-2",
+        "productId": "prod-real-033",
+        "quantity": 2,
+        "allocatedQuantity": 2,
+        "status": "PICKED"
+      },
+      {
+        "id": "oi-real-048-3",
+        "productId": "prod-real-012",
+        "quantity": 10,
+        "allocatedQuantity": 7,
+        "status": "PICKED"
+      },
+      {
+        "id": "oi-real-048-4",
+        "productId": "prod-real-078",
+        "quantity": 2,
+        "allocatedQuantity": 2,
+        "status": "PICKED"
+      },
+      {
+        "id": "oi-real-048-5",
+        "productId": "prod-real-073",
+        "quantity": 5,
+        "allocatedQuantity": 2,
+        "status": "PICKED"
+      }
+    ]
+  },
+  {
+    "id": "ord-real-049",
+    "orderNumber": "ORD-UCI-489556",
+    "customerName": "Silver Birch Wholesale",
+    "customerTier": "Gold",
+    "priority": "HIGH",
+    "shippingType": "Express",
+    "deliveryDeadline": "2009-12-03T07:16:49.999Z",
+    "orderValue": 379.65,
+    "status": "PICKED",
+    "totalItems": 5,
+    "createdAt": "2009-12-01T07:16:49.999Z",
+    "items": [
+      {
+        "id": "oi-real-049-1",
+        "productId": "prod-real-075",
+        "quantity": 4,
+        "allocatedQuantity": 1,
+        "status": "PACKED"
+      },
+      {
+        "id": "oi-real-049-2",
+        "productId": "prod-real-059",
+        "quantity": 8,
+        "allocatedQuantity": 4,
+        "status": "PACKED"
+      },
+      {
+        "id": "oi-real-049-3",
+        "productId": "prod-real-096",
+        "quantity": 3,
+        "allocatedQuantity": 0,
+        "status": "PACKED"
+      },
+      {
+        "id": "oi-real-049-4",
+        "productId": "prod-real-001",
+        "quantity": 3,
+        "allocatedQuantity": 0,
+        "status": "PARTIALLY_ALLOCATED"
+      },
+      {
+        "id": "oi-real-049-5",
+        "productId": "prod-real-009",
+        "quantity": 20,
+        "allocatedQuantity": 0,
+        "status": "ALLOCATED"
+      }
+    ]
+  },
+  {
+    "id": "ord-real-050",
+    "orderNumber": "ORD-UCI-490161",
+    "customerName": "Midlands Supply Group",
+    "customerTier": "Platinum",
+    "priority": "URGENT",
+    "shippingType": "SameDay",
+    "deliveryDeadline": "2009-12-05T05:26:50.000Z",
+    "orderValue": 825.94,
+    "status": "SHIPPED",
+    "totalItems": 5,
+    "createdAt": "2009-12-04T05:26:50.000Z",
+    "items": [
+      {
+        "id": "oi-real-050-1",
+        "productId": "prod-real-074",
+        "quantity": 10,
+        "allocatedQuantity": 4,
+        "status": "ALLOCATED"
+      },
+      {
+        "id": "oi-real-050-2",
+        "productId": "prod-real-070",
+        "quantity": 10,
+        "allocatedQuantity": 7,
+        "status": "ALLOCATED"
+      },
+      {
+        "id": "oi-real-050-3",
+        "productId": "prod-real-057",
+        "quantity": 8,
+        "allocatedQuantity": 6,
+        "status": "PICKED"
+      },
+      {
+        "id": "oi-real-050-4",
+        "productId": "prod-real-053",
+        "quantity": 20,
+        "allocatedQuantity": 17,
+        "status": "ALLOCATED"
+      },
+      {
+        "id": "oi-real-050-5",
+        "productId": "prod-real-071",
+        "quantity": 10,
+        "allocatedQuantity": 9,
+        "status": "PACKED"
+      }
+    ]
+  }
+] as unknown as Order[];
 
-  // 37-52 Medicine & Healthcare (Cold Storage & Secure High Value)
-  { name: 'Insulin Glargine Pen Cartridges 5x3ml', category: 'Medicine', description: 'Long-acting basal human insulin analog (2-8°C)', stock: 42, reservedStock: 15, damagedStock: 0, reorderLevel: 20, supplier: 'PharmaCore Global', unitPrice: 94.00, demandScore: 9.8, preferredZone: 'Cold Storage' },
-  { name: 'Amoxicillin Trihydrate 500mg 100 Caps', category: 'Medicine', description: 'Broad-spectrum beta-lactam antibiotic', stock: 150, reservedStock: 35, damagedStock: 0, reorderLevel: 40, supplier: 'BioMedix Life Sciences', unitPrice: 28.50, demandScore: 8.9, preferredZone: 'Standard' },
-  { name: 'Epinephrine Auto-Injector 0.3mg 2-Pack', category: 'Medicine', description: 'Emergency anaphylaxis delivery system', stock: 6, reservedStock: 6, damagedStock: 0, reorderLevel: 20, supplier: 'Emergency Health Corp', unitPrice: 185.00, demandScore: 9.4, preferredZone: 'High Value' }, // LOW STOCK
-  { name: 'Liposomal Vitamin C 1000mg 60 Sachets', category: 'Medicine', description: 'High bioavailability liquid vitamin pouches', stock: 130, reservedStock: 25, damagedStock: 0, reorderLevel: 30, supplier: 'NutraPure Labs', unitPrice: 39.99, demandScore: 8.1, preferredZone: 'Fast Moving' },
-  { name: 'Digital Blood Glucose Monitor Kit', category: 'Medicine', description: 'Bluetooth glucometer + 100 test strips', stock: 80, reservedStock: 18, damagedStock: 2, reorderLevel: 20, supplier: 'DiaTech Healthcare', unitPrice: 49.99, demandScore: 7.9, preferredZone: 'Standard' },
-  { name: 'Sterile Surgical Glove Powder-Free Box 100', category: 'Medicine', description: 'Textured nitrile medical examination gloves (Size M)', stock: 350, reservedStock: 80, damagedStock: 0, reorderLevel: 80, supplier: 'MedGuard Supply', unitPrice: 15.20, demandScore: 9.0, preferredZone: 'Fast Moving' },
-  { name: 'Pulse Oximeter Finger Sensor Pro', category: 'Medicine', description: 'Hospital grade OLED SpO2 & pulse rate monitor', stock: 0, reservedStock: 0, damagedStock: 6, reorderLevel: 25, supplier: 'DiaTech Healthcare', unitPrice: 34.00, demandScore: 8.5, preferredZone: 'Standard' }, // OUT OF STOCK + DAMAGED
-  { name: 'Recombinant Factor VIII Lyophilized 500IU', category: 'Medicine', description: 'Hemophilia A antihemophilic factor (Cold chain)', stock: 18, reservedStock: 4, damagedStock: 0, reorderLevel: 8, supplier: 'PharmaCore Global', unitPrice: 420.00, demandScore: 9.1, preferredZone: 'Cold Storage' },
-  { name: 'Ibuprofen Suspension 100mg/5ml Pediatric', category: 'Medicine', description: 'Sugar-free fever and pain reducer 200ml', stock: 160, reservedStock: 40, damagedStock: 0, reorderLevel: 40, supplier: 'BioMedix Life Sciences', unitPrice: 11.50, demandScore: 8.7, preferredZone: 'Fast Moving' },
-  { name: 'Hydrocortisone Cream 1% USP 50g', category: 'Medicine', description: 'Topical anti-inflammatory corticosteroid', stock: 95, reservedStock: 20, damagedStock: 0, reorderLevel: 25, supplier: 'BioMedix Life Sciences', unitPrice: 8.75, demandScore: 7.3, preferredZone: 'Standard' },
-  { name: 'Automated External Defibrillator AED Pad Set', category: 'Medicine', description: 'Universal adult/pediatric electrode pads', stock: 24, reservedStock: 6, damagedStock: 0, reorderLevel: 12, supplier: 'Emergency Health Corp', unitPrice: 88.00, demandScore: 7.7, preferredZone: 'High Value' },
-  { name: 'Bio-Collagen Wound Dressing Matrix 10-Pack', category: 'Medicine', description: 'Advanced wound healing hydrogel pads', stock: 55, reservedStock: 12, damagedStock: 0, reorderLevel: 15, supplier: 'MedGuard Supply', unitPrice: 62.00, demandScore: 6.9, preferredZone: 'Standard' },
-  { name: 'Omega-3 Ultra Pure Fish Oil 1200mg 180 Caps', category: 'Medicine', description: 'Molecularly distilled EPA/DHA softgels', stock: 190, reservedStock: 35, damagedStock: 0, reorderLevel: 45, supplier: 'NutraPure Labs', unitPrice: 31.90, demandScore: 8.3, preferredZone: 'Fast Moving' },
-  { name: 'Saline 0.9% IV Infusion Solution 10x500ml', category: 'Medicine', description: 'Sterile sodium chloride irrigation solution', stock: 110, reservedStock: 30, damagedStock: 0, reorderLevel: 30, supplier: 'MedGuard Supply', unitPrice: 22.50, demandScore: 8.8, preferredZone: 'Bulk Cargo' },
-  { name: 'Zinc Picolinate 50mg High Potency 120 Vcaps', category: 'Medicine', description: 'Immune support mineral supplement', stock: 140, reservedStock: 22, damagedStock: 0, reorderLevel: 30, supplier: 'NutraPure Labs', unitPrice: 17.50, demandScore: 7.2, preferredZone: 'Standard' },
-  { name: 'Antiseptic Povidone Iodine Solution 500ml', category: 'Medicine', description: '10% surgical scrub and first aid solution', stock: 75, reservedStock: 15, damagedStock: 0, reorderLevel: 20, supplier: 'MedGuard Supply', unitPrice: 13.40, demandScore: 6.6, preferredZone: 'Standard' },
-
-  // 53-68 Fashion & Apparel (Standard & Fast Moving)
-  { name: 'ThermalShield Merino Wool Base Layer Top', category: 'Fashion', description: '100% 200gsm breathable merino wool long sleeve', stock: 115, reservedStock: 28, damagedStock: 0, reorderLevel: 30, supplier: 'Nordic Weave Apparel', unitPrice: 85.00, demandScore: 8.4, preferredZone: 'Fast Moving' },
-  { name: 'WeatherProof All-Season Shell Jacket', category: 'Fashion', description: '3-layer GORE-TEX breathable storm parka', stock: 45, reservedStock: 12, damagedStock: 1, reorderLevel: 15, supplier: 'Summit Gear Co', unitPrice: 290.00, demandScore: 8.7, preferredZone: 'High Value' },
-  { name: 'FlexTech Stretch Chino Pants Slim Fit', category: 'Fashion', description: 'Water-repellent 4-way stretch commuter trousers', stock: 140, reservedStock: 35, damagedStock: 0, reorderLevel: 35, supplier: 'UrbanThread Tailors', unitPrice: 78.00, demandScore: 8.1, preferredZone: 'Standard' },
-  { name: 'AeroLite Carbon Running Shoes (Size 10)', category: 'Fashion', description: 'Marathon racing shoes with carbon propulsion plate', stock: 9, reservedStock: 8, damagedStock: 0, reorderLevel: 25, supplier: 'Veloce Footwear', unitPrice: 195.00, demandScore: 9.3, preferredZone: 'Fast Moving' }, // LOW STOCK
-  { name: 'Italian Full-Grain Leather Chelsea Boots', category: 'Fashion', description: 'Handcrafted Goodyear welted calfskin boots', stock: 0, reservedStock: 0, damagedStock: 3, reorderLevel: 15, supplier: 'Tuscan Leatherworks', unitPrice: 260.00, demandScore: 7.9, preferredZone: 'High Value' }, // OUT OF STOCK + DAMAGED
-  { name: 'Organic Supima Cotton Crewneck Tee 3-Pack', category: 'Fashion', description: 'Heavyweight 220gsm ring-spun combed cotton', stock: 260, reservedStock: 60, damagedStock: 0, reorderLevel: 50, supplier: 'UrbanThread Tailors', unitPrice: 49.99, demandScore: 9.5, preferredZone: 'Fast Moving' },
-  { name: 'Cashmere Ribbed Knit Beanie Unisex', category: 'Fashion', description: '100% Grade-A Mongolian cashmere winter cap', stock: 80, reservedStock: 14, damagedStock: 0, reorderLevel: 20, supplier: 'Nordic Weave Apparel', unitPrice: 55.00, demandScore: 7.2, preferredZone: 'Standard' },
-  { name: 'Heavyweight French Terry Pullover Hoodie', category: 'Fashion', description: '450gsm custom milled organic cotton hoodie', stock: 95, reservedStock: 25, damagedStock: 0, reorderLevel: 25, supplier: 'UrbanThread Tailors', unitPrice: 95.00, demandScore: 8.6, preferredZone: 'Fast Moving' },
-  { name: 'Tactical Modular Everyday Backpack 28L', category: 'Fashion', description: 'Cordura 1000D water-resistant laptop commuter bag', stock: 70, reservedStock: 16, damagedStock: 0, reorderLevel: 20, supplier: 'Summit Gear Co', unitPrice: 145.00, demandScore: 8.0, preferredZone: 'Standard' },
-  { name: 'Polarized Aviator Titanium Sunglasses', category: 'Fashion', description: 'Ultra-lightweight titanium frame with UV400 lenses', stock: 50, reservedStock: 10, damagedStock: 0, reorderLevel: 15, supplier: 'Optix Design Labs', unitPrice: 175.00, demandScore: 7.5, preferredZone: 'High Value' },
-  { name: 'Seamless High-Impact Sports Bra', category: 'Fashion', description: 'Moisture wicking compression sports bra', stock: 110, reservedStock: 25, damagedStock: 0, reorderLevel: 30, supplier: 'Veloce Footwear', unitPrice: 42.00, demandScore: 8.2, preferredZone: 'Fast Moving' },
-  { name: 'Waterproof Trail Gaiters Low-Cut', category: 'Fashion', description: 'Breathable debris protection for trail running', stock: 65, reservedStock: 12, damagedStock: 0, reorderLevel: 20, supplier: 'Summit Gear Co', unitPrice: 32.00, demandScore: 6.1, preferredZone: 'Standard' },
-  { name: 'Silk Knit Necktie Handmade Blue Chevron', category: 'Fashion', description: '100% Mulberry Italian silk knitted tie', stock: 40, reservedStock: 5, damagedStock: 0, reorderLevel: 10, supplier: 'Tuscan Leatherworks', unitPrice: 68.00, demandScore: 5.5, preferredZone: 'Standard' },
-  { name: 'DownFill Compact Packable Vest 800-Fill', category: 'Fashion', description: 'Ultralight RDS certified goose down vest', stock: 58, reservedStock: 14, damagedStock: 0, reorderLevel: 18, supplier: 'Summit Gear Co', unitPrice: 120.00, demandScore: 7.8, preferredZone: 'Standard' },
-  { name: 'Quick-Dry Boardshorts 4-Way Stretch', category: 'Fashion', description: 'Recycled ocean polyester beach swim shorts', stock: 85, reservedStock: 15, damagedStock: 0, reorderLevel: 25, supplier: 'Veloce Footwear', unitPrice: 48.00, demandScore: 6.9, preferredZone: 'Standard' },
-  { name: 'Waxed Canvas Utility Duffle Bag 45L', category: 'Fashion', description: 'Heavy duty brass hardware weekend travel bag', stock: 35, reservedStock: 6, damagedStock: 0, reorderLevel: 12, supplier: 'Tuscan Leatherworks', unitPrice: 180.00, demandScore: 7.4, preferredZone: 'Standard' },
-
-  // 69-84 Furniture & Heavy Goods (Bulk Cargo & Standard)
-  { name: 'ErgoDynamic Mesh Executive Desk Chair', category: 'Furniture', description: 'Adjustable 4D armrests, lumbar support, aluminum base', stock: 35, reservedStock: 10, damagedStock: 1, reorderLevel: 12, supplier: 'ErgoForm Workspaces', unitPrice: 389.00, demandScore: 8.9, preferredZone: 'Bulk Cargo' },
-  { name: 'Dual-Motor Electric Standing Desk 60x30', category: 'Furniture', description: 'Solid bamboo tabletop with digital memory keypad', stock: 22, reservedStock: 8, damagedStock: 0, reorderLevel: 10, supplier: 'ErgoForm Workspaces', unitPrice: 499.00, demandScore: 8.7, preferredZone: 'Bulk Cargo' },
-  { name: 'Modular Sectional Sofa 3-Piece Charcoal', category: 'Furniture', description: 'High resilience foam with stain-resistant linen weave', stock: 4, reservedStock: 4, damagedStock: 1, reorderLevel: 8, supplier: 'Nordic Living Furniture', unitPrice: 1199.00, demandScore: 7.6, preferredZone: 'Bulk Cargo' }, // LOW STOCK
-  { name: 'Solid Walnut Mid-Century Coffee Table', category: 'Furniture', description: 'Solid American black walnut with tapered brass legs', stock: 18, reservedStock: 4, damagedStock: 0, reorderLevel: 8, supplier: 'CraftWood Artisans', unitPrice: 340.00, demandScore: 6.8, preferredZone: 'Bulk Cargo' },
-  { name: 'Acoustic Desk Privacy Panel 48" Clamp-On', category: 'Furniture', description: 'Recycled PET sound-absorbing felt partition', stock: 75, reservedStock: 15, damagedStock: 0, reorderLevel: 20, supplier: 'ErgoForm Workspaces', unitPrice: 89.00, demandScore: 7.1, preferredZone: 'Standard' },
-  { name: 'Industrial Steel Frame Bookshelf 5-Tier', category: 'Furniture', description: 'Rustic oak shelves with matte black powdercoat frame', stock: 0, reservedStock: 0, damagedStock: 2, reorderLevel: 10, supplier: 'CraftWood Artisans', unitPrice: 220.00, demandScore: 7.3, preferredZone: 'Bulk Cargo' }, // OUT OF STOCK + DAMAGED
-  { name: 'Ergonomic Active Balance Wobble Stool', category: 'Furniture', description: 'Height-adjustable tilting pneumatic sit-stand perch', stock: 45, reservedStock: 10, damagedStock: 0, reorderLevel: 15, supplier: 'ErgoForm Workspaces', unitPrice: 139.00, demandScore: 6.5, preferredZone: 'Standard' },
-  { name: 'Dimmable LED Architect Drafting Floor Lamp', category: 'Furniture', description: 'Counterbalance arm 3000K-6000K touch control lamp', stock: 60, reservedStock: 12, damagedStock: 0, reorderLevel: 15, supplier: 'Lumina Tech', unitPrice: 110.00, demandScore: 6.9, preferredZone: 'Standard' },
-  { name: 'Memory Foam Hybrid Mattress Queen 12"', category: 'Furniture', description: 'Pocketed coil base with cooling gel infused layer', stock: 15, reservedStock: 5, damagedStock: 0, reorderLevel: 8, supplier: 'Nordic Living Furniture', unitPrice: 650.00, demandScore: 8.3, preferredZone: 'Bulk Cargo' },
-  { name: 'Under-Desk Cable Management Spine Metal', category: 'Furniture', description: 'Flexible snake conduit for standing desk wiring', stock: 120, reservedStock: 25, damagedStock: 0, reorderLevel: 30, supplier: 'ErgoForm Workspaces', unitPrice: 34.50, demandScore: 7.0, preferredZone: 'Standard' },
-  { name: 'Minimalist Dining Chair Set of 2 Bentwood', category: 'Furniture', description: 'Molded ash veneer with stackable design', stock: 28, reservedStock: 6, damagedStock: 0, reorderLevel: 10, supplier: 'Nordic Living Furniture', unitPrice: 210.00, demandScore: 6.4, preferredZone: 'Bulk Cargo' },
-  { name: 'Mobile Rolling Storage File Cabinet 3-Drawer', category: 'Furniture', description: 'Heavy gauge steel with anti-tip locking mechanism', stock: 32, reservedStock: 7, damagedStock: 0, reorderLevel: 10, supplier: 'ErgoForm Workspaces', unitPrice: 165.00, demandScore: 6.7, preferredZone: 'Bulk Cargo' },
-  { name: 'Floating Wall Shelf Solid Oak 36" 2-Pack', category: 'Furniture', description: 'Concealed steel bracket heavy load shelves', stock: 65, reservedStock: 14, damagedStock: 0, reorderLevel: 20, supplier: 'CraftWood Artisans', unitPrice: 75.00, demandScore: 6.2, preferredZone: 'Standard' },
-  { name: 'Hand-Tufted Wool Area Rug 8x10 Geometric', category: 'Furniture', description: '100% New Zealand wool plush pile rug', stock: 12, reservedStock: 3, damagedStock: 0, reorderLevel: 6, supplier: 'Nordic Living Furniture', unitPrice: 480.00, demandScore: 7.0, preferredZone: 'Bulk Cargo' },
-  { name: 'Dual Monitor Heavy Duty Gas Spring Arm', category: 'Furniture', description: 'Supports dual 32" screens up to 19.8 lbs each', stock: 55, reservedStock: 12, damagedStock: 0, reorderLevel: 15, supplier: 'ErgoForm Workspaces', unitPrice: 129.99, demandScore: 8.0, preferredZone: 'Standard' },
-  { name: 'Outdoor Teak Folding Patio Dining Table', category: 'Furniture', description: 'Weather resistant plantation-grown teakwood', stock: 10, reservedStock: 2, damagedStock: 0, reorderLevel: 5, supplier: 'CraftWood Artisans', unitPrice: 390.00, demandScore: 5.8, preferredZone: 'Bulk Cargo' },
-
-  // 85-100 Automotive & Industrial (Bulk Cargo & Standard)
-  { name: 'Full Synthetic Motor Oil 5W-30 5-Quart Jug', category: 'Automotive', description: 'Advanced protection high mileage motor oil', stock: 190, reservedStock: 45, damagedStock: 0, reorderLevel: 40, supplier: 'Apex Lubricants LLC', unitPrice: 32.99, demandScore: 9.4, preferredZone: 'Bulk Cargo' },
-  { name: 'Heavy Duty 3-Ton Low Profile Floor Jack', category: 'Automotive', description: 'Steel hydraulic dual piston rapid pump garage jack', stock: 26, reservedStock: 8, damagedStock: 0, reorderLevel: 10, supplier: 'TorqueTools Pro', unitPrice: 189.00, demandScore: 8.2, preferredZone: 'Bulk Cargo' },
-  { name: 'OBD2 Bluetooth Diagnostic Scanner Tool', category: 'Automotive', description: 'Live sensor graphing and ECU fault code reader', stock: 85, reservedStock: 20, damagedStock: 0, reorderLevel: 25, supplier: 'AutoSensor Technologies', unitPrice: 69.95, demandScore: 8.8, preferredZone: 'Fast Moving' },
-  { name: 'High Output Cordless Tire Inflator 150PSI', category: 'Automotive', description: '20V rechargeable digital auto-stop air pump', stock: 7, reservedStock: 6, damagedStock: 1, reorderLevel: 20, supplier: 'TorqueTools Pro', unitPrice: 79.99, demandScore: 9.0, preferredZone: 'Fast Moving' }, // LOW STOCK
-  { name: 'Universal Ceramic Brake Pad Set Front', category: 'Automotive', description: 'Low-dust silent braking multi-vehicle compound', stock: 110, reservedStock: 25, damagedStock: 0, reorderLevel: 30, supplier: 'BremShield Systems', unitPrice: 58.00, demandScore: 8.5, preferredZone: 'Standard' },
-  { name: 'Car Battery Jump Starter 2000A Peak', category: 'Automotive', description: 'Ultra-safe lithium booster pack for up to 8L gas', stock: 95, reservedStock: 22, damagedStock: 0, reorderLevel: 25, supplier: 'Voltaic Systems', unitPrice: 119.00, demandScore: 9.1, preferredZone: 'High Value' },
-  { name: 'Ceramic Coating Paint Sealant Kit 50ml', category: 'Automotive', description: '9H hardness hydrophobic protective crystal coat', stock: 60, reservedStock: 10, damagedStock: 0, reorderLevel: 15, supplier: 'AutoSensor Technologies', unitPrice: 75.00, demandScore: 7.7, preferredZone: 'Standard' },
-  { name: 'LED Headlight Conversion Kit H11 12000LM', category: 'Automotive', description: '6500K cool white plug & play replacement bulbs', stock: 0, reservedStock: 0, damagedStock: 5, reorderLevel: 25, supplier: 'Lumina Tech', unitPrice: 49.99, demandScore: 8.3, preferredZone: 'Standard' }, // OUT OF STOCK + DAMAGED
-  { name: 'Mechanic Magnetic Tool Tray & Socket Rail Set', category: 'Automotive', description: 'Heavy neodymium magnetic base stainless trays', stock: 130, reservedStock: 20, damagedStock: 0, reorderLevel: 30, supplier: 'TorqueTools Pro', unitPrice: 38.50, demandScore: 7.3, preferredZone: 'Standard' },
-  { name: '1/2" Cordless High-Torque Impact Wrench', category: 'Automotive', description: 'Brushless 1000 ft-lbs breakaway torque tool kit', stock: 30, reservedStock: 7, damagedStock: 0, reorderLevel: 10, supplier: 'TorqueTools Pro', unitPrice: 249.00, demandScore: 8.6, preferredZone: 'High Value' },
-  { name: 'Windshield Wiper Blades All-Season 24" Pair', category: 'Automotive', description: 'Silicone coated beam blade with universal adapters', stock: 160, reservedStock: 35, damagedStock: 0, reorderLevel: 40, supplier: 'BremShield Systems', unitPrice: 29.99, demandScore: 8.9, preferredZone: 'Fast Moving' },
-  { name: 'Heavy Duty Ratchet Tie-Down Straps 4-Pack', category: 'Automotive', description: '1.5" x 15ft 3300 lbs break strength with padded handles', stock: 140, reservedStock: 28, damagedStock: 0, reorderLevel: 35, supplier: 'TorqueTools Pro', unitPrice: 42.00, demandScore: 7.8, preferredZone: 'Standard' },
-  { name: 'Automotive Coolant Antifreeze 50/50 1 Gallon', category: 'Automotive', description: 'Universal extended life OAT silicate-free formula', stock: 125, reservedStock: 25, damagedStock: 0, reorderLevel: 30, supplier: 'Apex Lubricants LLC', unitPrice: 21.50, demandScore: 8.0, preferredZone: 'Bulk Cargo' },
-  { name: 'Cabin & Engine Air Filter Combo Set', category: 'Automotive', description: 'Activated carbon HEPA cabin filter with pleated intake filter', stock: 90, reservedStock: 18, damagedStock: 0, reorderLevel: 25, supplier: 'BremShield Systems', unitPrice: 36.00, demandScore: 7.5, preferredZone: 'Standard' },
-  { name: 'Dual Channel 4K WiFi GPS Dash Cam', category: 'Automotive', description: 'Front 4K & rear 1080P night vision loop recorder', stock: 40, reservedStock: 12, damagedStock: 0, reorderLevel: 15, supplier: 'AutoSensor Technologies', unitPrice: 159.99, demandScore: 8.7, preferredZone: 'High Value' },
-  { name: 'Heavy Duty Rubber All-Weather Floor Mats Set', category: 'Automotive', description: 'Custom-trimmable deep dish spill channel mats', stock: 50, reservedStock: 10, damagedStock: 0, reorderLevel: 15, supplier: 'TorqueTools Pro', unitPrice: 64.00, demandScore: 7.1, preferredZone: 'Bulk Cargo' },
-];
-
-const categoryImages: Record<string, string[]> = {
-  Electronics: [
-    'https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=500&auto=format&fit=crop&q=80',
-    'https://images.unsplash.com/photo-1527864550417-7fd91fc51a46?w=500&auto=format&fit=crop&q=80',
-    'https://images.unsplash.com/photo-1587829741301-dc798b83add3?w=500&auto=format&fit=crop&q=80',
-    'https://images.unsplash.com/photo-1593642632823-8f785ba67e45?w=500&auto=format&fit=crop&q=80',
-    'https://images.unsplash.com/photo-1544716278-ca5e3f4abd8c?w=500&auto=format&fit=crop&q=80',
-    'https://images.unsplash.com/photo-1508614589041-895b88991e3e?w=500&auto=format&fit=crop&q=80',
-  ],
-  Groceries: [
-    'https://images.unsplash.com/photo-1486297678162-eb2a19b0a32d?w=500&auto=format&fit=crop&q=80',
-    'https://images.unsplash.com/photo-1474979266404-7eaacbcd87c5?w=500&auto=format&fit=crop&q=80',
-    'https://images.unsplash.com/photo-1534483509719-3feaee7c30da?w=500&auto=format&fit=crop&q=80',
-    'https://images.unsplash.com/photo-1447933601403-0c6688de566e?w=500&auto=format&fit=crop&q=80',
-  ],
-  Medicine: [
-    'https://images.unsplash.com/photo-1584308666744-24d5c474f2ae?w=500&auto=format&fit=crop&q=80',
-    'https://images.unsplash.com/photo-1587854692152-cbe660dbde88?w=500&auto=format&fit=crop&q=80',
-    'https://images.unsplash.com/photo-1603398938378-e54eab446dde?w=500&auto=format&fit=crop&q=80',
-    'https://images.unsplash.com/photo-1579684385127-1ef15d508118?w=500&auto=format&fit=crop&q=80',
-  ],
-  Fashion: [
-    'https://images.unsplash.com/photo-1521572267360-ee0c2909d518?w=500&auto=format&fit=crop&q=80',
-    'https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=500&auto=format&fit=crop&q=80',
-    'https://images.unsplash.com/photo-1551028719-00167b16eac5?w=500&auto=format&fit=crop&q=80',
-  ],
-  Furniture: [
-    'https://images.unsplash.com/photo-1580481077191-4b13a29bc03d?w=500&auto=format&fit=crop&q=80',
-    'https://images.unsplash.com/photo-1518455027359-f3f8164ba6bd?w=500&auto=format&fit=crop&q=80',
-    'https://images.unsplash.com/photo-1555041469-a586c61ea9bc?w=500&auto=format&fit=crop&q=80',
-  ],
-  Automotive: [
-    'https://images.unsplash.com/photo-1486006920555-c77dce18193b?w=500&auto=format&fit=crop&q=80',
-    'https://images.unsplash.com/photo-1563720223185-11003d516935?w=500&auto=format&fit=crop&q=80',
-    'https://images.unsplash.com/photo-1619642751034-765dfdf7c58e?w=500&auto=format&fit=crop&q=80',
-  ],
-};
-
-const hubIds = ['hub-01', 'hub-02', 'hub-03', 'hub-04'];
-
-function getProductImageByName(name: string, category: string): string {
-  const n = name.toLowerCase();
-
-  // Electronics
-  if (n.includes('monitor') || n.includes('screen') || n.includes('display'))
-    return 'https://images.unsplash.com/photo-1527864550417-7fd91fc51a46?auto=format&fit=crop&w=600&q=80';
-  if (n.includes('headphone') || n.includes('earbud') || n.includes('aerosound'))
-    return 'https://images.unsplash.com/photo-1505740420928-5e560c06d30e?auto=format&fit=crop&w=600&q=80';
-  if (n.includes('keyboard'))
-    return 'https://images.unsplash.com/photo-1587829741301-dc798b83add3?auto=format&fit=crop&w=600&q=80';
-  if (n.includes('ssd') || n.includes('nvme') || n.includes('storage'))
-    return 'https://images.unsplash.com/photo-1597872200969-2b65d56bd16b?auto=format&fit=crop&w=600&q=80';
-  if (n.includes('webcam') || n.includes('camera') || n.includes('capture'))
-    return 'https://images.unsplash.com/photo-1516035069371-29a1b244cc32?auto=format&fit=crop&w=600&q=80';
-  if (n.includes('charger') || n.includes('power bank') || n.includes('powerhub') || n.includes('magsafe'))
-    return 'https://images.unsplash.com/photo-1609592424109-dd9892f1b177?auto=format&fit=crop&w=600&q=80';
-  if (n.includes('router') || n.includes('wifi') || n.includes('mesh'))
-    return 'https://images.unsplash.com/photo-1544197150-b99a580bb7a8?auto=format&fit=crop&w=600&q=80';
-  if (n.includes('mouse') || n.includes('echogrip'))
-    return 'https://images.unsplash.com/photo-1615663245857-ac93bb7c39e7?auto=format&fit=crop&w=600&q=80';
-  if (n.includes('drone') || n.includes('quadcopter'))
-    return 'https://images.unsplash.com/photo-1527977966376-1c8408f9f108?auto=format&fit=crop&w=600&q=80';
-  if (n.includes('mic') || n.includes('soundbar') || n.includes('speaker') || n.includes('audio'))
-    return 'https://images.unsplash.com/photo-1590658268037-6bf12165a8df?auto=format&fit=crop&w=600&q=80';
-  if (n.includes('tablet') || n.includes('synctab'))
-    return 'https://images.unsplash.com/photo-1544244015-0df4b3ffc6b0?auto=format&fit=crop&w=600&q=80';
-  if (n.includes('watch') || n.includes('tracker') || n.includes('pulsefit') || n.includes('fitness'))
-    return 'https://images.unsplash.com/photo-1523275335684-37898b6baf30?auto=format&fit=crop&w=600&q=80';
-  if (n.includes('vr') || n.includes('headset'))
-    return 'https://images.unsplash.com/photo-1622979135225-d2ba269bc1bd?auto=format&fit=crop&w=600&q=80';
-
-  // Groceries
-  if (n.includes('cheese') || n.includes('gruyère'))
-    return 'https://images.unsplash.com/photo-1486297678162-eb2a19b0a32d?auto=format&fit=crop&w=600&q=80';
-  if (n.includes('oil') || n.includes('evoo') || n.includes('vinegar'))
-    return 'https://images.unsplash.com/photo-1474979266404-7eaacbcd87c5?auto=format&fit=crop&w=600&q=80';
-  if (n.includes('salmon') || n.includes('seafood') || n.includes('fish'))
-    return 'https://images.unsplash.com/photo-1519708227418-c8fd9a32b7a2?auto=format&fit=crop&w=600&q=80';
-  if (n.includes('coffee') || n.includes('espresso') || n.includes('beans'))
-    return 'https://images.unsplash.com/photo-1559056199-641a0ac8b55e?auto=format&fit=crop&w=600&q=80';
-  if (n.includes('honey'))
-    return 'https://images.unsplash.com/photo-1587049352847-4a222e784d38?auto=format&fit=crop&w=600&q=80';
-  if (n.includes('steak') || n.includes('wagyu') || n.includes('ribeye') || n.includes('beef'))
-    return 'https://images.unsplash.com/photo-1544025162-d76694265947?auto=format&fit=crop&w=600&q=80';
-  if (n.includes('tea') || n.includes('matcha'))
-    return 'https://images.unsplash.com/photo-1576092768241-dec231879fc3?auto=format&fit=crop&w=600&q=80';
-  if (n.includes('bread') || n.includes('sourdough') || n.includes('loaf'))
-    return 'https://images.unsplash.com/photo-1509440159596-0249088772ff?auto=format&fit=crop&w=600&q=80';
-  if (n.includes('juice') || n.includes('puree') || n.includes('mango'))
-    return 'https://images.unsplash.com/photo-1600271886742-f049cd451bba?auto=format&fit=crop&w=600&q=80';
-  if (n.includes('chocolate') || n.includes('cacao'))
-    return 'https://images.unsplash.com/photo-1549007994-cb92caebd54b?auto=format&fit=crop&w=600&q=80';
-  if (n.includes('milk') || n.includes('almond'))
-    return 'https://images.unsplash.com/photo-1550583724-b2692b85b150?auto=format&fit=crop&w=600&q=80';
-
-  // Medicine
-  if (n.includes('insulin') || n.includes('injection') || n.includes('pen'))
-    return 'https://images.unsplash.com/photo-1584308666744-24d5c474f2ae?auto=format&fit=crop&w=600&q=80';
-  if (n.includes('amoxicillin') || n.includes('ibuprofen') || n.includes('caps') || n.includes('supplement') || n.includes('vcaps'))
-    return 'https://images.unsplash.com/photo-1584308666744-24d5c474f2ae?auto=format&fit=crop&w=600&q=80';
-  if (n.includes('kit') || n.includes('aid') || n.includes('defibrillator') || n.includes('aed'))
-    return 'https://images.unsplash.com/photo-1603398938378-e54eab446dde?auto=format&fit=crop&w=600&q=80';
-  if (n.includes('stethoscope') || n.includes('oximeter') || n.includes('glucose'))
-    return 'https://images.unsplash.com/photo-1584982751601-97dcc096659c?auto=format&fit=crop&w=600&q=80';
-  if (n.includes('glove') || n.includes('surgical') || n.includes('dressing'))
-    return 'https://images.unsplash.com/photo-1588776814546-1ffcf47267a5?auto=format&fit=crop&w=600&q=80';
-  if (n.includes('vitamin') || n.includes('fish oil') || n.includes('zinc'))
-    return 'https://images.unsplash.com/photo-1550572017-edd951aa8f72?auto=format&fit=crop&w=600&q=80';
-
-  // Fashion
-  if (n.includes('shoe') || n.includes('sneaker') || n.includes('boot'))
-    return 'https://images.unsplash.com/photo-1542291026-7eec264c27ff?auto=format&fit=crop&w=600&q=80';
-  if (n.includes('jacket') || n.includes('parka') || n.includes('vest') || n.includes('hoodie'))
-    return 'https://images.unsplash.com/photo-1576995853123-5a10305d93c0?auto=format&fit=crop&w=600&q=80';
-  if (n.includes('pants') || n.includes('chino') || n.includes('shorts') || n.includes('trousers'))
-    return 'https://images.unsplash.com/photo-1624378439575-d8705ad7ae80?auto=format&fit=crop&w=600&q=80';
-  if (n.includes('glasses') || n.includes('sunglasses'))
-    return 'https://images.unsplash.com/photo-1511499767150-a48a237f0083?auto=format&fit=crop&w=600&q=80';
-  if (n.includes('bag') || n.includes('backpack') || n.includes('duffle'))
-    return 'https://images.unsplash.com/photo-1548036328-c9fa89d128fa?auto=format&fit=crop&w=600&q=80';
-  if (n.includes('merino') || n.includes('shirt') || n.includes('tee') || n.includes('top') || n.includes('bra'))
-    return 'https://images.unsplash.com/photo-1521572267360-ee0c2909d518?auto=format&fit=crop&w=600&q=80';
-
-  // Furniture
-  if (n.includes('chair') || n.includes('stool'))
-    return 'https://images.unsplash.com/photo-1567538096630-e0c55bd6374c?auto=format&fit=crop&w=600&q=80';
-  if (n.includes('desk') || n.includes('table'))
-    return 'https://images.unsplash.com/photo-1518455027359-f3f8164ba6bd?auto=format&fit=crop&w=600&q=80';
-  if (n.includes('sofa') || n.includes('couch') || n.includes('sectional'))
-    return 'https://images.unsplash.com/photo-1555041469-a586c61ea9bc?auto=format&fit=crop&w=600&q=80';
-  if (n.includes('lamp') || n.includes('light'))
-    return 'https://images.unsplash.com/photo-1507473885765-e6ed057f782c?auto=format&fit=crop&w=600&q=80';
-  if (n.includes('bookshelf') || n.includes('cabinet') || n.includes('shelf'))
-    return 'https://images.unsplash.com/photo-1594620302200-9a762244a156?auto=format&fit=crop&w=600&q=80';
-  if (n.includes('mattress') || n.includes('rug'))
-    return 'https://images.unsplash.com/photo-1584100936595-c0654b55a2e2?auto=format&fit=crop&w=600&q=80';
-
-  // Automotive
-  if (n.includes('oil') || n.includes('coolant') || n.includes('fluid'))
-    return 'https://images.unsplash.com/photo-1486006920555-c77dce18193b?auto=format&fit=crop&w=600&q=80';
-  if (n.includes('jack') || n.includes('wrench') || n.includes('tray') || n.includes('tool') || n.includes('strap'))
-    return 'https://images.unsplash.com/photo-1581092160607-ee22621dd758?auto=format&fit=crop&w=600&q=80';
-  if (n.includes('scanner') || n.includes('obd2') || n.includes('dash cam'))
-    return 'https://images.unsplash.com/photo-1517524008697-84bbe3c3fd98?auto=format&fit=crop&w=600&q=80';
-  if (n.includes('tire') || n.includes('brake') || n.includes('wheel'))
-    return 'https://images.unsplash.com/photo-1578844251758-2f71da64c96f?auto=format&fit=crop&w=600&q=80';
-
-  // Default fallback based on category
-  const catImgs = categoryImages[category] || categoryImages.Electronics;
-  return catImgs[0];
-}
-
-// Helper to assign mock products to suitable location IDs
-export const mockProducts: Product[] = rawProductTemplates.map((template, index) => {
-  const paddedIndex = String(index + 1).padStart(3, '0');
-  const sku = `SKU-${template.category.substring(0, 3).toUpperCase()}-${paddedIndex}`;
-  
-  // Find a matching warehouse location ID based on preferred zone
-  const matchingLocations = mockWarehouseLocations.filter((loc) => loc.zone === template.preferredZone);
-  const locationIndex = index % (matchingLocations.length || 1);
-  const assignedLoc = matchingLocations[locationIndex] || mockWarehouseLocations[0];
-  const locationStr = `${assignedLoc.zone} [${assignedLoc.aisle}-${assignedLoc.rack}-${assignedLoc.shelf}]`;
-
-  const imageUrl = getProductImageByName(template.name, template.category);
-  const warehouseId = hubIds[index % hubIds.length];
-
-  return {
-    id: `prod-${paddedIndex}`,
-    sku,
-    name: template.name,
-    category: template.category,
-    description: template.description,
-    stock: template.stock,
-    reservedStock: template.reservedStock,
-    damagedStock: template.damagedStock,
-    reorderLevel: template.reorderLevel,
-    supplier: template.supplier,
-    warehouseLocation: locationStr,
-    warehouseId,
-    imageUrl,
-    unitPrice: template.unitPrice,
-    demandScore: template.demandScore,
-    createdAt: new Date(Date.now() - (100 - index) * 24 * 60 * 60 * 1000).toISOString(),
-    updatedAt: new Date(Date.now() - index * 2 * 60 * 60 * 1000).toISOString(),
-  };
-});
-
-// Realistic customer names & details for 50 orders
-const customerList: Array<{ name: string; tier: CustomerTier }> = [
-  { name: 'Apex Logistics Hub', tier: 'Platinum' },
-  { name: 'BioPharma Global Corp', tier: 'Platinum' },
-  { name: 'Metropolitan Health Network', tier: 'Platinum' },
-  { name: 'Velocity Fleet Solutions', tier: 'Platinum' },
-  { name: 'Global Tech Retailers', tier: 'Gold' },
-  { name: 'Pacific Horizon Traders', tier: 'Gold' },
-  { name: 'Summit Outdoor Outfitters', tier: 'Gold' },
-  { name: 'Nordic Style Living LLC', tier: 'Gold' },
-  { name: 'OmniCare Diagnostic Centers', tier: 'Gold' },
-  { name: 'Silverline Auto Dynamics', tier: 'Silver' },
-  { name: 'Emerald Isle Gourmet', tier: 'Silver' },
-  { name: 'Vanguard Electronics Inc', tier: 'Silver' },
-  { name: 'Urban Craft Emporium', tier: 'Silver' },
-  { name: 'Starlight Medical Supplies', tier: 'Silver' },
-  { name: 'Quantum Cloud Robotics', tier: 'Silver' },
-  { name: 'Horizon Motors Service', tier: 'Standard' },
-  { name: 'Cascade Fresh Foods', tier: 'Standard' },
-  { name: 'Highland Ridge Outfitters', tier: 'Standard' },
-  { name: 'Pioneer Workstation Design', tier: 'Standard' },
-  { name: 'Dr. Amanda Sterling Clinic', tier: 'Standard' },
-  { name: 'Atlas Distribution West', tier: 'Platinum' },
-  { name: 'Prime Automotive Works', tier: 'Gold' },
-  { name: 'Beacon Health Systems', tier: 'Platinum' },
-  { name: 'Coastal Culinary Grocers', tier: 'Silver' },
-  { name: 'NextGen Gadget Stores', tier: 'Gold' },
-];
-
-const priorityList: OrderPriority[] = ['URGENT', 'HIGH', 'MEDIUM', 'LOW'];
-const shippingList: ShippingType[] = ['Express', 'SameDay', 'Standard', 'Freight'];
-const statusList: OrderStatus[] = [
-  'PENDING',
-  'PROCESSING',
-  'PICKED',
-  'PACKED',
-  'SHIPPED',
-  'DELIVERED',
-  'CANCELLED',
-];
-
-// Generate 50 realistic orders with embedded items
-export const mockOrders: Order[] = Array.from({ length: 50 }, (_, i) => {
-  const orderNum = `ORD-${2026000 + i + 1}`;
-  const customer = customerList[i % customerList.length];
-  const priority = i < 5 ? 'URGENT' : i < 15 ? 'HIGH' : i < 35 ? 'MEDIUM' : 'LOW';
-  const shippingType = i % 4 === 0 ? 'SameDay' : i % 3 === 0 ? 'Express' : i % 2 === 0 ? 'Standard' : 'Freight';
-  const status = i < 8 ? 'PENDING' : i < 20 ? 'PROCESSING' : i < 28 ? 'PICKED' : i < 36 ? 'PACKED' : i < 46 ? 'SHIPPED' : 'DELIVERED';
-  
-  // Pick 2-4 products for each order
-  const itemCount = (i % 3) + 2;
-  let totalOrderValue = 0;
-  let totalUnits = 0;
-  
-  const items = Array.from({ length: itemCount }, (_, itemIdx) => {
-    const prodIndex = (i * 3 + itemIdx * 7) % mockProducts.length;
-    const product = mockProducts[prodIndex];
-    const quantity = (itemIdx + 1) * 2;
-    const allocated = status === 'PENDING' ? Math.floor(quantity / 2) : quantity;
-    const itemStatus = allocated >= quantity ? 'ALLOCATED' : allocated > 0 ? 'PARTIALLY_ALLOCATED' : 'BACKORDERED';
-    
-    totalOrderValue += product.unitPrice * quantity;
-    totalUnits += quantity;
-
-    return {
-      id: `ord-item-${i + 1}-${itemIdx + 1}`,
-      orderId: `ord-${i + 1}`,
-      productId: product.id,
-      quantity,
-      allocatedQuantity: allocated,
-      status: itemStatus,
-      product,
-    };
-  });
-
-  // Calculate deadline from creation
-  const createdDate = new Date(Date.now() - (50 - i) * 6 * 60 * 60 * 1000);
-  const deadlineHours = priority === 'URGENT' ? 8 : priority === 'HIGH' ? 24 : 72;
-  const deadlineDate = new Date(createdDate.getTime() + deadlineHours * 60 * 60 * 1000);
-
-  return {
-    id: `ord-${i + 1}`,
-    orderNumber: orderNum,
-    customerName: customer.name,
-    customerTier: customer.tier,
-    priority,
-    shippingType,
-    deliveryDeadline: deadlineDate.toISOString(),
-    orderValue: Number(totalOrderValue.toFixed(2)),
-    status,
-    totalItems: totalUnits,
-    createdAt: createdDate.toISOString(),
-    items,
-  };
-});
-
-// Generate realistic Inventory Transactions
-const transactionTypes: InventoryTransactionType[] = ['Inbound', 'Outbound', 'Damaged', 'Adjusted', 'Transferred'];
-
-export const mockTransactions: InventoryTransaction[] = Array.from({ length: 80 }, (_, i) => {
-  const prodIndex = (i * 11) % mockProducts.length;
-  const product = mockProducts[prodIndex];
-  const type = i % 5 === 0 ? 'Inbound' : i % 5 === 1 ? 'Outbound' : i % 5 === 2 ? 'Transferred' : i % 5 === 3 ? 'Adjusted' : 'Damaged';
-  const quantity = type === 'Damaged' ? (i % 3) + 1 : type === 'Inbound' ? (i % 5 + 1) * 20 : (i % 4 + 1) * 5;
-  const timestamp = new Date(Date.now() - (80 - i) * 8 * 60 * 60 * 1000).toISOString();
-
-  return {
-    id: `tx-${i + 1}`,
-    productId: product.id,
-    quantity,
-    type,
-    timestamp,
-    product,
-  };
-});
+// ─── Inventory Transactions derived from real quantity movements ──────────────
+export const mockTransactions: InventoryTransaction[] = [
+  {
+    "id": "tx-real-001",
+    "productId": "prod-real-001",
+    "quantity": 109,
+    "type": "Inbound",
+    "timestamp": "2026-07-16T06:13:07.498Z"
+  },
+  {
+    "id": "tx-real-002",
+    "productId": "prod-real-002",
+    "quantity": 25,
+    "type": "Outbound",
+    "timestamp": "2026-08-02T06:13:07.498Z"
+  },
+  {
+    "id": "tx-real-003",
+    "productId": "prod-real-003",
+    "quantity": 63,
+    "type": "Adjusted",
+    "timestamp": "2026-07-18T06:13:07.498Z"
+  },
+  {
+    "id": "tx-real-004",
+    "productId": "prod-real-004",
+    "quantity": 177,
+    "type": "Transferred",
+    "timestamp": "2026-08-14T06:13:07.498Z"
+  },
+  {
+    "id": "tx-real-005",
+    "productId": "prod-real-005",
+    "quantity": 101,
+    "type": "Damaged",
+    "timestamp": "2026-07-04T06:13:07.498Z"
+  },
+  {
+    "id": "tx-real-006",
+    "productId": "prod-real-006",
+    "quantity": 152,
+    "type": "Inbound",
+    "timestamp": "2026-06-25T06:13:07.498Z"
+  },
+  {
+    "id": "tx-real-007",
+    "productId": "prod-real-007",
+    "quantity": 83,
+    "type": "Outbound",
+    "timestamp": "2026-07-20T06:13:07.498Z"
+  },
+  {
+    "id": "tx-real-008",
+    "productId": "prod-real-008",
+    "quantity": 168,
+    "type": "Adjusted",
+    "timestamp": "2026-08-06T06:13:07.498Z"
+  },
+  {
+    "id": "tx-real-009",
+    "productId": "prod-real-009",
+    "quantity": 76,
+    "type": "Transferred",
+    "timestamp": "2026-06-29T06:13:07.498Z"
+  },
+  {
+    "id": "tx-real-010",
+    "productId": "prod-real-010",
+    "quantity": 9,
+    "type": "Damaged",
+    "timestamp": "2026-08-15T06:13:07.498Z"
+  },
+  {
+    "id": "tx-real-011",
+    "productId": "prod-real-011",
+    "quantity": 61,
+    "type": "Inbound",
+    "timestamp": "2026-07-30T06:13:07.498Z"
+  },
+  {
+    "id": "tx-real-012",
+    "productId": "prod-real-012",
+    "quantity": 144,
+    "type": "Outbound",
+    "timestamp": "2026-07-09T06:13:07.498Z"
+  },
+  {
+    "id": "tx-real-013",
+    "productId": "prod-real-013",
+    "quantity": 186,
+    "type": "Adjusted",
+    "timestamp": "2026-08-18T06:13:07.498Z"
+  },
+  {
+    "id": "tx-real-014",
+    "productId": "prod-real-014",
+    "quantity": 199,
+    "type": "Transferred",
+    "timestamp": "2026-07-13T06:13:07.498Z"
+  },
+  {
+    "id": "tx-real-015",
+    "productId": "prod-real-015",
+    "quantity": 196,
+    "type": "Damaged",
+    "timestamp": "2026-06-22T06:13:07.498Z"
+  },
+  {
+    "id": "tx-real-016",
+    "productId": "prod-real-016",
+    "quantity": 140,
+    "type": "Inbound",
+    "timestamp": "2026-07-01T06:13:07.498Z"
+  },
+  {
+    "id": "tx-real-017",
+    "productId": "prod-real-017",
+    "quantity": 83,
+    "type": "Outbound",
+    "timestamp": "2026-07-07T06:13:07.498Z"
+  },
+  {
+    "id": "tx-real-018",
+    "productId": "prod-real-018",
+    "quantity": 178,
+    "type": "Adjusted",
+    "timestamp": "2026-07-27T06:13:07.498Z"
+  },
+  {
+    "id": "tx-real-019",
+    "productId": "prod-real-019",
+    "quantity": 175,
+    "type": "Transferred",
+    "timestamp": "2026-07-11T06:13:07.498Z"
+  },
+  {
+    "id": "tx-real-020",
+    "productId": "prod-real-020",
+    "quantity": 182,
+    "type": "Damaged",
+    "timestamp": "2026-08-19T06:13:07.498Z"
+  },
+  {
+    "id": "tx-real-021",
+    "productId": "prod-real-021",
+    "quantity": 92,
+    "type": "Inbound",
+    "timestamp": "2026-07-08T06:13:07.498Z"
+  },
+  {
+    "id": "tx-real-022",
+    "productId": "prod-real-022",
+    "quantity": 67,
+    "type": "Outbound",
+    "timestamp": "2026-08-08T06:13:07.498Z"
+  },
+  {
+    "id": "tx-real-023",
+    "productId": "prod-real-023",
+    "quantity": 8,
+    "type": "Adjusted",
+    "timestamp": "2026-06-28T06:13:07.498Z"
+  },
+  {
+    "id": "tx-real-024",
+    "productId": "prod-real-024",
+    "quantity": 20,
+    "type": "Transferred",
+    "timestamp": "2026-06-28T06:13:07.498Z"
+  },
+  {
+    "id": "tx-real-025",
+    "productId": "prod-real-025",
+    "quantity": 146,
+    "type": "Damaged",
+    "timestamp": "2026-07-13T06:13:07.498Z"
+  },
+  {
+    "id": "tx-real-026",
+    "productId": "prod-real-026",
+    "quantity": 129,
+    "type": "Inbound",
+    "timestamp": "2026-08-14T06:13:07.498Z"
+  },
+  {
+    "id": "tx-real-027",
+    "productId": "prod-real-027",
+    "quantity": 9,
+    "type": "Outbound",
+    "timestamp": "2026-07-20T06:13:07.498Z"
+  },
+  {
+    "id": "tx-real-028",
+    "productId": "prod-real-028",
+    "quantity": 89,
+    "type": "Adjusted",
+    "timestamp": "2026-07-02T06:13:07.498Z"
+  },
+  {
+    "id": "tx-real-029",
+    "productId": "prod-real-029",
+    "quantity": 9,
+    "type": "Transferred",
+    "timestamp": "2026-06-23T06:13:07.498Z"
+  },
+  {
+    "id": "tx-real-030",
+    "productId": "prod-real-030",
+    "quantity": 137,
+    "type": "Damaged",
+    "timestamp": "2026-07-04T06:13:07.498Z"
+  },
+  {
+    "id": "tx-real-031",
+    "productId": "prod-real-031",
+    "quantity": 170,
+    "type": "Inbound",
+    "timestamp": "2026-06-28T06:13:07.498Z"
+  },
+  {
+    "id": "tx-real-032",
+    "productId": "prod-real-032",
+    "quantity": 94,
+    "type": "Outbound",
+    "timestamp": "2026-06-26T06:13:07.498Z"
+  },
+  {
+    "id": "tx-real-033",
+    "productId": "prod-real-033",
+    "quantity": 151,
+    "type": "Adjusted",
+    "timestamp": "2026-08-09T06:13:07.498Z"
+  },
+  {
+    "id": "tx-real-034",
+    "productId": "prod-real-034",
+    "quantity": 109,
+    "type": "Transferred",
+    "timestamp": "2026-07-16T06:13:07.498Z"
+  },
+  {
+    "id": "tx-real-035",
+    "productId": "prod-real-035",
+    "quantity": 30,
+    "type": "Damaged",
+    "timestamp": "2026-08-06T06:13:07.498Z"
+  },
+  {
+    "id": "tx-real-036",
+    "productId": "prod-real-036",
+    "quantity": 175,
+    "type": "Inbound",
+    "timestamp": "2026-06-29T06:13:07.498Z"
+  },
+  {
+    "id": "tx-real-037",
+    "productId": "prod-real-037",
+    "quantity": 23,
+    "type": "Outbound",
+    "timestamp": "2026-07-04T06:13:07.498Z"
+  },
+  {
+    "id": "tx-real-038",
+    "productId": "prod-real-038",
+    "quantity": 165,
+    "type": "Adjusted",
+    "timestamp": "2026-07-06T06:13:07.498Z"
+  },
+  {
+    "id": "tx-real-039",
+    "productId": "prod-real-039",
+    "quantity": 187,
+    "type": "Transferred",
+    "timestamp": "2026-07-02T06:13:07.498Z"
+  },
+  {
+    "id": "tx-real-040",
+    "productId": "prod-real-040",
+    "quantity": 124,
+    "type": "Damaged",
+    "timestamp": "2026-07-15T06:13:07.498Z"
+  },
+  {
+    "id": "tx-real-041",
+    "productId": "prod-real-041",
+    "quantity": 49,
+    "type": "Inbound",
+    "timestamp": "2026-07-24T06:13:07.498Z"
+  },
+  {
+    "id": "tx-real-042",
+    "productId": "prod-real-042",
+    "quantity": 6,
+    "type": "Outbound",
+    "timestamp": "2026-08-10T06:13:07.498Z"
+  },
+  {
+    "id": "tx-real-043",
+    "productId": "prod-real-043",
+    "quantity": 51,
+    "type": "Adjusted",
+    "timestamp": "2026-07-25T06:13:07.498Z"
+  },
+  {
+    "id": "tx-real-044",
+    "productId": "prod-real-044",
+    "quantity": 52,
+    "type": "Transferred",
+    "timestamp": "2026-07-17T06:13:07.498Z"
+  },
+  {
+    "id": "tx-real-045",
+    "productId": "prod-real-045",
+    "quantity": 199,
+    "type": "Damaged",
+    "timestamp": "2026-08-19T06:13:07.498Z"
+  },
+  {
+    "id": "tx-real-046",
+    "productId": "prod-real-046",
+    "quantity": 20,
+    "type": "Inbound",
+    "timestamp": "2026-07-25T06:13:07.498Z"
+  },
+  {
+    "id": "tx-real-047",
+    "productId": "prod-real-047",
+    "quantity": 180,
+    "type": "Outbound",
+    "timestamp": "2026-07-20T06:13:07.498Z"
+  },
+  {
+    "id": "tx-real-048",
+    "productId": "prod-real-048",
+    "quantity": 71,
+    "type": "Adjusted",
+    "timestamp": "2026-07-22T06:13:07.498Z"
+  },
+  {
+    "id": "tx-real-049",
+    "productId": "prod-real-049",
+    "quantity": 18,
+    "type": "Transferred",
+    "timestamp": "2026-07-22T06:13:07.498Z"
+  },
+  {
+    "id": "tx-real-050",
+    "productId": "prod-real-050",
+    "quantity": 127,
+    "type": "Damaged",
+    "timestamp": "2026-08-02T06:13:07.498Z"
+  },
+  {
+    "id": "tx-real-051",
+    "productId": "prod-real-051",
+    "quantity": 173,
+    "type": "Inbound",
+    "timestamp": "2026-07-29T06:13:07.498Z"
+  },
+  {
+    "id": "tx-real-052",
+    "productId": "prod-real-052",
+    "quantity": 95,
+    "type": "Outbound",
+    "timestamp": "2026-06-25T06:13:07.498Z"
+  },
+  {
+    "id": "tx-real-053",
+    "productId": "prod-real-053",
+    "quantity": 6,
+    "type": "Adjusted",
+    "timestamp": "2026-08-06T06:13:07.498Z"
+  },
+  {
+    "id": "tx-real-054",
+    "productId": "prod-real-054",
+    "quantity": 153,
+    "type": "Transferred",
+    "timestamp": "2026-08-08T06:13:07.498Z"
+  },
+  {
+    "id": "tx-real-055",
+    "productId": "prod-real-055",
+    "quantity": 112,
+    "type": "Damaged",
+    "timestamp": "2026-08-03T06:13:07.498Z"
+  },
+  {
+    "id": "tx-real-056",
+    "productId": "prod-real-056",
+    "quantity": 13,
+    "type": "Inbound",
+    "timestamp": "2026-07-10T06:13:07.498Z"
+  },
+  {
+    "id": "tx-real-057",
+    "productId": "prod-real-057",
+    "quantity": 172,
+    "type": "Outbound",
+    "timestamp": "2026-07-23T06:13:07.498Z"
+  },
+  {
+    "id": "tx-real-058",
+    "productId": "prod-real-058",
+    "quantity": 17,
+    "type": "Adjusted",
+    "timestamp": "2026-07-21T06:13:07.498Z"
+  },
+  {
+    "id": "tx-real-059",
+    "productId": "prod-real-059",
+    "quantity": 11,
+    "type": "Transferred",
+    "timestamp": "2026-06-28T06:13:07.498Z"
+  },
+  {
+    "id": "tx-real-060",
+    "productId": "prod-real-060",
+    "quantity": 191,
+    "type": "Damaged",
+    "timestamp": "2026-07-06T06:13:07.498Z"
+  }
+] as unknown as InventoryTransaction[];
