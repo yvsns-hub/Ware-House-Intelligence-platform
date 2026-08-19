@@ -137,6 +137,118 @@ function pickRandom<T>(arr: T[]): T {
   return arr[Math.floor(Math.random() * arr.length)];
 }
 
+// ─── Image URL mapping ───────────────────────────────────────────────────────
+// Maps product name keywords to curated Unsplash images
+const CATEGORY_FALLBACKS: Record<string, string> = {
+  Fashion:     'https://images.unsplash.com/photo-1521572267360-ee0c2909d518?auto=format&fit=crop&w=600&q=80',
+  Furniture:   'https://images.unsplash.com/photo-1518455027359-f3f8164ba6bd?auto=format&fit=crop&w=600&q=80',
+  Groceries:   'https://images.unsplash.com/photo-1474979266404-7eaacbcd87c5?auto=format&fit=crop&w=600&q=80',
+  Medicine:    'https://images.unsplash.com/photo-1584308666744-24d5c474f2ae?auto=format&fit=crop&w=600&q=80',
+  Automotive:  'https://images.unsplash.com/photo-1486006920555-c77dce18193b?auto=format&fit=crop&w=600&q=80',
+  Electronics: 'https://images.unsplash.com/photo-1505740420928-5e560c06d30e?auto=format&fit=crop&w=600&q=80',
+};
+
+function getImageUrl(name: string, category: string): string {
+  const n = name.toLowerCase();
+
+  // ── Fashion / Giftware (main UCI categories) ──────────────────────────────
+  if (n.includes('bag') || n.includes('handbag') || n.includes('purse') || n.includes('tote'))
+    return 'https://images.unsplash.com/photo-1548036328-c9fa89d128fa?auto=format&fit=crop&w=600&q=80';
+  if (n.includes('hat') || n.includes('cap') || n.includes('beanie') || n.includes('beret'))
+    return 'https://images.unsplash.com/photo-1521369909029-2afed882baee?auto=format&fit=crop&w=600&q=80';
+  if (n.includes('scarf') || n.includes('wrap') || n.includes('shawl'))
+    return 'https://images.unsplash.com/photo-1520903920243-00d872a2d1c9?auto=format&fit=crop&w=600&q=80';
+  if (n.includes('glove') || n.includes('mitten'))
+    return 'https://images.unsplash.com/photo-1607604276583-eef5d076aa5f?auto=format&fit=crop&w=600&q=80';
+  if (n.includes('shirt') || n.includes('tee') || n.includes('top') || n.includes('jumper') || n.includes('blouse'))
+    return 'https://images.unsplash.com/photo-1521572267360-ee0c2909d518?auto=format&fit=crop&w=600&q=80';
+  if (n.includes('apron'))
+    return 'https://images.unsplash.com/photo-1621881440371-1c9f96c4c9e6?auto=format&fit=crop&w=600&q=80';
+  if (n.includes('ribbon') || n.includes('bow') || n.includes('satin'))
+    return 'https://images.unsplash.com/photo-1549465220-1a8b9238cd48?auto=format&fit=crop&w=600&q=80';
+  if (n.includes('shoe') || n.includes('boot') || n.includes('sneaker') || n.includes('slipper') || n.includes('heel'))
+    return 'https://images.unsplash.com/photo-1542291026-7eec264c27ff?auto=format&fit=crop&w=600&q=80';
+  if (n.includes('sock') || n.includes('stocking'))
+    return 'https://images.unsplash.com/photo-1611911813383-67769b37a149?auto=format&fit=crop&w=600&q=80';
+  if (n.includes('jacket') || n.includes('hoodie') || n.includes('vest') || n.includes('coat') || n.includes('parka'))
+    return 'https://images.unsplash.com/photo-1576995853123-5a10305d93c0?auto=format&fit=crop&w=600&q=80';
+  if (n.includes('dress') || n.includes('skirt') || n.includes('gown'))
+    return 'https://images.unsplash.com/photo-1572804013309-59a88b7e92f1?auto=format&fit=crop&w=600&q=80';
+  if (n.includes('sunglasses') || n.includes('glasses') || n.includes('spectacle'))
+    return 'https://images.unsplash.com/photo-1511499767150-a48a237f0083?auto=format&fit=crop&w=600&q=80';
+
+  // ── Furniture / Home Decor ────────────────────────────────────────────────
+  if (n.includes('candle') || n.includes('tealight') || n.includes('wax'))
+    return 'https://images.unsplash.com/photo-1602143407151-7111542de6e8?auto=format&fit=crop&w=600&q=80';
+  if (n.includes('clock') || n.includes('alarm') || n.includes('timer'))
+    return 'https://images.unsplash.com/photo-1563861826100-9cb868fdbe1c?auto=format&fit=crop&w=600&q=80';
+  if (n.includes('frame') || n.includes('photo') || n.includes('picture'))
+    return 'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?auto=format&fit=crop&w=600&q=80';
+  if (n.includes('mirror'))
+    return 'https://images.unsplash.com/photo-1615529328331-f8917597711f?auto=format&fit=crop&w=600&q=80';
+  if (n.includes('lamp') || n.includes('light') || n.includes('lantern') || n.includes('fairy light'))
+    return 'https://images.unsplash.com/photo-1507473885765-e6ed057f782c?auto=format&fit=crop&w=600&q=80';
+  if (n.includes('chair') || n.includes('stool') || n.includes('seat'))
+    return 'https://images.unsplash.com/photo-1567538096630-e0c55bd6374c?auto=format&fit=crop&w=600&q=80';
+  if (n.includes('desk') || n.includes('table'))
+    return 'https://images.unsplash.com/photo-1518455027359-f3f8164ba6bd?auto=format&fit=crop&w=600&q=80';
+  if (n.includes('sofa') || n.includes('couch') || n.includes('sectional'))
+    return 'https://images.unsplash.com/photo-1555041469-a586c61ea9bc?auto=format&fit=crop&w=600&q=80';
+  if (n.includes('box') || n.includes('tin') || n.includes('storage') || n.includes('container') || n.includes('basket'))
+    return 'https://images.unsplash.com/photo-1594620302200-9a762244a156?auto=format&fit=crop&w=600&q=80';
+  if (n.includes('shelf') || n.includes('cabinet') || n.includes('bookshelf') || n.includes('drawer'))
+    return 'https://images.unsplash.com/photo-1594620302200-9a762244a156?auto=format&fit=crop&w=600&q=80';
+  if (n.includes('vase') || n.includes('pot') || n.includes('flower') || n.includes('plant'))
+    return 'https://images.unsplash.com/photo-1485955900006-10f4d324d411?auto=format&fit=crop&w=600&q=80';
+  if (n.includes('cushion') || n.includes('pillow') || n.includes('blanket') || n.includes('throw'))
+    return 'https://images.unsplash.com/photo-1584100936595-c0654b55a2e2?auto=format&fit=crop&w=600&q=80';
+  if (n.includes('rug') || n.includes('mat') || n.includes('carpet'))
+    return 'https://images.unsplash.com/photo-1584100936595-c0654b55a2e2?auto=format&fit=crop&w=600&q=80';
+
+  // ── Groceries / Kitchen ───────────────────────────────────────────────────
+  if (n.includes('tea') || n.includes('matcha') || n.includes('coffee') || n.includes('espresso'))
+    return 'https://images.unsplash.com/photo-1559056199-641a0ac8b55e?auto=format&fit=crop&w=600&q=80';
+  if (n.includes('honey') || n.includes('jam') || n.includes('marmalade'))
+    return 'https://images.unsplash.com/photo-1587049352847-4a222e784d38?auto=format&fit=crop&w=600&q=80';
+  if (n.includes('chocolate') || n.includes('cake') || n.includes('biscuit') || n.includes('cookie'))
+    return 'https://images.unsplash.com/photo-1549007994-cb92caebd54b?auto=format&fit=crop&w=600&q=80';
+  if (n.includes('oil') || n.includes('vinegar') || n.includes('sauce'))
+    return 'https://images.unsplash.com/photo-1474979266404-7eaacbcd87c5?auto=format&fit=crop&w=600&q=80';
+  if (n.includes('spice') || n.includes('herb') || n.includes('pepper') || n.includes('salt'))
+    return 'https://images.unsplash.com/photo-1532336414038-cf19250c5757?auto=format&fit=crop&w=600&q=80';
+
+  // ── Medicine / Healthcare ─────────────────────────────────────────────────
+  if (n.includes('vitamin') || n.includes('supplement') || n.includes('capsule') || n.includes('tablet') || n.includes('pill'))
+    return 'https://images.unsplash.com/photo-1550572017-edd951aa8f72?auto=format&fit=crop&w=600&q=80';
+  if (n.includes('soap') || n.includes('lotion') || n.includes('cream') || n.includes('gel'))
+    return 'https://images.unsplash.com/photo-1556228578-0d85b1a4d571?auto=format&fit=crop&w=600&q=80';
+
+  // ── Automotive / Tools ────────────────────────────────────────────────────
+  if (n.includes('tool') || n.includes('wrench') || n.includes('drill') || n.includes('bolt'))
+    return 'https://images.unsplash.com/photo-1581092160607-ee22621dd758?auto=format&fit=crop&w=600&q=80';
+
+  // ── Novelty / Giftware (common in UCI dataset) ────────────────────────────
+  if (n.includes('heart') || n.includes('love') || n.includes('gift') || n.includes('keepsake'))
+    return 'https://images.unsplash.com/photo-1549465220-1a8b9238cd48?auto=format&fit=crop&w=600&q=80';
+  if (n.includes('bunting') || n.includes('banner') || n.includes('flag') || n.includes('garland'))
+    return 'https://images.unsplash.com/photo-1464349095431-e9a21285b5f3?auto=format&fit=crop&w=600&q=80';
+  if (n.includes('lunch') || n.includes('kitchen') || n.includes('cookware') || n.includes('bake'))
+    return 'https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?auto=format&fit=crop&w=600&q=80';
+  if (n.includes('toy') || n.includes('game') || n.includes('puzzle') || n.includes('card'))
+    return 'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?auto=format&fit=crop&w=600&q=80';
+  if (n.includes('paper') || n.includes('card') || n.includes('stationery') || n.includes('pen') || n.includes('pencil'))
+    return 'https://images.unsplash.com/photo-1456735190827-d1262f71b8a3?auto=format&fit=crop&w=600&q=80';
+  if (n.includes('string') || n.includes('wrap') || n.includes('pack') || n.includes('label') || n.includes('tag'))
+    return 'https://images.unsplash.com/photo-1549465220-1a8b9238cd48?auto=format&fit=crop&w=600&q=80';
+  if (n.includes('mug') || n.includes('cup') || n.includes('glass') || n.includes('bottle') || n.includes('flask'))
+    return 'https://images.unsplash.com/photo-1514228742587-6b1558fcca3d?auto=format&fit=crop&w=600&q=80';
+  if (n.includes('sign') || n.includes('plaque') || n.includes('print') || n.includes('poster'))
+    return 'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?auto=format&fit=crop&w=600&q=80';
+
+  // Fallback by category
+  return CATEGORY_FALLBACKS[category] || CATEGORY_FALLBACKS.Electronics;
+}
+
 async function main() {
   console.log('📂 Loading UCI Online Retail II dataset...');
 
@@ -220,6 +332,7 @@ async function main() {
       supplier:         pickRandom(SUPPLIERS),
       warehouseLocation: LOCATIONS[locIdx].id,
       warehouseId:      `hub-0${hubIdx + 1}`,
+      imageUrl:         getImageUrl(p.name, category),
       unitPrice:        p.price,
       demandScore,
       createdAt:        new Date(now.getTime() - rnd(1, 365) * 86400000).toISOString(),
